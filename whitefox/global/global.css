@@ -1,1 +1,3 @@
 @import url("chrome://ostarget/skin/global/global.css");
+
+@keyframes movestrip { to { background-position: 50px 50px; } } /*for progressmeter.css*/
