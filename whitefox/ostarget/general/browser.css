@@ -1,0 +1,52 @@
+/* Linux */
+#toolbar-menubar:not([autohide="true"]) + #TabsToolbar > .titlebar-placeholder[type="caption-buttons"] {
+  display: none;
+}
+#TabsToolbar:not(:-moz-lwtheme),
+#toolbar-menubar {
+  -moz-appearance: menubar !important;
+}
+#navigator-toolbox > #toolbar-menubar {
+  margin-top: 0 !important;
+}
+.tabbrowser-tab,
+.tabs-newtab-button {
+  padding: 0 0 2px !important;
+}
+
+.panel-arrowcontent {
+  padding: 10px;
+  color: -moz-DialogText;
+  background: #ffffff;
+  border: 1px solid #b7b7b7;
+}
+.panel-arrowcontainer:not([panelopen]) {
+  opacity: 1;
+}
+.panel-arrow[side="top"],
+.panel-arrow[side="bottom"] {
+  list-style-image: url("chrome://global/skin/arrow/panelarrow-vertical.svg");
+}
+
+/*global/menu.css*/
+menu[_moz-menuactive="true"],
+menuitem[_moz-menuactive="true"],
+.splitmenu-menuitem[_moz-menuactive="true"] {
+  color: -moz-menuhovertext;
+  background-color: -moz-menuhover;
+}
+menu[disabled="true"],
+menuitem[disabled="true"],
+.splitmenu-menuitem[disabled="true"] {
+  color: GrayText;
+}
+menubar > menu {
+  color: -moz-menubartext;
+}
+menubar > menu[_moz-menuactive="true"]:not([open]):not([disabled="true"]):not(:-moz-lwtheme) {
+  color: -moz-menubartext;
+}
+menubar > menu[open] {
+  color: -moz-menubarhovertext;
+  background-color: -moz-menuhover;
+}

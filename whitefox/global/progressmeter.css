@@ -1,0 +1,61 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+progressmeter {
+  -moz-appearance: progressbar;
+  margin: 2px 4px;
+  min-width: 128px;
+  height: 12px;
+}
+
+.progress-remainder[flex="100"], .progress-remainder[flex="0"] {
+  background-image: none !important;
+  -moz-appearance: none;
+}
+
+.progressmeter-statusbar {
+  margin: 0;
+  border-width: 1px;
+}
+
+/*
+ *
+ * The above codes are imported from Firefox for OS X
+   Codes below are added by me to stylize progress bar - Louis */
+
+progressmeter {
+  -moz-appearance: none;
+}
+progressmeter > .progress-bar {
+  -moz-appearance: none;
+  min-width: 0;
+  min-height: 0;
+  background-clip: padding-box, border-box;
+  background-color: #24baf2;
+  border-radius: 2px 0 0 2px;
+}
+progressmeter > .progress-remainder {
+  -moz-appearance: none;
+  min-width: 0;
+  min-height: 0;
+  background-color: #ddd;
+  -moz-border-start: none;
+  border-radius: 0 2px 2px 0;
+}
+@-moz-keyframes move {
+  to { background-position: 50px 50px; }
+}
+progressmeter[mode="undetermined"] > .progress-bar {
+  background-image: linear-gradient(-45deg, transparent 25%, rgba(255,255,255,.5) 25%, rgba(255,255,255,.5) 50%, transparent 50%, transparent 75%, rgba(255,255,255,.5) 75%);
+  animation: move 1.5s linear infinite;
+  background-color: #ddd;
+  background-size: 50px 50px;
+  border-radius: 2px;
+}
+progressmeter[value="0"] > .progress-remainder,
+progressmeter[value="100"] > .progress-bar{
+  border-radius: 2px;
+}

@@ -1,0 +1,136 @@
+#main-window > #titlebar {
+  -moz-appearance: none !important;
+  background-color: rgba(246,246,246,1);
+}
+
+#TabsToolbar {
+  background-color: rgba(246,246,246,1) !important;
+}
+
+/** Begin titlebar **/
+#titlebar-buttonbox > .titlebar-button {
+  display: none;
+}
+
+.titlebar-placeholder[type="caption-buttons"],
+#titlebar-buttonbox {
+  margin-left: 9px !important;
+  margin-right: 2px;
+}
+
+@media (-moz-mac-lion-theme) {
+  .titlebar-placeholder[type="fullscreen-button"],
+  #titlebar-secondary-buttonbox {
+    margin-right: 7px;
+    margin-left: 7px;
+  }
+}
+
+#main-window:not([tabsintitlebar]) > #titlebar {
+  height: 22px;
+}
+#main-window:not([tabsintitlebar]):not([inFullscreen]):not([privatebrowsingmode]) #navigator-toolbox toolbar:first-child { /*hack by Louis*/
+  height: 22px;
+  display: -moz-box;
+}
+#main-window:not([tabsintitlebar]):not([privatebrowsingmode]) {
+  -moz-binding: url("chrome://ostarget/skin/tab.xml#drawintitlebar");
+}
+
+#main-window[tabsintitlebar] > #titlebar {
+  min-height: 36px;
+}
+
+#main-window[tabsintitlebar] > #titlebar > #titlebar-content > #titlebar-buttonbox-container,
+#main-window[tabsintitlebar] > #titlebar > #titlebar-content > #titlebar-secondary-buttonbox > #titlebar-fullscreen-button {
+  margin-top: 10px;
+}
+/** End titlebar **/
+
+#navigator-toolbox > #toolbar-menubar {
+  margin-top: 0 !important;
+}
+
+/* ::::: bookmark buttons ::::: */
+
+toolbarbutton.bookmark-item {
+  font-weight: normal;
+  color: #222;
+}
+
+.bookmark-item > .toolbarbutton-text {
+  display: -moz-box !important;
+  margin: 0 !important;
+}
+
+.bookmark-item > .toolbarbutton-menu-dropmarker {
+  display: none;
+}
+
+toolbarbutton.bookmark-item:hover,
+toolbarbutton.bookmark-item[open="true"] {
+  background-color: rgba(0,0,0,.205);
+}
+
+toolbarbutton.bookmark-item:active:hover,
+toolbarbutton.bookmark-item[open="true"] {
+  color: #FFF !important;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.4),0 1px rgba(255,255,255,0.4);
+  background-color: rgba(0,0,0,.5);
+}
+
+toolbarbutton.bookmark-item > menupopup {
+  margin-top: 2px;
+  -moz-margin-start: 3px;
+}
+
+.bookmark-item > .toolbarbutton-icon {
+  width: 16px;
+  min-height: 16px;
+  max-height: 16px;
+}
+
+.bookmark-item > .toolbarbutton-icon[label]:not([label=""]),
+.bookmark-item > .toolbarbutton-icon[type="menu"] {
+  -moz-margin-end: 5px;
+}
+
+#urlbar,
+.searchbar-textbox {
+  font: icon;
+}
+
+.tabbrowser-tab,
+.tabs-newtab-button,
+.ac-url-text,
+.ac-action-text {
+  font: message-box;
+}
+
+@media (min-resolution: 2dppx) {
+  .tab-close-button {
+	-moz-image-region: rect(0, 128px, 32px, 96px) !important;
+    list-style-image: url("chrome://global/skin/icons/close@2x.png") !important;
+  }
+
+  .tab-close-button:hover,
+  .tab-close-button:hover[selected="true"] {
+    -moz-image-region: rect(0, 64px, 32px, 32px) !important;
+  }
+
+  .tab-close-button:hover:active,
+  .tab-close-button:hover:active[selected="true"] {
+    -moz-image-region: rect(0, 96px, 32px, 64px) !important;
+  }
+
+  .tab-close-button[selected="true"] {
+    -moz-image-region: rect(0, 32px, 32px, 0) !important;
+  }
+  .panel-promo-closebutton > .toolbarbutton-icon,
+  .tab-close-button > .toolbarbutton-icon,
+  .tabs-closebutton > .toolbarbutton-icon, /*sidebar*/
+  .findbar-closebutton > .toolbarbutton-icon,
+  .messageCloseButton > .toolbarbutton-icon {
+    width: 16px !important;
+  }
+}

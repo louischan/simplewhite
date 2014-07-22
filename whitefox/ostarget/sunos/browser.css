@@ -1,0 +1,16 @@
+#TabsToolbar {
+  background-color: rgba(246,246,246,1) !important;
+}
+.panel-arrowcontent {
+  padding: 10px;
+  color: -moz-DialogText;
+  background: #ffffff;
+  border: 1px solid #b7b7b7;
+}
+.panel-arrowcontainer:not([panelopen]) {
+  opacity: 1;
+}
+.panel-arrow[side="top"],
+.panel-arrow[side="bottom"] {
+  list-style-image: url("chrome://global/skin/arrow/panelarrow-vertical.svg");
+}

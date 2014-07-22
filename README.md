@@ -1,2 +1,2 @@
-simplewhite
+Simple White
 ===========

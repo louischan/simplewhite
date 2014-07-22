@@ -1,0 +1,164 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+findbar {
+  padding: 4px 2px;
+  box-shadow: 0 1px 1px rgba(0,0,0,.1) inset;
+  background-image: linear-gradient(rgba(0,0,0,.15) 1px, rgba(255,255,255,.15) 1px);
+  background-size: 100% 2px;
+  background-repeat: no-repeat;
+  min-width: 1px;
+  transition-property: margin-bottom, opacity, visibility;
+  transition-duration: 150ms, 150ms, 0s;
+  transition-timing-function: ease-in-out, ease-in-out, linear;
+}
+
+findbar[hidden] {
+  /* Override display:none to make the transition work. */
+  display: -moz-box;
+  visibility: collapse;
+  margin-bottom: -1em;
+  opacity: 0;
+  transition-delay: 0s, 0s, 150ms;
+}
+
+.findbar-container {
+  -moz-padding-start: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.findbar-closebutton {
+  border: none;
+  padding: 0;
+  margin: 0 4px;
+  list-style-image: url("chrome://global/skin/icons/close.png");
+  -moz-appearance: none;
+  -moz-image-region: rect(0, 16px, 16px, 0);
+  /* make sure the closebutton is displayed as the first element in the bar: */
+  -moz-box-ordinal-group: 0;
+}
+
+.findbar-closebutton:hover {
+  -moz-image-region: rect(0, 32px, 16px, 16px);
+}
+
+.findbar-closebutton:hover:active {
+  -moz-image-region: rect(0, 48px, 16px, 32px);
+}
+
+/* Search field */
+
+.findbar-textbox {
+  -moz-appearance: none;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 3px 0 0 3px;
+  margin: 0;
+  padding: 4px 6px;
+  width: 14em;
+}
+
+.findbar-textbox:-moz-locale-dir(rtl) {
+  border-radius: 0 2px 2px 0;
+}
+
+.findbar-textbox[focused="true"] {
+  border-color: rgba(0,0,0,.5);
+}
+
+.findbar-textbox[status="notfound"] {
+  background-color: #f66;
+  color: white;
+}
+
+.findbar-textbox[flash="true"] {
+  background-color: yellow;
+  color: black;
+}
+
+.findbar-textbox.minimal {
+  border-radius: 2px;
+}
+
+/* Buttons */
+
+.findbar-find-previous,
+.findbar-find-next {
+  -moz-appearance: none;
+  background: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.2));
+  border: 1px solid rgba(0,0,0,.2);
+  list-style-image: url("chrome://global/skin/icons/find-arrows.png");
+  padding: 2px 6px;
+  -moz-margin-start: 0;
+}
+
+.findbar-find-previous:not([disabled]):active,
+.findbar-find-next:not([disabled]):active {
+  background: linear-gradient(rgba(218,218,218,.8), rgba(225,225,225,.8));
+}
+
+.findbar-find-previous {
+  -moz-image-region: rect(0, 10px, 9px, 0);
+}
+
+.findbar-find-next {
+  -moz-image-region: rect(0, 20px, 9px, 10px);
+  -moz-padding-end: 6px;
+}
+
+.findbar-find-previous,
+.findbar-find-previous:not([disabled]):active {
+  border-right: none;
+  border-left: none;
+}
+
+.findbar-find-previous > .toolbarbutton-icon,
+.findbar-find-next > .toolbarbutton-icon {
+  margin: 0;
+}
+
+.findbar-find-previous > .toolbarbutton-text,
+.findbar-find-next > .toolbarbutton-text {
+  margin: 0;
+  padding: 0;
+  width: 0;
+}
+
+.findbar-find-previous[disabled="true"] > .toolbarbutton-icon,
+.findbar-find-next[disabled="true"] > .toolbarbutton-icon {
+  opacity: .5;
+}
+
+.findbar-find-next:-moz-locale-dir(ltr) {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.findbar-find-next:-moz-locale-dir(rtl) {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.findbar-highlight,
+.findbar-case-sensitive {
+  -moz-margin-start: 5px;
+  border-radius: 5px;
+}
+
+.findbar-highlight > .toolbarbutton-icon,
+.findbar-case-sensitive > .toolbarbutton-icon {
+  display: none;
+}
+
+.findbar-find-status {
+  color: GrayText;
+  margin: 0 !important;
+  -moz-margin-start: 12px !important;
+}
+
+.find-status-icon[status="pending"] {
+  list-style-image: url("chrome://global/skin/icons/loading_16.png");
+}

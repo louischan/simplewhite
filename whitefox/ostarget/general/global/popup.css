@@ -1,0 +1,183 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/* ::::: menupopup ::::: */
+
+menupopup,
+panel {
+  border: 3px solid transparent;
+  padding: 0px;
+  min-width: 1px;
+  background: #ffffff;
+  color: MenuText;
+}
+
+menupopup {
+  -moz-appearance: menupopup;
+}
+
+menupopup > menu > menupopup {
+ /* align submenus */
+  -moz-margin-start: -3px;
+  margin-top: -3px;
+}
+
+panel[type="arrow"] {
+  -moz-appearance: none;
+  background: transparent;
+  border: none;
+  transition: opacity 300ms;
+}
+
+.panel-arrowcontainer[panelopen] {
+  transition-duration: 100ms, 75ms;
+  transition-property: opacity, transform;
+  transition-timing-function: ease-out;
+}
+
+.panel-arrowcontainer:not([panelopen]) {
+  opacity: 0;
+}
+
+.panel-arrowcontainer:not([panelopen])[side="top"] {
+  transform: translateY(-20px);
+}
+
+.panel-arrowcontainer:not([panelopen])[side="bottom"] {
+  transform: translateY(20px);
+}
+
+.panel-arrowcontainer:not([panelopen])[side="left"] {
+  transform: translateX(-20px);
+}
+
+.panel-arrowcontainer:not([panelopen])[side="right"] {
+  transform: translateX(20px);
+}
+
+panel[type="arrow"][side="top"],
+panel[type="arrow"][side="bottom"] {
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+panel[type="arrow"][side="left"],
+panel[type="arrow"][side="right"] {
+  margin-top: -20px;
+  margin-bottom: -20px;
+}
+
+.panel-arrowcontent {
+  border-radius: 4px;
+  padding: 10px;
+  color: -moz-DialogText;
+  background: #ffffff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.3);
+  margin: 4px;
+}
+
+.panel-arrow[side="top"],
+.panel-arrow[side="bottom"] {
+  list-style-image: url("chrome://global/skin/arrow/panelarrow-vertical-white.png");
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.panel-arrow[side="top"] {
+  margin-bottom: -5px;
+}
+
+.panel-arrow[side="bottom"] {
+  transform: scaleY(-1);
+  margin-top: -5px;
+}
+
+.panel-arrow[side="left"],
+.panel-arrow[side="right"] {
+  list-style-image: url("chrome://global/skin/arrow/panelarrow-horizontal-white.png");
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.panel-arrow[side="left"] {
+  margin-right: -5px;
+}
+
+.panel-arrow[side="right"] {
+  transform: scaleX(-1);
+  margin-left: -5px;
+}
+
+@media (-moz-windows-default-theme) {
+  .panel-arrowcontent {
+    border-color: rgba(0,0,0,.3);
+    box-shadow: 0 0 4px rgba(0,0,0,.3);
+  }
+
+  .panel-arrowcontent[side="top"] {
+    background-image: linear-gradient(white 1px, rgba(255,255,255,0) 15px);
+  }
+
+  .panel-arrowcontent[side="bottom"] {
+    background-image: linear-gradient(to top, white 1px, rgba(255,255,255,0) 15px);
+  }
+
+  .panel-arrowcontent[side="left"] {
+    background-image: linear-gradient(to right, white 1px, rgba(255,255,255,0) 15px);
+  }
+
+  .panel-arrowcontent[side="right"] {
+    background-image: linear-gradient(to left, white 1px, rgba(255,255,255,0) 15px);
+  }
+
+  .panel-arrow[side="top"],
+  .panel-arrow[side="bottom"] {
+    list-style-image: url("chrome://global/skin/arrow/panelarrow-vertical-white.png");
+  }
+
+  .panel-arrow[side="left"],
+  .panel-arrow[side="right"] {
+    list-style-image: url("chrome://global/skin/arrow/panelarrow-horizontal-white.png");
+  }
+}
+
+/* ::::: tooltip ::::: */
+
+tooltip {
+  -moz-appearance: tooltip;
+  margin-top: 21px;
+  border: 1px solid InfoText;
+  padding: 2px 3px;
+  max-width: 40em;
+  background-color: #ffffff;
+  color: InfoText;
+  font: message-box;
+}
+
+tooltip[titletip="true"] {
+ /* See bug 32157 comment 128
+  * margin: -2px 0px 0px -3px;
+  */
+  max-width: none;
+}
+
+/* rules for popups associated with menulists */
+
+menulist > menupopup,
+.menulist-menupopup {
+  -moz-appearance: none;
+  border-width: 1px;
+  -moz-border-top-colors: -moz-FieldText;
+  -moz-border-right-colors: -moz-FieldText;
+  -moz-border-bottom-colors: -moz-FieldText;
+  -moz-border-left-colors: -moz-FieldText;
+  padding: 0px;
+  min-width: 0px;
+  background-color: #ffffff;
+}
