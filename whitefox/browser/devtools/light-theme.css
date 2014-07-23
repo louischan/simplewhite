@@ -25,7 +25,8 @@
   background: #EFEFEF;
 }
 
-.theme-selected {
+.theme-selected,
+.CodeMirror-hint-active {
   background-color: #4c9ed9;
   color: #f5f7fa; /* Light foreground text */
 }
@@ -36,7 +37,8 @@
 }
 
 .theme-link,
-.cm-s-mozilla .cm-link { /* blue */
+.cm-s-mozilla .cm-link,
+.CodeMirror-Tern-type { /* blue */
   color: hsl(208,56%,40%);
 }
 
@@ -58,6 +60,10 @@
   color: hsl(90,2%,46%);
 }
 
+.CodeMirror-Tern-completion-unknown:before {
+  background-color: hsl(90,2%,46%);
+}
+
 .theme-gutter {
   background-color: hsl(0,0%,90%);
   color: #667380;
@@ -68,12 +74,25 @@
   border-color: #cddae5;
 }
 
+.cm-s-mozilla .cm-unused-line {
+  text-decoration: line-through;
+  -moz-text-decoration-color: #5f88b0;
+}
+
+.cm-s-mozilla .cm-executed-line {
+  background-color: #fcfffc;
+}
+
 .theme-fg-color1,
 .cm-s-mozilla .cm-number,
 .variable-or-property .token-number,
 .variable-or-property[return] > .title > .name,
 .variable-or-property[scope] > .title > .name { /* green */
   color: hsl(72,100%,27%);
+}
+
+.CodeMirror-Tern-completion-number:before {
+  background-color: hsl(72,100%,27%);
 }
 
 .theme-fg-color2,
@@ -86,12 +105,20 @@
   color: hsl(208,56%,40%);
 }
 
+.CodeMirror-Tern-completion-object:before {
+  background-color: hsl(208,56%,40%);
+}
+
 .theme-fg-color3,
 .cm-s-mozilla .cm-variable,
 .cm-s-mozilla .cm-tag,
 .cm-s-mozilla .cm-header,
 .variables-view-property > .title > .name { /* dark blue */
-  color: hsl(208,81%,21%)
+  color: hsl(208,81%,21%);
+}
+
+.CodeMirror-Tern-completion-array:before { /* dark blue */
+  background-color: hsl(208,81%,21%);
 }
 
 .theme-fg-color4 { /* Orange */
@@ -107,8 +134,14 @@
 .theme-fg-color6,
 .cm-s-mozilla .cm-string,
 .cm-s-mozilla .cm-string-2,
-.variable-or-property .token-string { /* Orange */
+.variable-or-property .token-string,
+.CodeMirror-Tern-farg { /* Orange */
   color: hsl(24,85%,39%);
+}
+
+.CodeMirror-Tern-completion-string:before,
+.CodeMirror-Tern-completion-fn:before {
+  background-color: hsl(24,85%,39%);
 }
 
 .theme-fg-color7,
@@ -119,6 +152,10 @@
 .variable-or-property .token-domnode,
 .variable-or-property[exception] > .title > .name { /* Red */
   color: #bf5656;
+}
+
+.CodeMirror-Tern-completion-bool:before {
+  background-color: #bf5656;
 }
 
 .variable-or-property .token-domnode {
@@ -139,9 +176,8 @@
 }
 
 .ruleview-colorswatch,
-.computedview-colorswatch,
-.markupview-colorswatch {
-  box-shadow: 0 0 0 1px #EFEFEF;
+.computedview-colorswatch {
+  box-shadow: 0 0 0 1px #c4c4c4;
 }
 
 /* CodeMirror specific styles.
@@ -322,10 +358,6 @@ div.CodeMirror span.eval-text {
   border-bottom: 1px solid #d9e1e8;
 }
 
-.theme-tooltip-panel .devtools-tooltip-font-previewer-text {
-  color: black;
-}
-
 .theme-tooltip-panel .devtools-tooltip-simple-text:last-child {
   border-bottom: 0;
 }
@@ -338,6 +370,13 @@ div.CodeMirror span.eval-text {
   -moz-border-end: 1px solid #aaa;
   border-color: #aaa; /* Needed for responsive container at low width. */
 }
+
+.CodeMirror-hints,
+.CodeMirror-Tern-tooltip {
+  box-shadow: 0 0 4px rgba(128, 128, 128, .5);
+  background-color: #f7f7f7;
+}
+
 
 
 
@@ -467,7 +506,7 @@ div.CodeMirror span.eval-text {
 .devtools-menulist > .menulist-dropmarker {
   -moz-appearance: none;
   display: -moz-box;
-  list-style-image: url("chrome://browser/skin/devtools/dropmarker.png");
+  list-style-image: url("chrome://browser/skin/devtools/dropmarker.svg");
   -moz-box-align: center;
   min-width: 16px;
 }
@@ -499,7 +538,7 @@ div.CodeMirror span.eval-text {
 .devtools-toolbarbutton[type=menu] > .toolbarbutton-menu-dropmarker,
 .devtools-toolbarbutton[type=menu-button] > .toolbarbutton-menubutton-dropmarker {
   -moz-appearance: none !important;
-  list-style-image: url("chrome://browser/skin/devtools/dropmarker.png");
+  list-style-image: url("chrome://browser/skin/devtools/dropmarker.svg");
   -moz-box-align: center;
   padding: 0 3px;
 }
@@ -605,7 +644,7 @@ div.CodeMirror span.eval-text {
   margin: 0 4px;
   min-width: 16px;
   width: 16px;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .devtools-closebutton > image {
@@ -629,10 +668,6 @@ div.CodeMirror span.eval-text {
 }
 
 .devtools-closebutton:hover {
-  opacity: 0.8;
-}
-
-.devtools-closebutton:hover:active {
   opacity: 1;
 }
 
@@ -689,6 +724,7 @@ div.CodeMirror span.eval-text {
   color: inherit;
   -moz-box-flex: 1;
   border-width: 0;
+  border-radius: 0;
   position: static;
   -moz-margin-start: -1px;
   text-shadow: none;
@@ -783,10 +819,6 @@ div.CodeMirror span.eval-text {
  * Rules that apply to the global toolbox like command buttons,
  * devtools tabs, docking buttons, etc. */
 
-#toolbox-controls {
-  margin: 0 4px;
-}
-
 #toolbox-controls > toolbarbutton,
 #toolbox-dock-buttons > toolbarbutton {
   -moz-appearance: none;
@@ -826,7 +858,7 @@ div.CodeMirror span.eval-text {
 #toolbox-dock-window,
 #toolbox-dock-bottom,
 #toolbox-dock-side {
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 #toolbox-dock-window:hover,
@@ -836,14 +868,18 @@ div.CodeMirror span.eval-text {
 }
 
 #toolbox-controls-separator {
-  width: 3px;
+  width: 2px;
   background-image: linear-gradient(hsla(204,45%,98%,0), hsla(204,45%,98%,.1), hsla(204,45%,98%,0)),
                     linear-gradient(hsla(206,37%,4%,0), hsla(206,37%,4%,.6), hsla(206,37%,4%,0)),
                     linear-gradient(hsla(204,45%,98%,0), hsla(204,45%,98%,.1), hsla(204,45%,98%,0));
   background-size: 1px 100%;
   background-repeat: no-repeat;
   background-position: 0, 1px, 2px;
-  -moz-margin-start: 8px;
+}
+
+#toolbox-buttons:empty + #toolbox-controls-separator,
+#toolbox-controls-separator[invisible] {
+  visibility: hidden;
 }
 
 /* Command buttons */
@@ -886,6 +922,10 @@ div.CodeMirror span.eval-text {
   background-image: url("chrome://browser/skin/devtools/command-paintflashing.png");
 }
 
+#command-button-screenshot > image {
+  background-image: url("chrome://browser/skin/devtools/command-screenshot.png");
+}
+
 #command-button-responsive > image {
   background-image: url("chrome://browser/skin/devtools/command-responsivemode.png");
 }
@@ -914,6 +954,10 @@ div.CodeMirror span.eval-text {
 @media (min-resolution: 2dppx) {
   #command-button-paintflashing > image {
     background-image: url("chrome://browser/skin/devtools/command-paintflashing@2x.png");
+  }
+
+  #command-button-screenshot > image {
+    background-image: url("chrome://browser/skin/devtools/command-screenshot@2x.png");
   }
 
   #command-button-responsive > image {
@@ -976,7 +1020,9 @@ div.CodeMirror span.eval-text {
   max-width: 127px;
   margin: 0;
   padding: 0;
-  -moz-border-start: 1px solid;
+  border-style: solid;
+  border-width: 0;
+  -moz-border-start-width: 1px;
   -moz-box-align: center;
 }
 
@@ -1017,18 +1063,6 @@ div.CodeMirror span.eval-text {
   background-color: rgba(44, 187, 15, .2);
 }
 
-.devtools-tab:first-child {
-  -moz-border-start-width: 0;
-}
-
-.theme-light .devtools-tab:last-child {
-  -moz-border-end: 1px solid #aaa;
-}
-
-.theme-dark .devtools-tab:last-child {
-  -moz-border-end: 1px solid #42484f;
-}
-
 .devtools-tab > image {
   border: none;
   -moz-margin-end: 0;
@@ -1036,10 +1070,6 @@ div.CodeMirror span.eval-text {
   opacity: 0.6;
   max-height: 16px;
   width: 16px; /* Prevents collapse during theme switching */
-}
-
-#toolbox-tab-options > image {
-  margin: 0 8px;
 }
 
 .devtools-tab > label {
@@ -1055,7 +1085,7 @@ div.CodeMirror span.eval-text {
   opacity: 1;
 }
 
-.theme-dark #toolbox-tabs .devtools-tab[selected] {
+.theme-dark .devtools-tabbar .devtools-tab[selected] {
   color: #f5f7fa;
   background-color: #1a4666;
   box-shadow: 0 2px 0 #d7f1ff inset,
@@ -1063,7 +1093,7 @@ div.CodeMirror span.eval-text {
               0 -2px 0 rgba(0,0,0,.2) inset;
 }
 
-.theme-light #toolbox-tabs .devtools-tab[selected] {
+.theme-light .devtools-tabbar .devtools-tab[selected] {
   color: #f5f7fa;
   background-color: #4c9ed9;
   box-shadow: 0 2px 0 #d7f1ff inset,
@@ -1071,27 +1101,49 @@ div.CodeMirror span.eval-text {
               0 -2px 0 rgba(0,0,0,.06) inset;
 }
 
-.devtools-tab[selected]:not(:first-child),
-.devtools-tab[highlighted]:not(:first-child) {
+#toolbox-tabs .devtools-tab[selected]:not(:first-child),
+#toolbox-tabs .devtools-tab[highlighted]:not(:first-child) {
   border-width: 0;
   -moz-padding-start: 1px;
 }
 
-.devtools-tab[selected]:last-child,
-.devtools-tab[highlighted]:last-child {
+#toolbox-tabs .devtools-tab[selected]:last-child,
+#toolbox-tabs .devtools-tab[highlighted]:last-child {
   -moz-padding-end: 1px;
 }
 
-.devtools-tab[selected] + .devtools-tab,
-.devtools-tab[highlighted] + .devtools-tab {
+#toolbox-tabs .devtools-tab[selected] + .devtools-tab,
+#toolbox-tabs .devtools-tab[highlighted] + .devtools-tab {
   -moz-border-start-width: 0;
   -moz-padding-start: 1px;
+}
+
+#toolbox-tabs .devtools-tab:first-child[selected] {
+  -moz-border-start-width: 0;
+}
+
+#toolbox-tabs .devtools-tab:last-child {
+  -moz-border-end-width: 1px;
 }
 
 .devtools-tab:not([highlighted]) > .highlighted-icon,
 .devtools-tab[selected] > .highlighted-icon,
 .devtools-tab:not([selected])[highlighted] > .default-icon {
   visibility: collapse;
+}
+
+/* The options tab is special - it doesn't have the same parent
+   as the other tabs (toolbox-option-container vs toolbox-tabs) */
+#toolbox-option-container .devtools-tab:not([selected]) {
+  background-color: transparent;
+}
+#toolbox-option-container .devtools-tab {
+  border-color: transparent;
+  border-width: 0;
+  -moz-padding-start: 1px;
+}
+#toolbox-tab-options > image {
+  margin: 0 8px;
 }
 
 /* Invert the colors of certain dark theme images for displaying
@@ -1119,7 +1171,9 @@ div.CodeMirror span.eval-text {
 .theme-light .command-button-invertable[checked=true]:not(:active) > image,
 .theme-light .devtools-tab[icon-invertable][selected] > image,
 .theme-light .devtools-tab[icon-invertable][highlighted] > image,
-.theme-light #resume[checked] > image {
+.theme-light #resume[checked] > image,
+.theme-light #record-snapshot[checked] > image,
+.theme-light #profiler-start[checked] > image {
   filter: none !important;
 }
 
