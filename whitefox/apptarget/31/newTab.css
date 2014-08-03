@@ -215,6 +215,18 @@
   background-position: -192px 0;
 }
 
+.newtab-control-sponsored {
+  background-position: -249px -1px;
+}
+
+.newtab-control-sponsored:hover {
+  background-position: -265px -1px;
+}
+
+.newtab-control-sponsored[panelShown] {
+  background-position: -281px -1px;
+}
+
 /* SEARCHBAR -Louis */
 #newtab-search-form {
   margin-bottom: 40px;
@@ -225,27 +237,19 @@
   min-height: 0;
 }
 #newtab-margin-bottom {
-  min-height: 100px;
+  position: static; /* fix a bug that hides 'sponsored' button */
 }
 
 .newtab-side-margin {
   min-width: 100px;
 }
 
-@media only screen and (max-height: 880px) {
-  #newtab-margin-bottom {
-    min-height: 20px;
-  }
-}
 @media only screen and (max-height: 768px) {
   .newtab-row {
     margin-bottom: 30px;
   }
 }
 @media only screen and (min-width: 1280px) {
-  #newtab-margin-bottom {
-    min-height: 40px;
-  }
   .newtab-side-margin {
     min-width: 300px;
   }
