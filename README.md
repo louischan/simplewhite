@@ -11,6 +11,10 @@
 
 Then, you can open `simplewhite.xpi` in Firefox and follow the installation procedure.
 
+## Branches
+
+There are two main branches in this repository. The [`master`](https://github.com/louischan/simplewhite/tree/master) branch always reflects the latest stable release, while the [`develop`](https://github.com/louischan/simplewhite/tree/develop) branch reflects the latest development state that is used to draft beta releases.
+
 ## Releases
 
 Pre-packaged releases can be downloaded from [here](https://addons.mozilla.org/addon/simplewhite/versions/).
