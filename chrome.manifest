@@ -12,3 +12,4 @@ skin osbrowser simplewhite whitefox/ostarget/sunos/ os=SunOS
 
 skin apptarget simplewhite whitefox/apptarget/29/ appversion>=29.0a1
 skin apptarget simplewhite whitefox/apptarget/31/ appversion>=31.0a1
+skin apptarget simplewhite whitefox/apptarget/33/ appversion>=33.0a1
