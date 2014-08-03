@@ -244,9 +244,24 @@
 #newtab-search-form {
   margin-bottom: 40px;
 }
+
 #newtab-search-logo {
-  background-color: #eee;
+  position: absolute;
+  top: 6px;
+  background-image: url("chrome://browser/skin/newtab/newtab-search.png") !important;
+  background-position: 0 bottom;
+  background-size: 58px 96px;
+  height: 32px;
+  width: 25px;
+  border: none;
 }
+#newtab-search-logo[active],
+#newtab-search-logo:hover {
+  background-position: -29px bottom;
+  background-color: transparent;
+  border: none;
+}
+
 #newtab-search-text {
   box-shadow: none;
   background-color: #eee;
@@ -255,29 +270,32 @@
   transition-duration: 100ms;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+  -moz-padding-start: 30px;
 }
 #newtab-search-text:focus,
 #newtab-search-text[autofocus] {
-  background-color: #fff;
-  border-color: #ddd;
+  /*background-color: #fff;
+  border-color: #ddd;*/
+  border-color: #eee;
 }
+
 #newtab-search-submit {
   color: transparent;
   border-color: #eee;
   border-left: none;
-  -moz-margin-start: -40px;
-  background: #eee no-repeat 41px -1px;
+  -moz-margin-start: -27px;
+  background: #eee no-repeat 40px -1px;
   background-image: url("chrome://browser/skin/newtab/newtab-search.png") !important;
   box-shadow: none;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  -moz-margin-end: 77px;
   transition-duration: 100ms;
 }
 @media (min-resolution: 2dppx) {
+  #newtab-search-logo,
   #newtab-search-submit {
     background-image: url("chrome://browser/skin/newtab/newtab-search@2x.png") !important;
-    background-size: 58px 64px;
+    background-size: 58px 96px;
   }
 }
 #newtab-search-text:focus + #newtab-search-submit,
@@ -289,12 +307,13 @@
 
 #newtab-search-text:focus + #newtab-search-submit,
 #newtab-search-text[autofocus] + #newtab-search-submit {
-  background-color: #fff;
-  border-color: #ddd;
+  /*background-color: #fff;
+  border-color: #ddd;*/
   box-shadow: none;
 }
 
 #newtab-search-text + #newtab-search-submit:hover,
 #newtab-search-text + #newtab-search-submit:hover:active {
   box-shadow: none;
+  background-position: 40px -33px;
 }
