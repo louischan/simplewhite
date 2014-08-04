@@ -63,7 +63,7 @@ radio[pane] {
 }
 
 radio[pane]:hover {
-  background-color: #D4D4D4;
+  background-color: #EFEFEF;
   color: black;
   -moz-appearance: none;
 }
