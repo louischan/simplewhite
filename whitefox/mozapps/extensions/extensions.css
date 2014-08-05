@@ -175,7 +175,7 @@
   background-color: transparent;
   color: #252F3B;
   min-height: 0;
-  padding: 10px 4px;
+  padding: 0 4px;
   border-width: 1px;
   border-style: solid;
   border-color: transparent;
@@ -282,7 +282,9 @@
 #category-recentUpdates > .category-icon {
   list-style-image: url("chrome://mozapps/skin/extensions/category-recent.png");
 }
-
+#category-userstyle > .category-icon {
+  list-style-image: url("chrome://mozapps/skin/extensions/category-userstyle.png") !important;
+}
 
 /*** header ***/
 
