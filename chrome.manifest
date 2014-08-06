@@ -6,8 +6,8 @@ skin ostarget simplewhite whitefox/ostarget/general/
 skin ostarget simplewhite whitefox/ostarget/darwin/ os=Darwin
 
 skin osbrowser simplewhite whitefox/ostarget/general/
-skin osbrowser simplewhite whitefox/ostarget/aero/ os=WINNT
 skin osbrowser simplewhite whitefox/ostarget/darwin/ os=Darwin
+skin osbrowser simplewhite whitefox/ostarget/win/ os=WINNT
 skin osbrowser simplewhite whitefox/ostarget/sunos/ os=SunOS
 
 skin apptarget simplewhite whitefox/apptarget/29/ appversion>=29.0a1

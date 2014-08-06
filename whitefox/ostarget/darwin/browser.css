@@ -1,10 +1,12 @@
+@import url("chrome://browser/skin/browser-common.css");
+
 #main-window > #titlebar {
   -moz-appearance: none !important;
   background-color: rgba(246,246,246,1);
 }
 
 #TabsToolbar {
-  background-color: rgba(246,246,246,1) !important;
+  background-color: rgba(246,246,246,1);
 }
 
 /** Begin titlebar **/
@@ -14,7 +16,7 @@
 
 .titlebar-placeholder[type="caption-buttons"],
 #titlebar-buttonbox {
-  margin-left: 9px !important;
+  margin-left: 9px;
   margin-right: 2px;
 }
 
@@ -48,7 +50,7 @@
 /** End titlebar **/
 
 #navigator-toolbox > #toolbar-menubar {
-  margin-top: 0 !important;
+  margin-top: 0;
 }
 
 /* ::::: bookmark buttons ::::: */
@@ -59,8 +61,8 @@ toolbarbutton.bookmark-item {
 }
 
 .bookmark-item > .toolbarbutton-text {
-  display: -moz-box !important;
-  margin: 0 !important;
+  display: -moz-box;
+  margin: 0;
 }
 
 .bookmark-item > .toolbarbutton-menu-dropmarker {
@@ -74,7 +76,7 @@ toolbarbutton.bookmark-item[open="true"] {
 
 toolbarbutton.bookmark-item:active:hover,
 toolbarbutton.bookmark-item[open="true"] {
-  color: #FFF !important;
+  color: #FFF;
   box-shadow: inset 0 1px 1px rgba(0,0,0,0.4),0 1px rgba(255,255,255,0.4);
   background-color: rgba(0,0,0,.5);
 }
@@ -114,22 +116,22 @@ toolbarbutton.bookmark-item > menupopup {
 
 @media (min-resolution: 2dppx) {
   .tab-close-button {
-	-moz-image-region: rect(0, 128px, 32px, 96px) !important;
-    list-style-image: url("chrome://global/skin/icons/close@2x.png") !important;
+	-moz-image-region: rect(0, 128px, 32px, 96px);
+    list-style-image: url("chrome://global/skin/icons/close@2x.png");
   }
 
   .tab-close-button:hover,
   .tab-close-button:hover[selected="true"] {
-    -moz-image-region: rect(0, 64px, 32px, 32px) !important;
+    -moz-image-region: rect(0, 64px, 32px, 32px);
   }
 
   .tab-close-button:hover:active,
   .tab-close-button:hover:active[selected="true"] {
-    -moz-image-region: rect(0, 96px, 32px, 64px) !important;
+    -moz-image-region: rect(0, 96px, 32px, 64px);
   }
 
   .tab-close-button[selected="true"] {
-    -moz-image-region: rect(0, 32px, 32px, 0) !important;
+    -moz-image-region: rect(0, 32px, 32px, 0);
   }
   .panel-promo-closebutton > .toolbarbutton-icon,
   .tab-close-button > .toolbarbutton-icon,

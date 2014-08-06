@@ -3,7 +3,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 @import url("chrome://global/skin/");
-@import url("chrome://osbrowser/skin/browser.css");
 
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 @namespace html url("http://www.w3.org/1999/xhtml");
@@ -2609,7 +2608,7 @@ window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #forward-button[disabled
 }
 
 #addons-notification-icon {
-  list-style-image: url(chrome://mozapps/skin/extensions/extensionGenericNotify-16.png);
+  list-style-image: url(chrome://mozapps/skin/extensions/extensionGeneric-16.png);
 }
 
 .indexedDB-notification-icon,
