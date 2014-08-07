@@ -151,6 +151,13 @@
   margin: 5px;
 }
 
+.newtab-site[type=affiliate] .newtab-thumbnail,
+.newtab-site[type=organic] .newtab-thumbnail,
+.newtab-site[type=sponsored] .newtab-thumbnail {
+  background-position: center center;
+  background-size: auto;
+}
+
 /* TITLES */
 .newtab-title {
   padding: 0 8px 3px;
