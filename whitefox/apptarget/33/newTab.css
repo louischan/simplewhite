@@ -274,9 +274,8 @@
 }
 #newtab-search-text:focus,
 #newtab-search-text[autofocus] {
-  /*background-color: #fff;
-  border-color: #ddd;*/
-  border-color: #eee;
+  background-color: #eaeaea;
+  border-color: #eaeaea;
 }
 
 #newtab-search-submit {
@@ -307,8 +306,8 @@
 
 #newtab-search-text:focus + #newtab-search-submit,
 #newtab-search-text[autofocus] + #newtab-search-submit {
-  /*background-color: #fff;
-  border-color: #ddd;*/
+  background-color: #eaeaea;
+  border-color: #eaeaea;
   box-shadow: none;
 }
 
