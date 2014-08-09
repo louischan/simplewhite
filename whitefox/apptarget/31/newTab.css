@@ -106,7 +106,7 @@
 }
 
 .newtab-cell:empty {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.07);
   box-sizing: border-box;
 }
 
@@ -154,11 +154,12 @@
 /* TITLES */
 .newtab-title {
   padding: 0 8px;
-  background-color: rgba(255,255,255,.7);
+  background-color: rgba(220,220,220,.7);
   color: #000;
   font-size: 12px;
   line-height: 18px;
   opacity: 0;
+  text-align: center;
   transition: opacity 100ms ease-out;
 }
 
