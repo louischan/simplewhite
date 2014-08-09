@@ -70,7 +70,6 @@
 
 /*** global informations ***/
 #addons-page .global-info-container {
-  background-color: #f3f7fb;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
@@ -135,11 +134,11 @@
   -moz-box-align: center;
   padding: 10px;
   color: #373D48;
-  border: 1px solid #A8B8D1;
+/*border: 1px solid #A8B8D1;
   border-radius: 8px;
   background-image: linear-gradient(#FFF, #ECF1F7);
   background-clip: padding-box;
-  box-shadow: 2px 2px 4px #999; 
+  box-shadow: 2px 2px 4px #999; */
 }
 
 .alert .alert-title {
@@ -173,7 +172,7 @@
 .category {
   -moz-appearance: none;
   background-color: transparent;
-  color: #252F3B;
+  color: #3B3B3B;
   min-height: 0;
   padding: 0 4px;
   border-width: 1px;
@@ -209,8 +208,8 @@
 }
 
 .category[selected] {
-  background-color: rgba(255, 255, 255, 0.4);
-  color: #252F3B;
+  background-color: #FDFDFD;
+  color: #3B3B3B;
   border-color: #CCC;
   -moz-border-end-color: #E8E8E8;
 }
@@ -294,6 +293,11 @@
 
 #header-search {
   margin: 0;
+  -moz-appearance: none; /*Added by Louis*/
+  background-color: #eaeaea;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 5px;
 }
 
 @media (max-width: 600px) {
@@ -326,11 +330,11 @@
 }
 
 .view-header {
-  background-color: rgba(251, 252, 253, 0.25);
+  background-color: rgba(252, 252, 252, 0.25);
   padding: 4px;
   margin: 0;
   min-height: 31px;
-  border-bottom: 1px solid #CAD4E0;
+  border-bottom: 1px solid #CCC;
 }
 
 
@@ -613,15 +617,15 @@
   list-style-image: url("chrome://global/skin/arrow/arrow-up.gif");
 }
 
-.addon[active="false"] {
+/*.addon[active="false"] {
   background-color: rgba(135, 135, 135, 0.1);
   background-image: linear-gradient(rgba(135, 135, 135, 0),
                                     rgba(135, 135, 135, 0.1));
-}
+}*/
 
 .addon-view[active="false"],
 .addon-view[active="false"] .name-container {
-  color: #888A8B;
+  color: #AAA;
 }
 
 .addon-view[notification="warning"] {
@@ -656,12 +660,12 @@
 }
 
 .addon[selected] {
-  background-color: rgba(0, 0, 0, .15);
+  background-color: #F0F0F0;
   color: black;
 }
 
-.addon[active="false"][selected] .name-container {
-  color: #3F3F3F;
+.addon[active="false"][selected]/* .name-container*/ {
+  color: #AAA;
 }
 
 
