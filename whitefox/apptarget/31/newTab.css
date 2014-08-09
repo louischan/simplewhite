@@ -153,11 +153,11 @@
 
 /* TITLES */
 .newtab-title {
-  padding: 0 8px 3px;
+  padding: 0 8px;
   background-color: rgba(255,255,255,.7);
   color: #000;
   font-size: 12px;
-  line-height: 24px;
+  line-height: 18px;
   opacity: 0;
   transition: opacity 100ms ease-out;
 }
