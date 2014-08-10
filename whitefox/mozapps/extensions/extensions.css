@@ -813,10 +813,10 @@
 
 #detail-contributions {
   border-radius: 5px;
-  border: 1px solid #D2DBE8;
+  border: 1px solid #DDD;
   margin-bottom: 2em;
   padding: 1em;
-  background-color: #F3F7FB;
+  background-color: #EEE;
 }
 
 #detail-contrib-description {
@@ -837,8 +837,7 @@
   border-radius: 3px;
   list-style-image: url("chrome://mozapps/skin/extensions/heart.png");
   background-color: #2F73EF;
-  background-image: linear-gradient(rgba(251, 252, 253, 0.70), rgba(246, 247, 248, 0.27) 49%, 
-                                    rgba(231, 232, 233, 0.25) 51%, rgba(225, 226, 229, 0.1));
+  padding: 4px;
 }
 
 #detail-contrib-btn .button-box {
@@ -852,19 +851,12 @@
 #detail-contrib-btn:not(:active):hover {
   border-color: #4271FF;
   background-color: #0459F7;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1),
-              0 0 3.5px hsl(190, 90%, 80%);
-  transition: background-color .4s ease-in,
-              border-color .3s ease-in,
-              box-shadow .3s ease-in;
 }
 
 #detail-contrib-btn:active:hover {
-  background-color: #8FA1C1;
+  background-color: #0039a2;
   border-color: rgba(0, 0, 0, 0.65) rgba(0, 0, 0, 0.55) rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 6.5px rgba(0, 0, 0, 0.4) inset,
-              0 0 2px rgba(0, 0, 0, 0.4) inset,
-              0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4) inset;
 }
 
 #detail-grid {
@@ -1199,4 +1191,12 @@ button.button-link:not([disabled="true"]):active:hover {
 .addon[active="true"] .experiment-bullet,
 #detail-view[active="true"] #detail-experiment-bullet {
   fill: rgb(106, 201, 20);
+}
+
+.sw-alert {
+  display: none !important;
+}
+
+.sw-show {
+  visibility: visible;
 }
