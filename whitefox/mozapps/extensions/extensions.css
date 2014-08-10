@@ -836,7 +836,7 @@
   border: 1px solid #3A4EEE;
   border-radius: 3px;
   list-style-image: url("chrome://mozapps/skin/extensions/heart.png");
-  background-color: #2F73EF;
+  background: #2F73EF;
   padding: 4px;
 }
 
@@ -854,7 +854,7 @@
 }
 
 #detail-contrib-btn:active:hover {
-  background-color: #0039a2;
+  background: #0039a2;
   border-color: rgba(0, 0, 0, 0.65) rgba(0, 0, 0, 0.55) rgba(0, 0, 0, 0.5);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4) inset;
 }
