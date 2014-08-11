@@ -109,6 +109,12 @@ toolbarbutton.bookmark-item > menupopup {
   font: message-box;
 }
 
+#BMB_bookmarksPopup[side="top"],
+#BMB_bookmarksPopup[side="bottom"] {
+  margin-left: -16px;
+  margin-right: -24px;
+}
+
 #context-navigation > .menuitem-iconic {
   padding-left: 0;
   padding-right: 0;
