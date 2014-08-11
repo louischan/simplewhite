@@ -849,7 +849,7 @@
 }
 
 #detail-contrib-btn:not(:active):hover {
-  border-color: #4271FF;
+  border-color: #0459F7;
   background-color: #0459F7;
 }
 
@@ -1142,10 +1142,10 @@ button.button-link:not([disabled="true"]):active:hover {
   padding: 1px 3px;
   color: #444;
   text-shadow: 0 0 3px white;
-  background: linear-gradient(rgba(255,255,255,.8), rgba(240,240,240,.8));
+  /*background: linear-gradient(rgba(255,255,255,.8), rgba(240,240,240,.8));
   background-clip: padding-box;
   border-radius: 2.5px;
-  border: 1px solid rgba(0,0,0,.2);
+  border: 1px solid rgba(0,0,0,.2);*/
 }
 
 .header-button[disabled="true"] {
@@ -1159,7 +1159,7 @@ button.button-link:not([disabled="true"]):active:hover {
 .header-button:not([disabled="true"]):active:hover,
 .header-button[open="true"] {
   background: linear-gradient(rgba(218,218,218,.8), rgba(225,225,225,.8));
-  border-color: rgba(0,0,0,.3);
+  /*border-color: rgba(0,0,0,.3);*/
 }
 
 .header-button > .toolbarbutton-text {
