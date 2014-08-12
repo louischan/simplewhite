@@ -188,12 +188,6 @@
   padding: 1px 2px 3px;
   border: none;
   background: transparent url(chrome://browser/skin/newtab/controls.png);
-  transition-delay: 0s;
-}
-
-.newtab-control:-moz-focusring,
-.newtab-site:hover > .newtab-control {
-  transition-delay: 800ms;
 }
 
 .newtab-control-pin:hover {
