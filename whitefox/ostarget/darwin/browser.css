@@ -2,11 +2,6 @@
 
 #main-window > #titlebar {
   -moz-appearance: none !important;
-  background-color: rgba(246,246,246,1);
-}
-
-#TabsToolbar {
-  background-color: rgba(246,246,246,1);
 }
 
 /** Begin titlebar **/
