@@ -4911,11 +4911,6 @@ toolbarpaletteitem[place="toolbar"] {
   margin: 24px -4px -4px;
 }
 
-
-menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
-  opacity: .3;
-}
-
 #context-navigation > .menuitem-iconic {
   -moz-box-flex: 1;
   -moz-box-pack: center;
@@ -4926,29 +4921,42 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
   -moz-appearance: none;
 }
 
-#context-navigation > #context-back > .menu-iconic-left {
+#context-back {
   list-style-image: url("chrome://browser/skin/Toolbar.png");
   -moz-image-region: rect(0, 36px, 18px, 18px);
 }
 
-#context-navigation > #context-forward > .menu-iconic-left {
+#context-forward {
   list-style-image: url("chrome://browser/skin/Toolbar.png");
   -moz-image-region: rect(0, 72px, 18px, 54px);
 }
 
-#context-navigation > #context-reload > .menu-iconic-left {
-  list-style-image: url("chrome://browser/skin/reload-stop-go.png");
-  -moz-image-region: rect(0, 14px, 14px, 0);
+#context-reload {
+  list-style-image: url("chrome://browser/skin/Toolbar.png");
+  -moz-image-region: rect(0, 90px, 18px, 72px);
 }
 
-#context-navigation > #context-stop > .menu-iconic-left {
-  list-style-image: url("chrome://browser/skin/reload-stop-go.png");
-  -moz-image-region: rect(0, 28px, 14px, 14px);
+#context-stop {
+  list-style-image: url("chrome://browser/skin/Toolbar.png");
+  -moz-image-region: rect(0, 108px, 18px, 90px);
 }
 
-#context-navigation > #context-bookmarkpage > .menu-iconic-left {
+#context-bookmarkpage {
   list-style-image: url("chrome://browser/skin/Toolbar.png");
   -moz-image-region: rect(0, 144px, 18px, 126px);
+}
+
+#context-back[_moz-menuactive=true],
+#context-forward[_moz-menuactive=true],
+#context-reload[_moz-menuactive=true],
+#context-stop[_moz-menuactive=true],
+#context-bookmarkpage[_moz-menuactive=true] {
+  list-style-image: url("chrome://browser/skin/Toolbar-inverted.png");
+}
+
+menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
+  list-style-image: url("chrome://browser/skin/Toolbar.png");
+  opacity: .3;
 }
 
 #context-back:-moz-locale-dir(rtl),
