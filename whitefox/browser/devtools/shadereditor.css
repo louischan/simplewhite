@@ -13,12 +13,12 @@
 }
 
 .theme-dark .notice-container {
-  background: url(background-noise-toolbar.png), #343c45; /* Toolbars */
+  background-color: #343c45; /* Toolbars */
   color: #f5f7fa; /* Light foreground text */
 }
 
 .theme-light .notice-container {
-  background: url(background-noise-toolbar.png), #f0f1f2; /* Toolbars */
+  background-color: #f0f1f2; /* Toolbars */
   color: #585959; /* Grey foreground text */
 }
 
@@ -74,7 +74,8 @@
 
 .side-menu-widget-item-checkbox .checkbox-check {
   -moz-appearance: none;
-  background: url(itemToggle.png);
+  background-image: url(itemToggle.png);
+  background-color: transparent;
   background-repeat: no-repeat;
   background-clip: content-box;
   background-size: 32px 16px;
@@ -84,8 +85,19 @@
   border: 0;
 }
 
+@media (min-resolution: 2dppx) {
+  .side-menu-widget-item-checkbox .checkbox-check {
+    background-image: url(itemToggle@2x.png);
+  }
+}
+
 .side-menu-widget-item-checkbox[checked] .checkbox-check {
   background-position: 0 0;
+}
+
+/* Invert all toggle icons but the one in the active row for light theme */
+.theme-light .side-menu-widget-item:not(.selected) .checkbox-check {
+  filter: url(filters.svg#invert);
 }
 
 /* Shader source editors */

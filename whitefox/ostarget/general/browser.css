@@ -1,3 +1,5 @@
+@import url("chrome://browser/skin/browser-common.css");
+
 /* Linux */
 #toolbar-menubar:not([autohide="true"]) + #TabsToolbar > .titlebar-placeholder[type="caption-buttons"] {
   display: none;
@@ -11,7 +13,7 @@
 }
 .tabbrowser-tab,
 .tabs-newtab-button {
-  padding: 0 0 2px !important;
+  padding: 0 0 2px;
 }
 
 .panel-arrowcontent {

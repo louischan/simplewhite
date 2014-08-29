@@ -134,6 +134,15 @@ treechildren::-moz-tree-cell-text(cutting) {
   opacity: 0.7;
 }
 
+/*added by Louis*/
+treechildren::-moz-tree-row(selected, focus) {
+  background-color: #eaeaea;
+  border: none;
+}
+treechildren::-moz-tree-cell-text(selected, focus) {
+  color: #000;
+}
+
 /* Browser Sidebars */
 
 /* Default button vert. margins are 1px/2px, and this can cause misalignment */

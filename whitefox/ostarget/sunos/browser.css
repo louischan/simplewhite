@@ -1,5 +1,7 @@
+@import url("chrome://browser/skin/browser-common.css");
+
 #TabsToolbar {
-  background-color: rgba(246,246,246,1) !important;
+  background-color: rgba(246,246,246,1);
 }
 .panel-arrowcontent {
   padding: 10px;
