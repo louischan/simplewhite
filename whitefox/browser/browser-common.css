@@ -1907,7 +1907,6 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   -moz-image-region: auto;
 }
 
-#TabsToolbar[brighttext] .tabs-newtab-button,
 #TabsToolbar[brighttext] > #new-tab-button,
 #TabsToolbar[brighttext] > toolbarpaletteitem > #new-tab-button {
   list-style-image: url(chrome://browser/skin/tabbrowser/newtab-inverted.png);
