@@ -54,6 +54,7 @@ menubar > menu[open] {
 }
 
 #context-navigation {
+  background-color: transparent;
   margin: 1px;
   padding-top: 2px;
 }
