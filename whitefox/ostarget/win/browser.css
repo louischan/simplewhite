@@ -1,1 +1,13 @@
 @import url("chrome://browser/skin/browser-common.css");
+
+@media not all and (-moz-os-version: windows-xp) { /* Not Windows XP and not Classic theme */
+	@media not all and (-moz-windows-classic) {
+		#context-back[_moz-menuactive=true],
+		#context-forward[_moz-menuactive=true],
+		#context-reload[_moz-menuactive=true],
+		#context-stop[_moz-menuactive=true],
+		#context-bookmarkpage[_moz-menuactive=true] {
+		  list-style-image: url("chrome://browser/skin/Toolbar.png"); /* remain black */
+		}
+	}
+}
