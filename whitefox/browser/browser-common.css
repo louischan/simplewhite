@@ -4538,7 +4538,7 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
 }
 
 #context-navigation {
-  background-color: -moz-dialog;
+  background-color: transparent;
   padding-bottom: 2px;
   margin-bottom: 2px;
 }
