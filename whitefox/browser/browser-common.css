@@ -71,6 +71,18 @@
   background-color: rgba(250,250,250,1);
 }
 
+#navigator-toolbox > toolbar:not(#toolbar-menubar):not(#TabsToolbar):not(#nav-bar):not(#addon-bar) {
+  overflow: -moz-hidden-unscrollable;
+  max-height: 4em;
+  transition: min-height 170ms ease-out, max-height 170ms ease-out;
+}
+
+#navigator-toolbox > toolbar:not(#toolbar-menubar):not(#TabsToolbar):not(#nav-bar):not(#addon-bar)[collapsed=true] {
+  min-height: 0.1px;
+  max-height: 0;
+  transition: min-height 170ms ease-out, max-height 170ms ease-out, visibility 170ms linear;
+}
+
 @media not all and (-moz-windows-compositor),
        not all and (-moz-windows-default-theme) {
   #main-window[tabsintitlebar]:not([inFullscreen]) #toolbar-menubar:not(:-moz-lwtheme),
@@ -537,12 +549,12 @@ menuitem.bookmark-item {
 
 /* Note that this file isn't used for HiDPI on OS X. */
 
-:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button),
+:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button),
 #bookmarks-menu-button > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon {
   list-style-image: url("chrome://browser/skin/Toolbar.png");
 }
 
-toolbar[brighttext] :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button),
+toolbar[brighttext] :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button),
 toolbar[brighttext] #bookmarks-menu-button > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon {
   list-style-image: url(chrome://browser/skin/Toolbar-inverted.png);
 }
@@ -682,10 +694,6 @@ toolbar[brighttext] #sync-button[status="active"]:hover:active:not([disabled="tr
   -moz-image-region: rect(0, 576px, 18px, 558px);
 }
 
-#webrtc-status-button:not(:-moz-any(:not([cui-areatype="toolbar"]), [overflowedItem=true])) {
-  -moz-image-region: rect(0, 594px, 18px, 576px);
-}
-
 #nav-bar-overflow-button {
   -moz-image-region: rect(0, 612px, 18px, 594px);
 }
@@ -708,8 +716,8 @@ toolbar[brighttext] #sync-button[status="active"]:hover:active:not([disabled="tr
 /* Menu panel and palette styles */
 
 toolbaritem[sdkstylewidget="true"] > toolbarbutton,
-:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)[cui-areatype="menu-panel"],
-toolbarpaletteitem[place="palette"] > :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button) {
+:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)[cui-areatype="menu-panel"],
+toolbarpaletteitem[place="palette"] > :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button) {
   list-style-image: url(chrome://browser/skin/menuPanel.png);
 }
 
@@ -975,9 +983,9 @@ window:not([chromehidden~="toolbar"]) #urlbar-wrapper > .toolbarbutton-1:-moz-an
   transition-duration: 150ms;
 }
 
-#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)) > .toolbarbutton-icon,
-#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)) > .toolbarbutton-badge-container,
-#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)) > .toolbarbutton-menubutton-button > .toolbarbutton-icon {
+#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)) > .toolbarbutton-icon,
+#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)) > .toolbarbutton-badge-container,
+#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)) > .toolbarbutton-menubutton-button > .toolbarbutton-icon {
   padding: 3px 7px;
 }
 
@@ -1275,7 +1283,7 @@ window:not([chromehidden~="toolbar"]) #urlbar-wrapper:not(:hover) > #forward-but
   list-style-image: url("chrome://browser/skin/menu-forward.png") !important;
 }
 
-/* tabview button & menu item */
+/* tabview menu item */
 
 #menu_tabview {
   list-style-image: url(chrome://browser/skin/tabview/tabview.png);
@@ -1296,6 +1304,20 @@ window:not([chromehidden~="toolbar"]) #urlbar-wrapper:not(:hover) > #forward-but
 
 #menu_tabview[groups="3"] {
   -moz-image-region: rect(1px, 71px, 17px, 55px);
+}
+
+/* undo close tab menu item */
+#alltabs_undoCloseTab {
+  list-style-image: url(chrome://browser/skin/undoCloseTab.png);
+}
+
+@media (min-resolution: 1.25dppx) {
+  #alltabs_undoCloseTab {
+    list-style-image: url(chrome://browser/skin/undoCloseTab@2x.png);
+  }
+  #alltabs_undoCloseTab > .toolbarbutton-icon {
+    width: 16px;
+  }
 }
 
 /* zoom control text (reset) button special case: */
@@ -1830,6 +1852,10 @@ richlistitem[type~="action"][actiontype="switchtab"] > .ac-url-box > .ac-action-
   -moz-image-region: rect(0, 48px, 16px, 32px);
 }
 
+/* Loop */
+#loop-call-button {
+  list-style-image: url("chrome://global/skin/loop/loop-call.png");
+}
 
 /* social share panel */
 
@@ -2037,7 +2063,6 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 
 .panel-promo-closebutton > .toolbarbutton-text {
   padding: 0;
-  margin: 0;
 }
 
 /* ::::: content area ::::: */
@@ -2077,7 +2102,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 
 .tabbrowser-tab:not([pinned]) {
   max-width: 190px;
-  min-width: 36px;
+  min-width: 46px;
 }
 
 .tabbrowser-tab:not([pinned]):not([fadein]) {
@@ -2564,6 +2589,11 @@ toolbarbutton.bookmark-item[dragover="true"][open="true"] {
   list-style-image: url(chrome://browser/skin/webRTC-shareMicrophone-64.png);
 }
 
+.popup-notification-icon[popupid="webRTC-sharingScreen"],
+.popup-notification-icon[popupid="webRTC-shareScreen"] {
+  list-style-image: url(chrome://browser/skin/webRTC-shareScreen-64.png);
+}
+
 .popup-notification-icon[popupid="pointerLock"] {
   list-style-image: url(chrome://browser/skin/pointerLock-64.png);
 }
@@ -2705,6 +2735,16 @@ window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #forward-button[disabled
 .webRTC-sharingMicrophone-notification-icon,
 #webRTC-sharingMicrophone-notification-icon {
   list-style-image: url(chrome://browser/skin/webRTC-sharingMicrophone-16.png);
+}
+
+.webRTC-shareScreen-notification-icon,
+#webRTC-shareScreen-notification-icon {
+  list-style-image: url(chrome://browser/skin/webRTC-shareScreen-16.png);
+}
+
+.webRTC-sharingScreen-notification-icon,
+#webRTC-sharingScreen-notification-icon {
+  list-style-image: url(chrome://browser/skin/webRTC-sharingScreen-16.png);
 }
 
 .web-notifications-notification-icon,
@@ -3082,6 +3122,21 @@ notification[value="translation"] {
   color: inherit;
 }
 
+.devtools-responsiveui-menulist .menulist-editable-box {
+  -moz-appearance: none;
+  background-color: transparent;
+}
+
+.devtools-responsiveui-menulist html|*.menulist-editable-input {
+  -moz-appearance: none;
+  color: inherit;
+  text-align: center;
+}
+
+.devtools-responsiveui-menulist html|*.menulist-editable-input::-moz-selection {
+  background: hsla(212,7%,57%,.35);
+}
+
 .devtools-responsiveui-toolbarbutton > .toolbarbutton-icon {
   width: 16px;
   height: 16px;
@@ -3293,6 +3348,7 @@ svg|line.box-model-guide-bottom,
 svg|line.box-model-guide-left {
   stroke: #08C;
   stroke-dasharray: 5 3;
+  shape-rendering: crispEdges;
 }
 
 /* Highlighter - Node Infobar */
@@ -3305,6 +3361,8 @@ svg|line.box-model-guide-left {
   /* Avoid cases where the infobar is smaller than the arrow, when the text is
   short */
   min-width: 75px;
+   /* Avoid a shadow with lightweight themes - Bug 1037908 */
+  text-shadow: none;
 }
 
 /* Highlighter - Node Infobar - text */
@@ -3361,6 +3419,26 @@ html|*.highlighter-nodeinfobar-dimensions {
 
 .highlighter-nodeinfobar-container[hide-arrow] > .highlighter-nodeinfobar {
   margin: 7px 0;
+}
+
+/* Css transform highlighter */
+
+svg|polygon.css-transform-transformed {
+  fill: #80d4ff;
+  opacity: 0.8;
+}
+
+svg|polygon.css-transform-untransformed {
+  fill: #66cc52;
+  opacity: 0.8;
+}
+
+svg|polygon.css-transform-transformed,
+svg|polygon.css-transform-untransformed,
+svg|line.css-transform-line {
+  stroke: #08C;
+  stroke-dasharray: 5 3;
+  stroke-width: 2;
 }
 
 /* Developer toolbar */
