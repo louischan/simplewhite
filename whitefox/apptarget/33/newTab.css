@@ -86,7 +86,7 @@
 }
 
 /* CELLS */
-/*.newtab-cell {
+.newtab-cell {
   transform: rotateX(-15deg);
   transform-origin: 0 0;
   transition: .3s;
@@ -94,7 +94,7 @@
 .newtab-cell:hover {
   transform: rotateX(-15deg) translateY(-9px);
   transition: .3s;
-}*/
+}
 
 #newtab-grid[locked] > .newtab-cell {
   transform: none;
