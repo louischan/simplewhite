@@ -65,15 +65,15 @@
 #newtab-customize-button,
 .newtab-customize {
   background-color: transparent;
-  background-image: -moz-image-rect(url(chrome://browser/skin/newtab/controls.svg), 0, 33, 32, 0);
-  background-size: 28px;
+  background-image: -moz-image-rect(url(chrome://browser/skin/newtab/controls.svg), 0, 32, 32, 0);
+  background-size: 32px;
   border: none;
   height: 28px;
   width: 28px;
 }
 
 #newtab-customize-button:-moz-any(:hover, :active, [active]) {
-  background-image: -moz-image-rect(url(chrome://browser/skin/newtab/controls.svg), 0, 64, 33, 32);
+  background-image: -moz-image-rect(url(chrome://browser/skin/newtab/controls.svg), 0, 64, 32, 32);
 }
 
 /* GRID 3D */
@@ -87,12 +87,12 @@
 
 /* CELLS */
 .newtab-cell {
-  transform: rotateX(-15deg);
+  transform: rotateX(-8deg);
   transform-origin: 0 0;
   transition: .3s;
 }
 .newtab-cell:hover {
-  transform: rotateX(-15deg) translateY(-9px);
+  transform: rotateX(-8deg) translateY(-9px);
   transition: .3s;
 }
 
