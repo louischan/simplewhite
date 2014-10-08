@@ -91,7 +91,7 @@
   transform-origin: 0 0;
   transition: .3s;
 }
-.newtab-cell:hover {
+.newtab-cell:hover:not(:empty) {
   transform: rotateX(-8deg) translateY(-9px);
   transition: .3s;
 }
