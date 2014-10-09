@@ -2,6 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+@import url("chrome://apptarget/skin/popup.css");
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
 menupopup,
@@ -25,33 +26,6 @@ panel[titlebar] {
 panel[type="arrow"] {
   -moz-appearance: none;
   background: transparent;
-  transition: opacity 300ms;
-}
-
-.panel-arrowcontainer[panelopen] {
-  transition-duration: 100ms, 75ms;
-  transition-property: opacity, transform;
-  transition-timing-function: ease-out;
-}
-
-.panel-arrowcontainer:not([panelopen]) {
-  opacity: 0;
-}
-
-.panel-arrowcontainer:not([panelopen])[side="top"] {
-  transform: translateY(-20px);
-}
-
-.panel-arrowcontainer:not([panelopen])[side="bottom"] {
-  transform: translateY(20px);
-}
-
-.panel-arrowcontainer:not([panelopen])[side="left"] {
-  transform: translateX(-20px);
-}
-
-.panel-arrowcontainer:not([panelopen])[side="right"] {
-  transform: translateX(20px);
 }
 
 panel[type="arrow"][side="top"],

@@ -131,7 +131,9 @@ panelmultiview[nosubviews=true] > .panel-viewcontainer > .panel-viewstack > .pan
 
 .panel-subview-header,
 .subviewbutton.panel-subview-footer {
-  padding: 12px;
+  box-sizing: border-box;
+  min-height: 41px;
+  padding: 11px 12px;
 }
 
 .panel-subview-header {
@@ -482,8 +484,9 @@ toolbarpaletteitem[place="palette"] > toolbaritem > toolbarbutton {
 #PanelUI-customize,
 #PanelUI-quit {
   margin: 0;
-  padding: 10px 0;
-  min-height: 2em;
+  padding: 11px 0;
+  box-sizing: border-box;
+  min-height: 40px;
   -moz-appearance: none;
   box-shadow: none;
   border: none;  
@@ -1160,13 +1163,12 @@ menuitem[checked="true"].subviewbutton > .menu-iconic-left {
   margin-bottom: 0;
 }
 
-.subviewbutton > .toolbarbutton-text,
-.subviewbutton > .menu-iconic-text {
-  margin: 2px 0px;
+.subviewbutton > .toolbarbutton-text {
+  margin: 2px 0 !important; /* !important for overriding toolbarbutton.css */
 }
 
 .subviewbutton:-moz-any([image],[targetURI],.cui-withicon, .bookmark-item) > .toolbarbutton-text {
-  margin: 2px 6px;
+  margin: 2px 6px !important; /* !important for overriding toolbarbutton.css */
 }
 
 .restoreallitem > .toolbarbutton-icon {

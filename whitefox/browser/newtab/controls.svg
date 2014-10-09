@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<svg version="1.1"
+     id="icons-enhanced-tiles"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     x="0"
+     y="0"
+     width="288"
+     height="33"
+     viewBox="0 0 288 33">
+
+  <defs>
+    <style type="text/css"><![CDATA[
+      /* Glyph Styles */
+
+      .glyphShape-style {
+        fill: #737373;
+      }
+
+      .glyphShape-style-hover-gear {
+        fill: #00aeff;
+      }
+
+      .glyphShape-style-hover-pin {
+        fill: #00aeff;
+      }
+
+      .glyphShape-style-hover-delete {
+        fill: #666;
+      }
+
+      .glyphShape-style-hover-active {
+        fill: #999;
+      }
+
+      /* Circle Background Styles */
+
+      .glyphShape-style-circle {
+        fill: #fff;
+      }
+
+      .glyphShape-style-circle-dropshadow {
+        fill: #000;
+        fill-opacity: .3;
+        filter: url(#filter-shadow-drop);
+      }
+
+      .default-transparent {
+        opacity: .7;
+      }
+      .default-transparent .glyphShape-style-circle-dropshadow {
+        fill-opacity: .5;
+      }
+      .active-grey .glyphShape-style-circle {
+        fill: #f0f0f0;
+      }
+      ]]></style>
+
+    <filter id="filter-shadow-drop" x="-10%" y="-10%" width="120%" height="120%">
+      <feOffset in="SourceAlpha" dx="0" dy="1.6" result="filter-shadow-drop-offset" />
+      <feGaussianBlur in="filter-shadow-drop-offset" stdDeviation="1" result="filter-shadow-drop-blur"/>
+    </filter>
+
+    <path    id="glyphShape-gear" d="M14,18v3h-3v-3H14 M15,17h-5v5h5V17L15,17z M21,18v3h-3v-3H21 M22,17h-5v5h5V17L22,17z M14,11v3h-3v-3H14 M15,10h-5v5h5V10
+  L15,10z M21,11v3h-3v-3H21 M22,10h-5v5h5V10L22,10z" />
+
+    <circle  id="glyphShape-circle" cx="16" cy="16" r="14" />
+
+    <path    id="glyphShape-pin" d="M19,15v-5h2V7H11v3h2v5l-3,2v2h5c0,4.5,0.4,8,1,8s1-3.5,1-8h5v-2L19,15z" />
+    <polygon id="glyphShape-delete" points="22.6,10.6 21.4,9.4 16,14.8 10.6,9.4 9.4,10.6 14.8,16 9.4,21.4 
+    10.6,22.6 16,17.2 21.4,22.6 22.6,21.4 17.2,16" />
+
+  </defs>
+
+  <g id="icon-gear-default" class="semi-transparent">
+    <use xlink:href="#glyphShape-gear"   class="glyphShape-style" />
+  </g>
+
+  <g id="icon-gear-default" transform="translate(32)">
+    <use xlink:href="#glyphShape-gear"   class="glyphShape-style-hover-gear" />
+  </g>
+
+  <g id="icon-pin-default" transform="translate(64)" class="default-transparent">
+    <use xlink:href="#glyphShape-circle" class="glyphShape-style-circle-dropshadow" />
+    <use xlink:href="#glyphShape-circle" class="glyphShape-style-circle" />
+    <use xlink:href="#glyphShape-pin"    class="glyphShape-style" />
+  </g>
+
+  <g id="icon-pin-hover" transform="translate(96)" class="default-transparent">
+    <use xlink:href="#glyphShape-circle" class="glyphShape-style-circle-dropshadow" />
+    <use xlink:href="#glyphShape-circle" class="glyphShape-style-circle" />
+    <use xlink:href="#glyphShape-pin"    class="glyphShape-style-hover-pin" />
+  </g>
+
+  <g id="icon-pin-hover-active" transform="translate(128)" class="active-grey">
+    <use xlink:href="#glyphShape-circle" class="glyphShape-style-circle-dropshadow" />
+    <use xlink:href="#glyphShape-circle" class="glyphShape-style-circle" />
+    <use xlink:href="#glyphShape-pin"    class="glyphShape-style-hover-active" />
+  </g>
+
+  <g id="icon-delete-default" transform="translate(160)" class="default-transparent">
+    <use xlink:href="#glyphShape-circle" class="glyphShape-style-circle-dropshadow" />
+    <use xlink:href="#glyphShape-circle" class="glyphShape-style-circle" />
+    <use xlink:href="#glyphShape-delete" class="glyphShape-style" />
+  </g>
+
+  <g id="icon-delete-hover" transform="translate(192)">
+    <use xlink:href="#glyphShape-circle" class="glyphShape-style-circle-dropshadow" />
+    <use xlink:href="#glyphShape-circle" class="glyphShape-style-circle" />
+    <use xlink:href="#glyphShape-delete" class="glyphShape-style-hover-delete" />
+  </g>
+
+  <g id="icon-delete-hover-active" transform="translate(224)" class="active-grey">
+    <use xlink:href="#glyphShape-circle" class="glyphShape-style-circle-dropshadow" />
+    <use xlink:href="#glyphShape-circle" class="glyphShape-style-circle" />
+    <use xlink:href="#glyphShape-delete" class="glyphShape-style-hover-active" />
+  </g>
+
+  <g id="icon-pin-default" transform="translate(256)">
+    <use xlink:href="#glyphShape-pin"    class="glyphShape-style-pin" />
+  </g>
+
+</svg>

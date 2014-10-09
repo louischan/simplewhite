@@ -9,20 +9,23 @@
 @namespace svg url("http://www.w3.org/2000/svg");
 
 #menubar-items {
-  -moz-box-orient: vertical; 
+  -moz-box-orient: vertical; /* for flex hack */
 }
 
 #main-menubar {
-  -moz-box-flex: 1; 
+  -moz-box-flex: 1; /* make menu items expand to fill toolbar height */
 }
 
 @media (-moz-windows-theme) {
-
+/* Hides the titlebar-placeholder underneath the window caption buttons when we
+   are not autohiding the menubar. */
 #toolbar-menubar:not([autohide="true"]) + #TabsToolbar > .titlebar-placeholder[type="caption-buttons"] {
   display: none;
 }
 
-
+/* We want a 4px gap between the TabsToolbar and the toolbar-menubar when the
+   toolbar-menu is displayed, and a 16px gap when it is not. 1px is taken care
+   of by the (light) outer shadow of the tab, the remaining 3/15 are these margins. */
 #toolbar-menubar:not([moz-collapsed=true]):not([autohide=true]) ~ #TabsToolbar,
 #toolbar-menubar:not([moz-collapsed=true])[autohide=true]:not([inactive]) ~ #TabsToolbar {
   margin-top: 3px;
@@ -54,7 +57,7 @@
 #navigator-toolbox::after {
   content: "";
   display: -moz-box;
-  -moz-box-ordinal-group: 101; 
+  -moz-box-ordinal-group: 101; /* tabs toolbar is 100 */
   height: 1px;
   background-color: #c7c7c7;
 }
@@ -66,6 +69,18 @@
 
 #navigator-toolbox > toolbar:not(#toolbar-menubar):not(#TabsToolbar):not(:-moz-lwtheme) {
   background-color: rgba(250,250,250,1);
+}
+
+#navigator-toolbox > toolbar:not(#toolbar-menubar):not(#TabsToolbar):not(#nav-bar):not(#addon-bar) {
+  overflow: -moz-hidden-unscrollable;
+  max-height: 4em;
+  transition: min-height 170ms ease-out, max-height 170ms ease-out;
+}
+
+#navigator-toolbox > toolbar:not(#toolbar-menubar):not(#TabsToolbar):not(#nav-bar):not(#addon-bar)[collapsed=true] {
+  min-height: 0.1px;
+  max-height: 0;
+  transition: min-height 170ms ease-out, max-height 170ms ease-out, visibility 170ms linear;
 }
 
 @media not all and (-moz-windows-compositor),
@@ -96,11 +111,21 @@
   }
 }
 
-
+/**
+ * In the classic themes, the titlebar has a horizontal gradient, which is
+ * problematic for reading the text of background tabs when they're in the
+ * titlebar. We side-step this issue by layering our own background underneath
+ * the tabs. Unfortunately, this requires a bunch of positioning in order to get
+ * text and icons to not appear fuzzy.
+ */
 @media (-moz-windows-classic) {
+  /**
+   * We need to bump up the z-index of the tabbrowser-tabs so that they appear
+   * over top of the fog we're applying for classic themes, as well as the nav-bar.
+   */
   #main-window[tabsintitlebar]:not([sizemode=fullscreen]) #tabbrowser-tabs {
     position: relative;
-    
+    /*z-index: 2; EVIL!! Louis*/
   }
 
   #main-window[tabsintitlebar] #TabsToolbar:not(:-moz-lwtheme) {
@@ -108,8 +133,13 @@
   }
 
   #main-window[tabsintitlebar]:not([sizemode=fullscreen]) #TabsToolbar:not(:-moz-lwtheme)::after {
+    /* Because we use placeholders for window controls etc. in the tabstrip,
+     * and position those with ordinal attributes, and because our layout code
+     * expects :before/:after nodes to come first/last in the frame list,
+     * we have to reorder this element to come last, hence the
+     * ordinal group value (see bug 853415). */
     -moz-box-ordinal-group: 1001;
-    
+    /*box-shadow: 0 0 50px 8px ActiveCaption; EVIL!! Louis*/
     content: "";
     display: -moz-box;
     height: 0;
@@ -129,12 +159,16 @@
     position: relative;
   }
 
-  
+  /* Need to constrain the box shadow fade to avoid overlapping layers, see bug 886281. */
   #main-window[tabsintitlebar]:not([sizemode=fullscreen]) #navigator-toolbox:not(:-moz-lwtheme) {
     overflow: -moz-hidden-unscrollable;
   }
 
-  
+  /**
+   * When the tabstrip is overflowed, pinned tab separators get position: absolute,
+   * which makes the pinned tab separators leak over the nav-bar highlight. Forcing
+   * the element to snap to the bottom of the client rect works around the issue.
+   */
   #main-window[tabsintitlebar] #tabbrowser-tabs[positionpinnedtabs] > .tabbrowser-tab[pinned]::before {
     bottom: 0px;
   }
@@ -144,32 +178,93 @@
     z-index: 1;
   }
 
-  
+  /**
+   * With the tabbrowser-tabs element z-index'd above the nav-bar, we now get the
+   * scrollbox button borders leaking over the nav-bar highlight. This transparent bottom
+   * border forces the scrollbox button borders to terminate a pixel early, working
+   * around the issue.
+   */
   #main-window[tabsintitlebar]:not([sizemode=fullscreen]) .tabbrowser-arrowscrollbox > .scrollbutton-up,
   #main-window[tabsintitlebar]:not([sizemode=fullscreen]) .tabbrowser-arrowscrollbox > .scrollbutton-down {
     border-bottom: 1px solid transparent;
   }
 
   #main-window[tabsintitlebar][sizemode="normal"] #titlebar-content:-moz-lwtheme {
+    /* Render a window top border: */
     background-image: linear-gradient(to bottom,
           ThreeDLightShadow 0, ThreeDLightShadow 1px,
           ThreeDHighlight 1px, ThreeDHighlight 2px,
           ActiveBorder 2px, ActiveBorder 4px, transparent 4px);
   }
 
-  
+  /* End classic titlebar gradient */
 
   #main-window[tabsintitlebar]:not([inFullscreen]) :-moz-any(#TabsToolbar, #toolbar-menubar) toolbarbutton:not(:-moz-lwtheme) {
     color: inherit;
   }
 }
 
+/* Render a window top border for lwthemes on WinXP modern themes: */
+/*@media (-moz-windows-theme: luna-blue) {
+  #main-window[tabsintitlebar][sizemode="normal"] #titlebar-content:-moz-lwtheme {
+    background-image: linear-gradient(to bottom,
+        rgb(8, 49, 216) 0, rgb(8, 49, 216) 1px,
+        rgb(15, 77, 227) 1px, rgb(15, 77, 227) 2px,
+        rgb(22, 106, 238) 2px, rgb(22, 106, 238) 3px,
+        rgb(8, 85, 221) 3px, rgb(8, 85, 221) 4px,
+        transparent 4px);
+  }
 
+  #main-window[tabsintitlebar][sizemode="normal"] #titlebar-content:-moz-lwtheme:-moz-window-inactive {
+    background-image: linear-gradient(to bottom,
+        rgb(91, 104, 205) 0, rgb(91, 104, 205) 1px,
+        rgb(116, 128, 220) 1px, rgb(116, 128, 220) 2px,
+        rgb(117, 140, 221) 2px, rgb(117, 140, 221) 4px,
+        transparent 4px);
+  }
+}
 
+@media (-moz-windows-theme: luna-silver) {
+  #main-window[tabsintitlebar][sizemode="normal"] #titlebar-content:-moz-lwtheme {
+    background-image: linear-gradient(to bottom,
+        rgb(102,102,126) 0, rgb(102,102,126) 1px,
+        rgb(168,167,191) 1px, rgb(168,167,191) 2px,
+        white 2px, white 3px,
+        rgb(188,188,207) 3px, rgb(188,188,207) 4px,
+        transparent 4px);
+  }
+
+  #main-window[tabsintitlebar][sizemode="normal"] #titlebar-content:-moz-lwtheme:-moz-window-inactive {
+    background-image: linear-gradient(to bottom,
+        rgb(186,186,197) 0, rgb(186,186,197) 1px,
+        rgb(236,238,245) 1px, rgb(236,238,245) 2px,
+        white 2px, white 3px,
+        rgb(215,215,227) 3px, rgb(215,215,227) 4px,
+        transparent 4px);
+  }
+}
+
+@media (-moz-windows-theme: luna-olive) {
+  #main-window[tabsintitlebar][sizemode="normal"] #titlebar-content:-moz-lwtheme {
+    background-image: linear-gradient(to bottom,
+        rgb(139,161,105) 0, rgb(139,161,105) 1px,
+        rgb(171, 189, 133) 1px, rgb(171, 189, 133) 2px,
+        rgb(164,178,127) 2px, rgb(164,178,127) 3px,
+        transparent 3px);
+  }
+
+  #main-window[tabsintitlebar][sizemode="normal"] #titlebar-content:-moz-lwtheme:-moz-window-inactive {
+    background-image: linear-gradient(to bottom,
+        rgb(207, 214, 188) 0, rgb(207, 214, 188) 1px,
+        rgb(224, 226, 200) 1px, rgb(224, 226, 200) 2px,
+        rgb(214, 216, 190) 2px, rgb(214, 216, 190) 3px,
+        transparent 3px);
+  }
+}*/
 
 #TabsToolbar:not([collapsed="true"]) + #nav-bar {
-  margin-top: -1px; 
-  
+  margin-top: -1px; /* Move up into the TabsToolbar for the inner highlight at the top of the nav-bar */
+  /* Position the toolbar above the bottom of background tabs */
   position: relative;
   z-index: 1;
 }
@@ -178,7 +273,7 @@
   border-top: 1px solid hsla(0,0%,12%,0.25) !important;
   background-clip: padding-box;
   background-image: linear-gradient(rgba(250,250,250,1), rgba(250,250,250,1));
-  
+  /*box-shadow: 0 1px 0 rgba(253,253,253,0.45) inset;*/
 }
 
 @media not all and (-moz-windows-compositor) {
@@ -216,16 +311,21 @@
   }
 }
 
-
+/* The button box must appear on top of the navigator-toolbox in order for
+ * click and hover mouse events to work properly for the button in the restored
+ * window state. Otherwise, elements in the navigator-toolbox, like the menubar,
+ * can swallow those events. It will also place the buttons above the fog on
+ * themes with Aero Glass.
+ */
 #titlebar-buttonbox {
   z-index: 1;
 }
 
 .titlebar-placeholder[type="caption-buttons"] {
-  margin-left: 22px; 
+  margin-left: 22px; /* additional space for Aero Snap */
 }
 
-
+/* titlebar command buttons */
 
 #titlebar-min {
   -moz-appearance: -moz-window-button-minimize;
@@ -254,7 +354,7 @@
 toolbarbutton.bookmark-item:not(.subviewbutton),
 #personal-bookmarks[cui-areatype="toolbar"]:not([overflowedItem=true]) > #bookmarks-toolbar-placeholder {
   margin: 0;
-  padding: 0px 5px;
+  padding: 0px 5px;/*Louis*/
   max-width: 140px;
   margin-right: 3px;
   margin-bottom: 2px;
@@ -263,13 +363,17 @@ toolbarbutton.bookmark-item:not(.subviewbutton),
   -moz-appearance: none;
 }
 
-toolbarbutton.bookmark-item:hover {
+toolbarbutton.bookmark-item:hover {/*Louis*/
   border: 1px solid rgba(0,0,0,.2);
   background-image: linear-gradient(rgba(255,255,255,.8), rgba(240,240,240,.8));
 }
 
 toolbarbutton.bookmark-item:not([disabled="true"]):not(.subviewbutton):hover:active,
 toolbarbutton.bookmark-item[open="true"] {
+  /*padding-top: 3px;
+  padding-bottom: 1px;
+  -moz-padding-start: 4px;
+  -moz-padding-end: 2px; Louis*/
   border: 1px solid rgba(0,0,0,.2);
   background-image: linear-gradient(rgba(218,218,218,.8), rgba(225,225,225,.8));
 }
@@ -280,7 +384,7 @@ toolbarbutton.bookmark-item[open="true"] {
   height: 16px;
 }
 
-
+/* Force the display of the label for bookmarks */
 .bookmark-item > .toolbarbutton-text,
 #personal-bookmarks[cui-areatype="toolbar"] > #bookmarks-toolbar-placeholder > .toolbarbutton-text {
   display: -moz-box !important;
@@ -299,7 +403,7 @@ toolbarpaletteitem[place="palette"] > #personal-bookmarks > #bookmarks-toolbar-p
   list-style-image: url("chrome://browser/skin/places/bookmarksToolbar-menuPanel.png") !important;
 }
 
-
+/* ----- BOOKMARK STAR ANIMATION ----- */
 
 @keyframes animation-bookmarkAdded {
   from { transform: rotate(0deg) translateX(-16px) rotate(0deg) scale(1); opacity: 0; }
@@ -443,14 +547,14 @@ menuitem.bookmark-item {
 
 /* ::::: primary toolbar buttons ::::: */
 
+/* Note that this file isn't used for HiDPI on OS X. */
 
-
-:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button),
+:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button),
 #bookmarks-menu-button > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon {
   list-style-image: url("chrome://browser/skin/Toolbar.png");
 }
 
-toolbar[brighttext] :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button),
+toolbar[brighttext] :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button),
 toolbar[brighttext] #bookmarks-menu-button > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon {
   list-style-image: url(chrome://browser/skin/Toolbar-inverted.png);
 }
@@ -590,10 +694,6 @@ toolbar[brighttext] #sync-button[status="active"]:hover:active:not([disabled="tr
   -moz-image-region: rect(0, 576px, 18px, 558px);
 }
 
-#webrtc-status-button:not(:-moz-any(:not([cui-areatype="toolbar"]), [overflowedItem=true])) {
-  -moz-image-region: rect(0, 594px, 18px, 576px);
-}
-
 #nav-bar-overflow-button {
   -moz-image-region: rect(0, 612px, 18px, 594px);
 }
@@ -613,11 +713,11 @@ toolbar[brighttext] #sync-button[status="active"]:hover:active:not([disabled="tr
 #sidebar-button[cui-areatype="toolbar"] {
   -moz-image-region: rect(0, 684px, 18px, 666px);
 }
-
+/* Menu panel and palette styles */
 
 toolbaritem[sdkstylewidget="true"] > toolbarbutton,
-:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)[cui-areatype="menu-panel"],
-toolbarpaletteitem[place="palette"] > :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button) {
+:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)[cui-areatype="menu-panel"],
+toolbarpaletteitem[place="palette"] > :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button) {
   list-style-image: url(chrome://browser/skin/menuPanel.png);
 }
 
@@ -765,7 +865,7 @@ toolbaritem[sdkstylewidget="true"] > toolbarbutton {
   -moz-image-region: rect(0, 832px, 32px, 800px);
 }
 
-
+/* Wide panel control icons */
 
 #edit-controls:-moz-any(:not([cui-areatype="toolbar"]), [overflowedItem=true]) > toolbarbutton,
 #zoom-controls:-moz-any(:not([cui-areatype="toolbar"]), [overflowedItem=true]) > toolbarbutton,
@@ -838,9 +938,12 @@ toolbar[brighttext] .toolbarbutton-1 > .toolbarbutton-menubutton-dropmarker {
   -moz-box-pack: center;
 }
 
+/*#nav-bar #PanelUI-menu-button {
+  -moz-padding-start: 7px;
+  -moz-padding-end: 5px;
+}*/
 
-
-#nav-bar .toolbarbutton-1[type=menu]:not(#back-button):not(#forward-button):not(#feed-button):not(#social-provider-button) {
+#nav-bar .toolbarbutton-1[type=menu]:not(#back-button):not(#forward-button):not(#feed-button):not(#social-provider-button)/*:not(#PanelUI-menu-button)*/ {
   padding-left: 5px;
   padding-right: 5px;
 }
@@ -880,23 +983,24 @@ window:not([chromehidden~="toolbar"]) #urlbar-wrapper > .toolbarbutton-1:-moz-an
   transition-duration: 150ms;
 }
 
-#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)) > .toolbarbutton-icon,
-#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)) > .toolbarbutton-badge-container,
-#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #webrtc-status-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)) > .toolbarbutton-menubutton-button > .toolbarbutton-icon {
+#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)) > .toolbarbutton-icon,
+#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)) > .toolbarbutton-badge-container,
+#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button)) > .toolbarbutton-menubutton-button > .toolbarbutton-icon {
   padding: 3px 7px;
 }
 
-
+/* Help SDK icons fit: */
 toolbarbutton[sdk-button="true"][cui-areatype="toolbar"] > .toolbarbutton-icon {
   width: 16px;
 }
 
 #nav-bar toolbarbutton[sdk-button="true"][cui-areatype="toolbar"] > .toolbarbutton-icon {
+  /* XXXgijs box models strike again: this is 16px + 2 * 7px padding + 2 * 1px border (from the rules above) */
   width: 32px;
 }
 
 #nav-bar .toolbarbutton-1[type=menu]:not(#back-button):not(#forward-button):not(#feed-button):not(#social-provider-button):not(#PanelUI-menu-button) > .toolbarbutton-icon,
-#nav-bar .toolbarbutton-1[type=menu] > .toolbarbutton-text  {
+#nav-bar .toolbarbutton-1[type=menu] > .toolbarbutton-text /* hack for add-ons that forcefully display the label */ {
   -moz-padding-end: 17px;
 }
 
@@ -904,7 +1008,9 @@ toolbarbutton[sdk-button="true"][cui-areatype="toolbar"] > .toolbarbutton-icon {
   -moz-margin-start: -15px;
 }
 
-
+/*#nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-button > .toolbarbutton-icon {
+  -moz-border-end: none;
+}*/
 
 #nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon {
   padding: 8px 5px 7px;
@@ -920,7 +1026,7 @@ toolbarbutton[sdk-button="true"][cui-areatype="toolbar"] > .toolbarbutton-icon {
   padding-right: 0;
 }
 
-#nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-dropmarker::before,
+#nav-bar .toolbarbutton-1/*:not(:hover):not(:active):not([open])*/ > .toolbarbutton-menubutton-dropmarker::before,
 #nav-bar .toolbaritem-combined-buttons > .toolbarbutton-1:-moz-any(:not(:hover):not([open]),[disabled=true]) + .toolbarbutton-1:-moz-any(:not(:hover):not([open]),[disabled=true])::before {
   content: "";
   display: -moz-box;
@@ -936,8 +1042,91 @@ toolbarbutton[sdk-button="true"][cui-areatype="toolbar"] > .toolbarbutton-icon {
   margin-left: -1px;
 }
 
+/*window:not([chromehidden~="toolbar"]) #urlbar-wrapper > .toolbarbutton-1:-moz-any([disabled],:not([open]):not([disabled]):not(:active)) > .toolbarbutton-icon {
+  border-color: hsla(210,4%,10%,.1);
+}
 
-  
+#nav-bar .toolbarbutton-1:not([disabled=true]) > .toolbarbutton-menubutton-button[open] + .toolbarbutton-menubutton-dropmarker > .dropmarker-icon,
+#nav-bar .toolbarbutton-1:not([disabled=true]):-moz-any(:hover,[open]) > .toolbarbutton-menubutton-button > .toolbarbutton-icon,
+#nav-bar .toolbarbutton-1:not([disabled=true]):-moz-any(:hover,[open]) > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon,
+#nav-bar .toolbarbutton-1:not([disabled=true]):not([checked]):not([open]):not(:active):hover > .toolbarbutton-icon,
+#nav-bar .toolbarbutton-1:not([disabled=true]):not([checked]):not([open]):not(:active):hover > .toolbarbutton-text,
+#nav-bar .toolbarbutton-1:not([disabled=true]):not([checked]):not([open]):not(:active):hover > .toolbarbutton-badge-container,
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #forward-button:not([open]):not(:active):not([disabled]):hover > .toolbarbutton-icon,
+#nav-bar .toolbarbutton-1:not([buttonover]):not([open]):not(:active):hover > .toolbarbutton-menubutton-dropmarker:not([disabled]) > .dropmarker-icon {
+  background-color: hsla(210,4%,10%,.08);
+  border-color: hsla(210,4%,10%,.1);
+}
+
+@media (-moz-os-version: windows-vista),
+       (-moz-os-version: windows-win7) {
+  /* < Win8 *
+  #nav-bar .toolbarbutton-1:not(:hover):not(:active):not([open]) > .toolbarbutton-menubutton-dropmarker::before,
+  #nav-bar .toolbaritem-combined-buttons > .toolbarbutton-1:-moz-any(:not(:hover):not([open]),[disabled]) + .toolbarbutton-1:-moz-any(:not(:hover):not([open]),[disabled])::before {
+    content: "";
+    display: -moz-box;
+    width: 1px;
+    height: 18px;
+    -moz-margin-end: -1px;
+    background-image: linear-gradient(hsla(210,54%,20%,.2) 0, hsla(210,54%,20%,.2) 18px);
+    background-clip: padding-box;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1px 18px;
+    box-shadow: 0 0 0 1px hsla(0,0%,100%,.2);
+  }
+
+  #nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-button > .toolbarbutton-icon:-moz-locale-dir(ltr),
+  #nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon:-moz-locale-dir(rtl) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  #nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-button > .toolbarbutton-icon:-moz-locale-dir(rtl),
+  #nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon:-moz-locale-dir(ltr) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  #nav-bar .toolbarbutton-1:not([disabled=true]) > .toolbarbutton-menubutton-button[open] + .toolbarbutton-menubutton-dropmarker > .dropmarker-icon,
+  #nav-bar .toolbarbutton-1:not([disabled]):-moz-any(:hover,[open]) > .toolbarbutton-menubutton-button > .toolbarbutton-icon,
+  #nav-bar .toolbarbutton-1:not([disabled]):hover > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon,
+  #nav-bar .toolbarbutton-1:not([disabled]):not([checked]):not([open]):not(:active):hover > .toolbarbutton-icon,
+  #nav-bar .toolbarbutton-1:not([disabled]):not([checked]):not([open]):not(:active):hover > .toolbarbutton-text,
+  #nav-bar .toolbarbutton-1:not([disabled]):not([checked]):not([open]):not(:active):hover > .toolbarbutton-badge-container,
+  window:not([chromehidden~="toolbar"]) #urlbar-wrapper > .toolbarbutton-1:-moz-any([disabled],:not([open]):not([disabled]):not(:active)) > .toolbarbutton-icon {
+    background-image: linear-gradient(hsla(0,0%,100%,.6), hsla(0,0%,100%,.1));
+    background-color: transparent;
+    border-color: hsla(210,54%,20%,.15) hsla(210,54%,20%,.2) hsla(210,54%,20%,.25);
+    box-shadow: 0 1px hsla(0,0%,100%,.3) inset,
+                0 1px hsla(210,54%,20%,.03),
+                0 0 2px hsla(210,54%,20%,.1);
+  }
+
+  #nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-button:not([disabled]):not([open]):not(:active):hover > .toolbarbutton-icon,
+  #nav-bar .toolbarbutton-1:not([buttonover]):not([open]):not(:active):hover > .toolbarbutton-menubutton-dropmarker:not([disabled]) > .dropmarker-icon,
+  window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #forward-button:not([open]):not(:active):not([disabled]):hover > .toolbarbutton-icon {
+    border-color: hsla(210,54%,20%,.3) hsla(210,54%,20%,.35) hsla(210,54%,20%,.4);
+    background-color: hsla(210,48%,96%,.75);
+    box-shadow: 0 0 1px hsla(210,54%,20%,.03),
+                0 0 2px hsla(210,54%,20%,.1);
+  }
+}
+
+#nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-button:not([disabled=true]):-moz-any(:hover:active, [open]) > .toolbarbutton-icon,
+#nav-bar .toolbarbutton-1[open] > .toolbarbutton-menubutton-dropmarker:not([disabled=true]) > .dropmarker-icon,
+#nav-bar .toolbarbutton-1:not([disabled=true]):-moz-any([open],[checked],:hover:active) > .toolbarbutton-icon,
+#nav-bar .toolbarbutton-1:not([disabled=true]):-moz-any([open],[checked],:hover:active) > .toolbarbutton-text,
+#nav-bar .toolbarbutton-1:not([disabled=true]):-moz-any([open],[checked],:hover:active) > .toolbarbutton-badge-container {
+  background-color: hsla(210,4%,10%,.12);
+  border-top-color: hsla(210,4%,10%,.2);
+  box-shadow: 0 1px 0 0 hsla(210,4%,10%,.1) inset;
+  transition-duration: 10ms;
+}
+
+@media (-moz-os-version: windows-vista),
+       (-moz-os-version: windows-win7) {*/
+  /* < Win8 */
   #nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-button:not([disabled=true]):-moz-any(:hover:active, [open]) > .toolbarbutton-icon,
   #nav-bar .toolbarbutton-1[open] > .toolbarbutton-menubutton-dropmarker:not([disabled=true]) > .dropmarker-icon,
   #nav-bar .toolbarbutton-1:not([disabled=true]):-moz-any([open],[checked],:hover:active) > .toolbarbutton-icon,
@@ -948,20 +1137,22 @@ toolbarbutton[sdk-button="true"][cui-areatype="toolbar"] > .toolbarbutton-icon {
     border-color: hsla(0,0%,0%,.2) hsla(0,0%,0%,.24) hsla(0,0%,0%,.22);
     box-shadow: 0 1px 1px hsla(0,0%,0%,.06) inset,
                 0 0 1px hsla(0,0%,0%,.12) inset,
-                
+                /* allows windows-keyhole-forward-clip-path to be used for non-hover as well as hover: */
                 0 1px 0 hsla(0,0%,0%,0),
                 0 0 2px hsla(0,0%,0%,0);
     text-shadow: none;
     transition: none;
   }
 
-  
+  /*#nav-bar .toolbarbutton-1:-moz-any(:hover,[open]) > .toolbarbutton-menubutton-dropmarker:not([disabled]) > .dropmarker-icon {
+    -moz-border-start-color: hsla(210,54%,20%,.35);
+  }*/
 
   #nav-bar .toolbarbutton-1[checked]:not(:active):hover > .toolbarbutton-icon {
     background-color: rgba(90%,90%,90%,.4);
     transition: background-color .4s;
   }
-
+/*}*/
 
 #TabsToolbar .toolbarbutton-1,
 #TabsToolbar .toolbarbutton-1 > .toolbarbutton-menubutton-button,
@@ -985,23 +1176,102 @@ toolbarbutton[sdk-button="true"][cui-areatype="toolbar"] > .toolbarbutton-icon {
   background-repeat: no-repeat;
 }
 
-
+/* unified back/forward button */
 
 #forward-button {
-  padding: 0 2px !important; 
+  padding: 0 2px !important; /*fix for FF>=31a2 - Louis*/
 }
 
-
+/*#forward-button > menupopup {
+  margin-top: 1px !important;
+}*/
 
 #forward-button > .toolbarbutton-icon {
   margin-left: -4px !important;
   margin-right: -2px !important;
-  
+  /*border-left-style: none !important;
+  border-radius: 0 !important;*/
   padding-left: 2px !important;
   padding-right: 2px !important;
 }
 
+/*window:not([chromehidden~="toolbar"]) #urlbar-wrapper:not([switchingtabs]) > #forward-button {
+  transition: opacity 150ms ease-out;
+}
 
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #forward-button[disabled] {
+  margin-left: -30px;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper:hover:not([switchingtabs]) > #forward-button[disabled] {
+  /* delay the hiding of the forward button when hovered to avoid accidental clicks on the url bar 
+  transition-delay: 100s;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper:not(:hover) > #forward-button[disabled] {
+  /* when not hovered anymore, trigger a new transition to hide the forward button immediately 
+  margin-left: -30.01px;
+}
+
+#back-button {
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+  -moz-padding-start: 5px !important;
+  -moz-padding-end: 0 !important;
+  position: relative !important;
+  z-index: 1 !important;
+  border-radius: 0 10000px 10000px 0 !important;
+}
+
+#back-button:-moz-locale-dir(rtl) {
+  border-radius: 10000px 0 0 10000px !important;
+}
+
+#back-button > menupopup {
+  margin-top: -1px !important;
+}
+
+#back-button > .toolbarbutton-icon {
+  border-radius: 10000px !important;
+  background-clip: padding-box !important;
+  background-color: hsla(210,25%,98%,.08) !important;
+  padding: 6px !important;
+  border-style: none !important;
+  box-shadow: 0 1px 0 0 hsla(210,4%,10%,.25),
+              0 0 0 1px hsla(210,4%,10%,.25);
+  transition-property: background-color, box-shadow !important;
+  transition-duration: 250ms !important;
+}
+
+#back-button:not([disabled="true"]):not([open="true"]):not(:active):hover > .toolbarbutton-icon {
+  background-color: hsla(210,48%,96%,.75) !important;
+  box-shadow: 0 1px 0 hsla(0,0%,100%,.3) inset,
+              0 0 0 1px hsla(0,0%,100%,.3) inset,
+              0 0 0 1px hsla(210,54%,20%,.3),
+              0 1px 0 hsla(210,54%,20%,.4),
+              0 0 4px hsla(210,54%,20%,.2) !important;
+}
+
+#back-button:not([disabled="true"]):hover:active > .toolbarbutton-icon,
+#back-button[open="true"] > .toolbarbutton-icon {
+  background-color: hsla(210,54%,20%,.15) !important;
+  box-shadow: 0 1px 1px hsla(210,54%,20%,.1) inset,
+              0 0 1px hsla(210,54%,20%,.2) inset,
+              0 0 0 1px hsla(210,54%,20%,.4),
+              0 1px 0 hsla(210,54%,20%,.2) !important;
+  transition: none;
+}
+
+#main-window:not([customizing]) #back-button[disabled] > .toolbarbutton-icon {
+  box-shadow: 0 0 0 1px hsla(210,54%,20%,.55),
+              0 1px 0 hsla(210,54%,20%,.65) !important;
+  transition: none;
+}
+
+#back-button:-moz-locale-dir(rtl) > .toolbarbutton-icon,
+#forward-button:-moz-locale-dir(rtl) {
+  transform: scaleX(-1);
+}*/
 
 .unified-nav-back[_moz-menuactive]:-moz-locale-dir(ltr),
 .unified-nav-forward[_moz-menuactive]:-moz-locale-dir(rtl) {
@@ -1013,7 +1283,7 @@ toolbarbutton[sdk-button="true"][cui-areatype="toolbar"] > .toolbarbutton-icon {
   list-style-image: url("chrome://browser/skin/menu-forward.png") !important;
 }
 
-
+/* tabview menu item */
 
 #menu_tabview {
   list-style-image: url(chrome://browser/skin/tabview/tabview.png);
@@ -1036,9 +1306,27 @@ toolbarbutton[sdk-button="true"][cui-areatype="toolbar"] > .toolbarbutton-icon {
   -moz-image-region: rect(1px, 71px, 17px, 55px);
 }
 
+/* undo close tab menu item */
+#alltabs_undoCloseTab {
+  list-style-image: url(chrome://browser/skin/undoCloseTab.png);
+}
 
+@media (min-resolution: 1.25dppx) {
+  #alltabs_undoCloseTab {
+    list-style-image: url(chrome://browser/skin/undoCloseTab@2x.png);
+  }
+  #alltabs_undoCloseTab > .toolbarbutton-icon {
+    width: 16px;
+  }
+}
+
+/* zoom control text (reset) button special case: */
 
 #nav-bar #zoom-reset-button > .toolbarbutton-text {
+  /* To make this line up with the icons, it needs the same height (18px) +
+   * padding (2 * 2px) + border (2 * 1px), but as a minimum because otherwise
+   * increase in text sizes would break things...
+   */
   min-height: 24px;
 }
 
@@ -1102,7 +1390,52 @@ toolbarbutton[sdk-button="true"][cui-areatype="toolbar"] > .toolbarbutton-icon {
   -moz-padding-end: 2px;
 }
 
+/*#urlbar:-moz-lwtheme,
+.searchbar-textbox:-moz-lwtheme {
+  background-color: rgba(255,255,255,.8);
+  border-color: rgba(0,0,0,.32);
+  color: black;
+}
 
+#urlbar:-moz-lwtheme:hover:not([focused]):not([readonly]),
+.searchbar-textbox:-moz-lwtheme:hover:not([focused]) {
+  background-color: rgba(255,255,255,.9);
+}
+
+#urlbar:-moz-lwtheme[focused]:not([readonly]),
+.searchbar-textbox:-moz-lwtheme[focused] {
+  background-color: white;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #urlbar {
+  -moz-border-start: none;
+  margin-left: 0;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #urlbar:-moz-locale-dir(ltr) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #urlbar:-moz-locale-dir(rtl) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper {
+  clip-path: url("chrome://browser/content/browser.xul#urlbar-back-button-clip-path");
+  -moz-margin-start: -5px;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper:-moz-locale-dir(rtl),
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #urlbar:-moz-locale-dir(rtl) {
+  /* let urlbar-back-button-clip-path clip the urlbar's right side for RTL 
+  transform: scaleX(-1);
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper:-moz-locale-dir(rtl) {
+  -moz-box-direction: reverse;
+}*/
 
 html|*.urlbar-input:-moz-lwtheme::-moz-placeholder,
 .searchbar-textbox:-moz-lwtheme > .autocomplete-textbox-container > .textbox-input-box > html|*.textbox-input::-moz-placeholder {
@@ -1135,7 +1468,14 @@ html|*.urlbar-input:-moz-lwtheme::-moz-placeholder,
   padding: 2px 2px;
 }
 
+/*.urlbar-icon:hover {
+  background-image: radial-gradient(circle closest-side, hsla(200,100%,70%,.3), hsla(200,100%,70%,0));
+}
 
+.urlbar-icon[open="true"],
+.urlbar-icon:hover:active {
+  background-image: radial-gradient(circle closest-side, hsla(200,100%,70%,.1), hsla(200,100%,70%,0));
+}*/
 
 #urlbar-search-splitter {
   min-width: 6px;
@@ -1164,7 +1504,7 @@ html|*.urlbar-input:-moz-lwtheme::-moz-placeholder,
   min-width: calc(54px + 11ch);
 }
 
-
+/* identity box */
 
 #identity-box {
   padding: 4px 2px;
@@ -1187,7 +1527,36 @@ html|*.urlbar-input:-moz-lwtheme::-moz-placeholder,
   border-radius: 0;
 }
 
+/*window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #urlbar > #identity-box {
+  border-radius: 0;
+}
 
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper:not([switchingtabs]) > #urlbar > #identity-box {
+  transition: padding-left, padding-right;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #forward-button[disabled] + #urlbar > #notification-popup-box[hidden] + #identity-box:-moz-locale-dir(ltr) {
+  padding-left: 5px;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #forward-button[disabled] + #urlbar > #notification-popup-box[hidden] + #identity-box:-moz-locale-dir(rtl) {
+  padding-right: 5px;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper:hover:not([switchingtabs]) > #forward-button[disabled] + #urlbar > #notification-popup-box[hidden] + #identity-box {
+  /* forward button hiding is delayed when hovered *
+  transition-delay: 100s;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper:not(:hover) > #forward-button[disabled] + #urlbar > #notification-popup-box[hidden] + #identity-box:-moz-locale-dir(ltr) {
+  /* when not hovered anymore, trigger a new non-delayed transition to react to the forward button hiding *
+  padding-left: 5.01px;
+}
+
+window:not([chromehidden~="toolbar"]) #urlbar-wrapper:not(:hover) > #forward-button[disabled] + #urlbar > #notification-popup-box[hidden] + #identity-box:-moz-locale-dir(rtl) {
+  /* when not hovered anymore, trigger a new non-delayed transition to react to the forward button hiding *
+  padding-right: 5.01px;
+}*/
 
 #urlbar[pageproxystate="valid"] > #identity-box.chromeUI,
 #urlbar[pageproxystate="valid"] > #identity-box.verifiedIdentity {
@@ -1208,7 +1577,7 @@ html|*.urlbar-input:-moz-lwtheme::-moz-placeholder,
   -moz-padding-end: 5px;
 }
 
-
+/* Location bar dropmarker */
 
 .urlbar-history-dropmarker {
   -moz-appearance: none;
@@ -1221,15 +1590,17 @@ html|*.urlbar-input:-moz-lwtheme::-moz-placeholder,
 }
 
 .urlbar-history-dropmarker:hover {
+  /*background-image: radial-gradient(circle closest-side, hsla(205,100%,70%,.3), hsla(205,100%,70%,0));*/
   -moz-image-region: rect(0px, 22px, 14px, 11px);
 }
 
 .urlbar-history-dropmarker:hover:active,
 .urlbar-history-dropmarker[open="true"] {
+  /*background-image: radial-gradient(circle closest-side, hsla(205,100%,70%,.1), hsla(205,100%,70%,0));*/
   -moz-image-region: rect(0px, 33px, 14px, 22px);
 }
 
-
+/* page proxy icon */
 
 
 #urlbar[pageproxystate="valid"] > #identity-box.chromeUI,
@@ -1255,7 +1626,7 @@ html|*.urlbar-input:-moz-lwtheme::-moz-placeholder,
   color: rgb(229,115,0);
 }
 
-
+/* page proxy icon */
 
 #page-proxy-favicon {
   width: 16px;
@@ -1323,7 +1694,7 @@ html|*.urlbar-input:-moz-lwtheme::-moz-placeholder,
   -moz-image-region: rect(0, 48px, 16px, 32px);
 }
 
-
+/* autocomplete */
 
 #treecolAutoCompleteImage {
   max-width: 36px;
@@ -1405,7 +1776,7 @@ richlistitem[type~="action"][actiontype="switchtab"] > .ac-url-box > .ac-action-
   border-top: 1px solid GrayText;
 }
 
-
+/* combined go/reload/stop button in location bar */
 
 #urlbar > toolbarbutton {
   -moz-appearance: none;
@@ -1420,10 +1791,12 @@ richlistitem[type~="action"][actiontype="switchtab"] > .ac-url-box > .ac-action-
 }
 
 #urlbar-reload-button:not([disabled]):hover {
+  /*background-image: radial-gradient(circle closest-side, hsla(200,100%,70%,.2), hsla(200,100%,70%,0));*/
   -moz-image-region: rect(14px, 14px, 28px, 0);
 }
 
 #urlbar-reload-button:not([disabled]):hover:active {
+  /*background-image: radial-gradient(circle closest-side, hsla(200,100%,60%,.1), hsla(200,100%,60%,0));*/
   -moz-image-region: rect(28px, 14px, 42px, 0);
 }
 
@@ -1436,10 +1809,12 @@ richlistitem[type~="action"][actiontype="switchtab"] > .ac-url-box > .ac-action-
 }
 
 #urlbar-go-button:hover {
+  /*background-image: radial-gradient(circle closest-side, hsla(110,70%,50%,.2), hsla(110,70%,50%,0));*/
   -moz-image-region: rect(14px, 42px, 28px, 28px);
 }
 
 #urlbar-go-button:hover:active {
+  /*background-image: radial-gradient(circle closest-side, hsla(110,70%,50%,.1), hsla(110,70%,50%,0));*/
   -moz-image-region: rect(28px, 42px, 42px, 28px);
 }
 
@@ -1452,14 +1827,16 @@ richlistitem[type~="action"][actiontype="switchtab"] > .ac-url-box > .ac-action-
 }
 
 #urlbar-stop-button:not([disabled]):hover {
+  /*background-image: radial-gradient(circle closest-side, hsla(5,100%,75%,.3), hsla(5,100%,75%,0));*/
   -moz-image-region: rect(14px, 28px, 28px, 14px);
 }
 
 #urlbar-stop-button:hover:active {
+  /*background-image: radial-gradient(circle closest-side, hsla(5,100%,75%,.1), hsla(5,100%,75%,0));*/
   -moz-image-region: rect(28px, 28px, 42px, 14px);
 }
 
-
+/* popup blocker button */
 
 #page-report-button {
   list-style-image: url("chrome://browser/skin/urlbar-popup-blocked.png");
@@ -1475,8 +1852,12 @@ richlistitem[type~="action"][actiontype="switchtab"] > .ac-url-box > .ac-action-
   -moz-image-region: rect(0, 48px, 16px, 32px);
 }
 
+/* Loop */
+#loop-call-button {
+  list-style-image: url("chrome://global/skin/loop/loop-call.png");
+}
 
-
+/* social share panel */
 
 #social-share-panel > iframe {
   background: linear-gradient(to bottom, #f0f4f7, #fafbfc);
@@ -1531,7 +1912,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   max-height: 24px;
 }
 
-
+/* fixup corners for share panel */
 .social-panel > .social-panel-frame {
   border-radius: inherit;
 }
@@ -1547,7 +1928,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   background: linear-gradient(to bottom, #f0f4f7, #fafbfc);
   width: 330px;
   height: 150px;
-  
+  /* we resize our panels dynamically, make it look nice */
   transition: height 100ms ease-out, width 100ms ease-out;
 }
 
@@ -1585,13 +1966,13 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   border-bottom-right-radius: inherit;
 }
 
-
+/* social recommending panel */
 
 #social-mark-button {
   -moz-image-region: rect(0, 16px, 16px, 0);
 }
 
-
+/* bookmarks menu-button */
 
 #bookmarks-menu-button.bookmark-item {
   list-style-image: url("chrome://browser/skin/places/bookmark.png");
@@ -1623,7 +2004,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   margin-bottom: -20px;
 }
 
-
+/* bookmarking panel */
 
 #editBookmarkPanelStarIcon {
   list-style-image: url("chrome://browser/skin/places/starred48.png");
@@ -1644,7 +2025,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   margin-bottom: .5em;
 }
 
-
+/* Implements editBookmarkPanel resizing on folderTree un-collapse. */
 #editBMPanel_folderTree {
   min-width: 27em;
 }
@@ -1658,14 +2039,14 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   border-bottom-right-radius: 3px;
 }
 
-
+/*@media (-moz-windows-default-theme) {*/
   .panel-promo-box {
     border-top-style: none;
-    background: #f3f3f3;
+    background: #f3f3f3;/*Louis*/
     color: GrayText;
     box-shadow: 0px 1px 2px #ccc inset;
   }
-
+/*}*/
 
 .panel-promo-icon {
   list-style-image: url("chrome://browser/skin/sync-notification-24.png");
@@ -1682,7 +2063,6 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 
 .panel-promo-closebutton > .toolbarbutton-text {
   padding: 0;
-  margin: 0;
 }
 
 /* ::::: content area ::::: */
@@ -1703,17 +2083,17 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 }
 
 .browserContainer > findbar {
-  background-color: #FFF; 
+  background-color: #FFF; /*Louis*/
   color: -moz-DialogText;
   text-shadow: none;
 }
 
-
+/* Tabstrip */
 
 #TabsToolbar {
   min-height: 0;
   padding: 0;
-  
+  /*margin-bottom: -1px;  overlap the nav-bar's top border *//*Louis*/
 }
 
 #tabbrowser-tabs {
@@ -1722,7 +2102,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 
 .tabbrowser-tab:not([pinned]) {
   max-width: 190px;
-  min-width: 36px;
+  min-width: 46px;
 }
 
 .tabbrowser-tab:not([pinned]):not([fadein]) {
@@ -1789,7 +2169,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   height: 16px;
   list-style-image: url("chrome://mozapps/skin/places/defaultFavicon.png");
   -moz-image-region: rect(0px, 16px, 16px, 0px);
-  -moz-margin-start: -6px; 
+  -moz-margin-start: -6px; /*-6+8 = 2*/
   -moz-margin-end: 3px;
 }
 
@@ -1802,27 +2182,27 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 }
 
 #tabbrowser-tabs[positionpinnedtabs] > .tabbrowser-tab[pinned] {
-  min-height: 16px; 
+  min-height: 16px; /* corresponds to the max. height of non-textual tab contents, i.e. the favicon */
 }
 
 .tab-throbber[pinned],
 .tab-icon-image[pinned] {
-  -moz-margin-start: -3px; 
+  -moz-margin-start: -3px; /*-3+8 = 5*/
   -moz-margin-end: 5px;
 }
 
-
+/* tabbrowser-tab focus ring */
 .tabbrowser-tab:focus > .tab-stack {
   outline: 1px dotted;
 }
 
-
+/* Tab DnD indicator */
 .tab-drop-indicator {
   list-style-image: url(chrome://browser/skin/tabbrowser/tabDragIndicator.png);
   margin-bottom: -11px;
 }
 
-
+/* Tab close button */
 .tab-close-button {
   -moz-appearance: none;
   -moz-image-region: rect(0, 64px, 16px, 48px);
@@ -1853,7 +2233,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   outline: none !important;
 }
 
-
+/* Tab scrollbox arrow, tabstrip new tab and all-tabs buttons */
 
 .tabbrowser-arrowscrollbox > .scrollbutton-up,
 .tabbrowser-arrowscrollbox > .scrollbutton-down {
@@ -1907,6 +2287,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   -moz-image-region: auto;
 }
 
+/*#TabsToolbar[brighttext] .tabs-newtab-button,*/
 #TabsToolbar[brighttext] > #new-tab-button,
 #TabsToolbar[brighttext] > toolbarpaletteitem > #new-tab-button {
   list-style-image: url(chrome://browser/skin/tabbrowser/newtab-inverted.png);
@@ -1937,7 +2318,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   display: none;
 }
 
-
+/* All tabs menupopup */
 .alltabs-item > .menu-iconic-left > .menu-iconic-icon {
   list-style-image: url("chrome://mozapps/skin/places/defaultFavicon.png");
 }
@@ -1951,6 +2332,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 }
 
 .alltabs-item[tabIsVisible] {
+  /* box-shadow instead of background-color to work around native styling */
   box-shadow: inset -5px 0 ThreeDShadow;
 }
 
@@ -1976,7 +2358,7 @@ toolbarbutton.chevron > .toolbarbutton-icon {
   -moz-margin-end: 4px;
 }
 
-
+/* Bookmarks toolbar */
 #PlacesToolbarDropIndicator {
   list-style-image: url(chrome://browser/skin/places/toolbarDropMarker.png);
 }
@@ -1987,10 +2369,10 @@ toolbarbutton.bookmark-item[dragover="true"][open="true"] {
   color: HighlightText !important;
 }
 
-
+/* rules for menupopup drop indicators */
 .menupopup-drop-indicator-bar {
   position: relative;
-  
+  /* these two margins must together compensate the indicator's height */
   margin-top: -1px;
   margin-bottom: -1px;
 }
@@ -2004,7 +2386,7 @@ toolbarbutton.bookmark-item[dragover="true"][open="true"] {
 
 /* ::::: Identity Indicator Styling ::::: */
 
-
+/* Popup Icons */
 #identity-popup-icon {
   height: 64px;
   width: 64px;
@@ -2021,7 +2403,7 @@ toolbarbutton.bookmark-item[dragover="true"][open="true"] {
   -moz-image-region: rect(128px, 64px, 192px, 0px);
 }
 
-
+/* Popup Body Text */
 .identity-popup-description {
   white-space: pre-wrap;
   -moz-padding-start: 15px;
@@ -2207,14 +2589,19 @@ toolbarbutton.bookmark-item[dragover="true"][open="true"] {
   list-style-image: url(chrome://browser/skin/webRTC-shareMicrophone-64.png);
 }
 
+.popup-notification-icon[popupid="webRTC-sharingScreen"],
+.popup-notification-icon[popupid="webRTC-shareScreen"] {
+  list-style-image: url(chrome://browser/skin/webRTC-shareScreen-64.png);
+}
+
 .popup-notification-icon[popupid="pointerLock"] {
   list-style-image: url(chrome://browser/skin/pointerLock-64.png);
 }
 
-
+/* Notification icon box */
 #notification-popup-box {
   position: relative;
-  
+  /*background-color: #fff;*/
   background-clip: padding-box;
   padding-left: 3px;
   padding-right: 2px;
@@ -2306,6 +2693,8 @@ window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #forward-button[disabled
 }
 
 #notification-popup-box[hidden] {
+  /* Override display:none to make the pluginBlockedNotification animation work
+     when showing the notification repeatedly. */
   display: -moz-box;
   visibility: collapse;
 }
@@ -2348,6 +2737,16 @@ window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #forward-button[disabled
   list-style-image: url(chrome://browser/skin/webRTC-sharingMicrophone-16.png);
 }
 
+.webRTC-shareScreen-notification-icon,
+#webRTC-shareScreen-notification-icon {
+  list-style-image: url(chrome://browser/skin/webRTC-shareScreen-16.png);
+}
+
+.webRTC-sharingScreen-notification-icon,
+#webRTC-sharingScreen-notification-icon {
+  list-style-image: url(chrome://browser/skin/webRTC-sharingScreen-16.png);
+}
+
 .web-notifications-notification-icon,
 #web-notifications-notification-icon {
   list-style-image: url(chrome://browser/skin/notification-16.png);
@@ -2360,7 +2759,7 @@ window:not([chromehidden~="toolbar"]) #urlbar-wrapper > #forward-button[disabled
   margin: 0px;
 }
 
-
+/* Translation infobar */
 
 notification[value="translation"] .messageImage {
   list-style-image: url(chrome://browser/skin/translation-16.png);
@@ -2513,7 +2912,7 @@ notification[value="translation"] {
   -moz-appearance: none;
 }
 
-
+/* Bookmarks roots menu-items */
 #subscribeToPageMenuitem:not([disabled]),
 #subscribeToPageMenupopup,
 #BMB_subscribeToPageMenuitem:not([disabled]),
@@ -2548,7 +2947,7 @@ notification[value="translation"] {
   background-color: rgba(27%,27%,27%,.65);
 }
 
-
+/* Ctrl-Tab */
 
 #ctrlTab-panel {
   padding: 20px 10px 10px;
@@ -2598,7 +2997,7 @@ notification[value="translation"] {
   margin-top: .5em;
 }
 
-
+/* Sync Panel */
 
 .sync-panel-icon {
   height:32px;
@@ -2627,7 +3026,7 @@ notification[value="translation"] {
   margin: 0;
 }
 
-
+/* Status panel */
 
 .statuspanel-label {
   margin: 0;
@@ -2642,14 +3041,18 @@ notification[value="translation"] {
 .statuspanel-label:-moz-locale-dir(ltr):not([mirror]),
 .statuspanel-label:-moz-locale-dir(rtl)[mirror] {
   border-right-style: solid;
-  
+  /* disabled for triggering grayscale AA (bug 659213)
+  border-top-right-radius: .3em;
+  */
   margin-right: 1em;
 }
 
 .statuspanel-label:-moz-locale-dir(rtl):not([mirror]),
 .statuspanel-label:-moz-locale-dir(ltr)[mirror] {
   border-left-style: solid;
-  
+  /* disabled for triggering grayscale AA (bug 659213)
+  border-top-left-radius: .3em;
+  */
   margin-left: 1em;
 }
 
@@ -2680,7 +3083,7 @@ notification[value="translation"] {
 }
 
 
-
+/* Responsive Mode */
 
 .browserContainer[responsivemode] {
   background-color: #222;
@@ -2694,7 +3097,9 @@ notification[value="translation"] {
 .devtools-responsiveui-toolbar {
   -moz-appearance: none;
   background: transparent;
-  
+  /* text color is textColor from dark theme, since no theme is applied to
+   * the responsive toolbar.
+   */
   color: hsl(210,30%,85%);
   margin: 10px 0;
   padding: 0;
@@ -2715,6 +3120,21 @@ notification[value="translation"] {
   box-shadow: 0 1px 0 hsla(210,16%,76%,.15) inset, 0 0 0 1px hsla(210,16%,76%,.15) inset, 0 1px 0 hsla(210,16%,76%,.15);
   margin: 0 3px;
   color: inherit;
+}
+
+.devtools-responsiveui-menulist .menulist-editable-box {
+  -moz-appearance: none;
+  background-color: transparent;
+}
+
+.devtools-responsiveui-menulist html|*.menulist-editable-input {
+  -moz-appearance: none;
+  color: inherit;
+  text-align: center;
+}
+
+.devtools-responsiveui-menulist html|*.menulist-editable-input::-moz-selection {
+  background: hsla(212,7%,57%,.35);
 }
 
 .devtools-responsiveui-toolbarbutton > .toolbarbutton-icon {
@@ -2894,7 +3314,7 @@ notification[value="translation"] {
     background-image: url("chrome://browser/skin/devtools/responsive-se-resizer@2x.png");
   }
 }
-
+/* Box model highlighter */
 svg|g.box-model-container {
   opacity: 0.4;
 }
@@ -2928,24 +3348,28 @@ svg|line.box-model-guide-bottom,
 svg|line.box-model-guide-left {
   stroke: #08C;
   stroke-dasharray: 5 3;
+  shape-rendering: crispEdges;
 }
 
-
+/* Highlighter - Node Infobar */
 
 .highlighter-nodeinfobar {
   color: hsl(216,33%,97%);
   border-radius: 3px;
   background: hsl(214,13%,24%) no-repeat padding-box;
   padding: 5px;
-  
+  /* Avoid cases where the infobar is smaller than the arrow, when the text is
+  short */
   min-width: 75px;
+   /* Avoid a shadow with lightweight themes - Bug 1037908 */
+  text-shadow: none;
 }
 
-
+/* Highlighter - Node Infobar - text */
 
 .highlighter-nodeinfobar-text {
   text-align: center;
-  
+  /* 100% - size of the buttons and margins */
   max-width: calc(100% - 2 * (26px + 6px));
   padding-bottom: 1px;
 }
@@ -2970,7 +3394,7 @@ html|*.highlighter-nodeinfobar-dimensions {
   -moz-padding-start: 6px;
 }
 
-
+/* Highlighter - Node Infobar - box & arrow */
 
 .highlighter-nodeinfobar-arrow {
   width: 14px;
@@ -2997,13 +3421,33 @@ html|*.highlighter-nodeinfobar-dimensions {
   margin: 7px 0;
 }
 
+/* Css transform highlighter */
 
+svg|polygon.css-transform-transformed {
+  fill: #80d4ff;
+  opacity: 0.8;
+}
+
+svg|polygon.css-transform-untransformed {
+  fill: #66cc52;
+  opacity: 0.8;
+}
+
+svg|polygon.css-transform-transformed,
+svg|polygon.css-transform-untransformed,
+svg|line.css-transform-line {
+  stroke: #08C;
+  stroke-dasharray: 5 3;
+  stroke-width: 2;
+}
+
+/* Developer toolbar */
 
 #developer-toolbar {
   -moz-appearance: none;
   padding: 0;
   min-height: 32px;
-  background-color: #343C45; 
+  background-color: #343C45; /* Toolbars */
   border-top: 1px solid #060a0d;
   box-shadow: 0 1px 0 hsla(204,45%,98%,.05) inset, 0 -1px 0 hsla(206,37%,4%,.1) inset;
 }
@@ -3084,6 +3528,8 @@ html|*.highlighter-nodeinfobar-dimensions {
 }
 
 #developer-toolbar-closebutton > .toolbarbutton-icon {
+  /* XXX Buttons have padding in widget/ that we don't want here but can't override with good CSS, so we must
+     use evil CSS to give the impression of smaller content */
   margin: -4px;
 }
 
@@ -3099,7 +3545,7 @@ html|*.highlighter-nodeinfobar-dimensions {
   opacity: 1;
 }
 
-
+/* GCLI */
 
 html|*#gcli-tooltip-frame,
 html|*#gcli-output-frame {
@@ -3268,7 +3714,7 @@ html|*#gcli-output-frame {
   -moz-image-region: rect(0, 16px, 16px, 0);
 }
 
-
+/* Keep any changes to this style in sync with pluginProblem.css */
 notification.pluginVulnerable {
   background-color: rgb(72,72,72);
   background-image: url(chrome://mozapps/skin/plugins/contentPluginStripe.png);
@@ -3279,22 +3725,26 @@ notification.pluginVulnerable .messageImage {
   list-style-image: url("chrome://browser/skin/notification-pluginBlocked.png");
 }
 
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-
-
+/*** Status and progress indicator ***/
 
 #downloads-animation-container {
   min-height: 1px;
   min-width: 1px;
   height: 1px;
   margin-bottom: -1px;
-  
+  /* Makes the outermost animation container element positioned, so that its
+     contents are rendered over the main browser window in the Z order.
+     This is required by the animated event notification. */
   position: relative;
-  
+  /* The selected tab may overlap #downloads-indicator-notification */
   z-index: 5;
 }
 
-
+/*** Main indicator icon ***/
 
 #downloads-indicator-icon {
   background: -moz-image-rect(url("chrome://browser/skin/Toolbar.png"),
@@ -3317,9 +3767,19 @@ toolbar[brighttext] #downloads-button:not([attention]) > #downloads-indicator-an
   -moz-image-region: auto;
 }
 
+/*@media (-moz-os-version: windows-vista),
+       (-moz-os-version: windows-win7) {
+  #downloads-button[attention] > #downloads-indicator-anchor > #downloads-indicator-icon {
+    background-image: url("chrome://browser/skin/downloads/download-glow-XPVista7.png");
+  }
 
+  #downloads-button[cui-areatype="menu-panel"][attention] {
+    list-style-image: url("chrome://browser/skin/downloads/download-glow-menuPanel-XPVista7.png");
+  }
+}*/
 
-
+/* In the next few rules, we use :not([counter]) as a shortcut that is
+   equivalent to -moz-any([progress], [paused]). */
 
 #downloads-button:not([counter]) > #downloads-indicator-anchor > #downloads-indicator-progress-area > #downloads-indicator-counter {
   background: -moz-image-rect(url("chrome://browser/skin/Toolbar.png"),
@@ -3335,7 +3795,7 @@ toolbar[brighttext] #downloads-button:not([counter]):not([attention]) > #downloa
   background-image: url("chrome://browser/skin/downloads/download-glow.png");
 }
 
-
+/*** Download notifications ***/
 
 #downloads-indicator-notification {
   opacity: 0;
@@ -3380,11 +3840,11 @@ toolbar[brighttext] #downloads-button:not([counter]):not([attention]) > #downloa
   animation-duration: 1s;
 }
 
-
+/*** Progress bar and text ***/
 
 #downloads-indicator-counter {
   height: 9px;
-  margin: -2px 0px 0px 0px; 
+  margin: -2px 0px 0px 0px; /*Louis*/
   color: hsl(0,0%,30%);
   text-shadow: hsla(0,0%,100%,.5) 0 1px;
   font-size: 9px;
@@ -3406,17 +3866,19 @@ toolbar[brighttext] #downloads-indicator-counter {
   margin-top: 1px;
   margin-bottom: 2px;
   border-radius: 2px;
-  
+  /*box-shadow: 0 1px 0 hsla(0,0%,100%,.4);*/
 }
 
 #downloads-indicator-progress > .progress-bar {
   -moz-appearance: none;
   min-width: 0;
   min-height: 0;
-  
+  /* The background-clip: border-box; and background-image: none; are there to expand the background-color behind the border */
   background-clip: padding-box, border-box;
-  background-color: rgb(13, 172, 232); 
-  
+  background-color: rgb(13, 172, 232); /*Louis*/
+  /*background-image: linear-gradient(transparent 1px, rgba(255, 255, 255, 0.4) 1px, rgba(255, 255, 255, 0.4) 2px, transparent 2px), none;
+  border: 1px solid;
+  border-color: rgba(0,43,86,.6) rgba(0,43,86,.4) rgba(0,43,86,.4);*/
   border-radius: 2px 0 0 2px;
 }
 
@@ -3424,7 +3886,10 @@ toolbar[brighttext] #downloads-indicator-counter {
   -moz-appearance: none;
   min-width: 0;
   min-height: 0;
-  
+  /*background-image: linear-gradient(#505050, #575757);
+  border: 1px solid;
+  border-color: hsla(0,0%,0%,.6) hsla(0,0%,0%,.4) hsla(0,0%,0%,.4);
+  -moz-border-start: none;*/
   border-radius: 0 2px 2px 0;
 }
 
@@ -3436,7 +3901,7 @@ toolbar[brighttext] #downloads-indicator-counter {
   background-image: linear-gradient(#4b5000, #515700);
 }
 
-
+/* Error counter */
 
 #developer-toolbar-toolbox-button[error-count]:before {
   color: #FDF3DE;
@@ -3447,7 +3912,7 @@ toolbar[brighttext] #downloads-indicator-counter {
   -moz-margin-end: 5px;
 }
 
-
+/* Social toolbar item */
 
 #social-provider-button {
   -moz-image-region: rect(0, 16px, 16px, 0);
@@ -3495,6 +3960,7 @@ toolbarpaletteitem[place="palette"] > #switch-to-metro-button {
   display: none;
 }
 .toolbarbutton-badge[badge]:not([badge=""])::after {
+  /* The |content| property is set in the content stylesheet. */
   font-size: 9px;
   font-weight: bold;
   padding: 0 1px;
@@ -3530,7 +3996,7 @@ toolbarpaletteitem[place="palette"] > #switch-to-metro-button {
   list-style-image: url(chrome://browser/skin/social/services-16.png);
 }
 #social-undoactivation-button {
-  -moz-margin-start: 0; 
+  -moz-margin-start: 0; /* override default label margin to match description margin */
 }
 
 #socialActivatedNotification .popup-notification-button-container {
@@ -3552,7 +4018,7 @@ toolbarpaletteitem[place="palette"] > #switch-to-metro-button {
   margin: 0;
 }
 
-
+/* social toolbar provider menu */
 .social-statusarea-popup {
   margin-top: 0;
   margin-left: -12px;
@@ -3899,11 +4365,13 @@ chatbox {
   border-top-right-radius: 2.5px;
 }
 
+/* Customization mode */
 
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-
-
-
+/* Customization mode */
 
 #main-window:-moz-any([customize-entering],[customize-entered]) #browser-bottombox {
   margin-bottom: 2em;
@@ -3927,6 +4395,7 @@ chatbox {
 }
 
 #main-window[customize-entered] .customization-target:not(:-moz-any(#PanelUI-contents, #TabsToolbar, #toolbar-menubar))::before {
+  /* Prevent jumping of tabs when switching a window between inactive and active (bug 853415). */
   -moz-box-ordinal-group: 0;
   content: "";
   display: -moz-box;
@@ -3939,22 +4408,25 @@ chatbox {
   width: 100%;
 }
 
-
+/* Shift the TabsToolbar outline up 2px since the #nav-bar is shifted up by 1px and the
+   #TabsToolbar::after is a pixel higher to draw the bottom border of the tabstrip so this makes the
+   offset from the bottom effectively the same as other targets (-2px). */
 #main-window[customize-entered] #TabsToolbar.customization-target::before {
   top: -2px;
 }
 
-
+/* The parents of the outline pseudo-elements need to be positioned so that the outline is positioned relative to it. */
 #main-window[customize-entered] .customization-target:not(:-moz-any(#PanelUI-contents, #TabsToolbar, #toolbar-menubar)):hover,
 #main-window[customize-entered] .customization-target[customizing-dragovertarget]:not(:-moz-any(#PanelUI-contents, #TabsToolbar, #toolbar-menubar)),
 #main-window[customize-entered] #nav-bar-customization-target.customization-target {
   position: relative;
 }
 
-
+/* Most target outlines are shown on hover and drag over but the panel menu uses
+   placeholders instead. */
 #main-window[customize-entered] .customization-target:not(:-moz-any(#PanelUI-contents, #TabsToolbar, #toolbar-menubar)):hover::before,
 #main-window[customize-entered] .customization-target[customizing-dragovertarget]:not(:-moz-any(#PanelUI-contents, #TabsToolbar, #toolbar-menubar))::before,
-
+/* nav-bar and panel outlines are always shown */
 #nav-bar[showoutline=true] > #nav-bar-customization-target.customization-target::before {
   outline-color: rgb(102,102,102);
 }
@@ -4042,6 +4514,7 @@ chatbox {
 }
 
 #customization-titlebar-visibility-button > .button-box > .button-text {
+  /* Sadly, button.css thinks its margins are perfect for everyone. */
   -moz-margin-start: 6px !important;
 }
 
@@ -4115,7 +4588,7 @@ toolbarpaletteitem[mousedown] > toolbarbutton[type="menu-button"] {
   transform: scale(1.1);
 }
 
-
+/* Override the toolkit styling for items being dragged over. */
 toolbarpaletteitem[place="toolbar"] {
   border-left-width: 0;
   border-right-width: 0;
@@ -4151,7 +4624,7 @@ toolbarpaletteitem[place="toolbar"] {
 }
 
 #wrapper-edit-controls > #edit-controls > toolbarbutton > .toolbarbutton-icon {
-  opacity: 1; 
+  opacity: 1; /* To ensure these buttons always look enabled in customize mode */
 }
 
 #wrapper-zoom-controls[place="palette"] > #zoom-controls > #zoom-reset-button,
@@ -4170,7 +4643,9 @@ toolbarpaletteitem[place="toolbar"] {
   margin-right: 0;
 }
 
-
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 #customization-tipPanel > .panel-arrowcontainer > .panel-arrowcontent {
   padding: 0;
@@ -4245,7 +4720,12 @@ toolbarpaletteitem[place="toolbar"] {
   list-style-image: url("chrome://browser/skin/customizableui/panelarrow-customizeTip.png");
 }
 
-
+/**
+ * This next rule is a hack to disable subpixel anti-aliasing on all
+ * labels during the customize mode transition. Subpixel anti-aliasing
+ * on Windows with Direct2D layers acceleration is particularly slow to
+ * paint, so this hack is how we sidestep that performance bottleneck.
+ */
 #main-window:-moz-any([customize-entering],[customize-exiting]) label {
   transform: perspective(0.01px);
 }
@@ -4255,7 +4735,21 @@ toolbarpaletteitem[place="toolbar"] {
   background-attachment: fixed;
 }
 
+/*#main-window[customization-lwtheme] > #tab-view-deck:-moz-lwtheme {
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-attachment: fixed;
+  /* The image will get set from CustomizeMode.jsm *
+  background-image: none;
+  background-color: transparent;
+}
 
+#main-window[customization-lwtheme]:-moz-lwtheme {
+  background-image: url("chrome://browser/skin/customizableui/customizeMode-gridTexture.png");
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: left top;
+}*/
 
 #main-window[customize-entered] #browser-bottombox,
 #main-window[customize-entered] #customization-container {
@@ -4276,11 +4770,18 @@ toolbarpaletteitem[place="toolbar"] {
   margin-left: -2px;
 }
 
+/* End customization mode */
 
+/* Private browsing indicators */
 
-
-
-
+/**
+ * Currently, we have two places where we put private browsing indicators on
+ * Windows. When tabsintitlebar is enabled, we draw the indicator in the titlebar.
+ * When tabsintitlebar is disabled, we draw the indicator at the end of the
+ * tabstrip. The titlebar indicator is the fiddliest of the bunch, since we
+ * want the bottom border of the image to line up with the bottom of the window
+ * caption buttons. That's why there's so much special-casing going on in here.
+ */
 .private-browsing-indicator {
   display: none;
   pointer-events: none;
@@ -4305,7 +4806,10 @@ toolbarpaletteitem[place="toolbar"] {
   width: 48px;
 }
 
-
+/* Bug 1008183: We're intentionally using the titlebar asset here for fullscreen
+ * mode, since the tabstrip "mimics" the titlebar in that case with its own
+ * min/max/close window buttons.
+ */
 #private-browsing-indicator-titlebar > .private-browsing-indicator,
 #main-window[inFullscreen] #TabsToolbar > .private-browsing-indicator {
   background: url("chrome://browser/skin/privatebrowsing-mask-titlebar.png") no-repeat center 0px;
@@ -4317,26 +4821,33 @@ toolbarpaletteitem[place="toolbar"] {
 
 
 @media (-moz-windows-classic) {
+  /* We're intentionally using the titlebar asset here for fullscreen mode.
+   * See bug 1008183.
+   */
   #private-browsing-indicator-titlebar > .private-browsing-indicator,
   #main-window[inFullscreen] #TabsToolbar > .private-browsing-indicator {
     background-image: url("chrome://browser/skin/privatebrowsing-mask-titlebar-XPVista7.png");
   }
-  
+  /**
+   * We have to use top instead of background-position in this case, otherwise
+   * the bottom of the indicator would get cut off by the bounds of the
+   * private-browsing-indicator element.
+   */
   #main-window[sizemode="normal"] > #titlebar > #titlebar-content > #titlebar-buttonbox-container > #private-browsing-indicator-titlebar > .private-browsing-indicator {
     top: 4px;
   }
 }
 
+/* End private browsing indicators */
 
 
-
-
+/* UI Tour */
 
 #UITourHighlightContainer {
   -moz-appearance: none;
   border: none;
   background-color: transparent;
-  
+  /* This is a buffer to compensate for the movement in the "wobble" effect */
   padding: 4px;
 }
 
@@ -4344,7 +4855,8 @@ toolbarpaletteitem[place="toolbar"] {
   background-image: radial-gradient(50% 100%, rgba(0,149,220,0.4) 50%, rgba(0,149,220,0.6) 100%);
   border-radius: 40px;
   border: 1px solid white;
-  
+  /* The box-shadow opacity needs to be < 0.5 so it doesn't appear at 100% opacity
+     on Linux without an X compositor where opacity is either 0 or 1. */
   box-shadow: 0 0 3px 0 rgba(0,0,0,0.49);
   min-height: 32px;
   min-width: 32px;
@@ -4387,7 +4899,7 @@ toolbarpaletteitem[place="toolbar"] {
   -moz-margin-end: 0;
   font-size: 1.15rem;
   line-height: 1.8rem;
-  margin-bottom: 0; 
+  margin-bottom: 0; /* Override global.css */
 }
 
 #UITourTooltipClose {
@@ -4461,7 +4973,7 @@ toolbarpaletteitem[place="toolbar"] {
   color: black;
 }
 
-
+/* The primary button gets the same color as the customize button. */
 #UITourTooltipButtons > button.button-primary {
   background-color: rgb(116,191,67);
   color: white;
@@ -4549,9 +5061,12 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
 }
 
 
-
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 #downloads-indicator-counter {
+  /* Bug 812345 added this... */
   margin-bottom: -1px;
 }
 
@@ -4570,15 +5085,85 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
   #sidebar-header {
     -moz-appearance: none;
     color: black;
-    
+    /*background-color: #EEF3FA; Louis*/
     border-bottom: none;
     text-shadow: none;
   }
 
-  
+  /* Louis .sidebar-title,
+  #sidebar-title {
+    font-weight: bold;
+  }
+
+  .sidebar-splitter {
+    border: 0;
+    -moz-border-end: 1px solid #C7C7C7;
+    min-width: 0;
+    width: 3px;
+    background-color: transparent;
+    -moz-margin-start: -3px;
+    position: relative;
+  }
+
+  #appcontent ~ .sidebar-splitter {
+    -moz-border-start: 1px solid #C7C7C7;
+    -moz-border-end: none;
+    -moz-margin-start: 0;
+    -moz-margin-end: -3px;
+  }
+
+  #urlbar:not(:-moz-lwtheme),
+  .searchbar-textbox:not(:-moz-lwtheme) {
+    border-color: hsla(210,54%,20%,.25) hsla(210,54%,20%,.27) hsla(210,54%,20%,.3);
+    box-shadow: 0 1px 0 hsla(0,0%,0%,.01) inset,
+                0 1px 0 hsla(0,0%,100%,.1);
+  }
+
+  #urlbar:not(:-moz-lwtheme)[focused],
+  .searchbar-textbox:not(:-moz-lwtheme)[focused] {
+    border-color: Highlight;
+  }
+
+  .menu-accel,
+  .menu-iconic-accel {
+    color: graytext;
+  }
+
+  .chatbar-button,
+  chatbar > chatbox {
+    border-color: #A9B7C9;
+  }
+
+  @media (-moz-os-version: windows-vista),
+         (-moz-os-version: windows-win7) {
+    #navigator-toolbox > toolbar:not(#toolbar-menubar):not(#TabsToolbar):not(:-moz-lwtheme),
+    #browser-bottombox:not(:-moz-lwtheme),
+    .browserContainer > findbar {
+      background-color: hsl(210,75%,92%);
+    }
+
+    .tab-background-middle[selected=true]:not(:-moz-lwtheme) {
+      background-color: hsl(210,75%,92%);
+    }
+
+    #navigator-toolbox:not(:-moz-lwtheme)::after {
+      background-color: #aabccf;
+    }
+
+    #urlbar:not(:-moz-lwtheme):not([focused]):hover,
+    .searchbar-textbox:not(:-moz-lwtheme):not([focused]):hover {
+      border-color: hsla(210,54%,20%,.35) hsla(210,54%,20%,.37) hsla(210,54%,20%,.4);
+    }
+
+    #urlbar:not(:-moz-lwtheme)[focused],
+    .searchbar-textbox:not(:-moz-lwtheme)[focused] {
+      border-color: hsla(206,100%,60%,.65) hsla(206,100%,55%,.65) hsla(206,100%,50%,.65);
+    }
+  }*/
 }
 
 @media (-moz-windows-compositor) {
+  /* These should be hidden w/ glass enabled. Windows draws its own buttons. */
   .titlebar-button {
     display: none;
   }
@@ -4596,8 +5181,19 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
     -moz-appearance: -moz-win-exclude-glass;
   }
 
-  
-  
+  /* Artificially draw window borders that are covered by lwtheme, see bug 591930. */
+  /*#main-window[sizemode="normal"] > #titlebar > #titlebar-content:-moz-lwtheme {
+    border-top: 2px solid;
+    -moz-border-top-colors: rgb(37, 44, 51) rgba(255,255,255,.6);
+  }
+
+  #main-window[sizemode="normal"] > #titlebar > #titlebar-content:-moz-lwtheme:-moz-window-inactive {
+    -moz-border-top-colors: rgb(102, 102, 102) rgba(255,255,255,.6);
+  }
+
+  #main-window[sizemode="normal"] #titlebar-buttonbox:-moz-lwtheme {
+    margin-top: -2px;
+  }*/
 
   @media (-moz-windows-default-theme) {
     #toolbar-menubar:not(:-moz-lwtheme),
@@ -4609,7 +5205,10 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
       color: inherit;
     }
 
-    
+    /* Use a different color only on Windows 8 and higher for inactive windows.
+     * On aero, the menubar fog disappears for inactive windows, and renders gray
+     * illegible.
+     */
     @media not all and (-moz-os-version: windows-vista) {
       @media not all and (-moz-os-version: windows-win7) {
         #toolbar-menubar:not(:-moz-lwtheme):-moz-window-inactive {
@@ -4628,17 +5227,17 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
     text-shadow: 0 0 .5em white, 0 0 .5em white, 0 1px 0 rgba(255,255,255,.4);
   }
 
-  
+  /* Vertical toolbar border */
   #main-window[sizemode=normal] #navigator-toolbox::after,
   #main-window[sizemode=normal] #navigator-toolbox > toolbar:not(#toolbar-menubar):not(#TabsToolbar) {
-    border-left: 1px solid hsla(0,0%,12%,0.25); 
+    border-left: 1px solid hsla(0,0%,12%,0.25); /*Louis*/
     border-right: 1px solid hsla(0,0%,12%,0.25);
     background-clip: padding-box;
   }
   #main-window[sizemode=normal] #browser-border-start,
   #main-window[sizemode=normal] #browser-border-end {
     display: -moz-box;
-    background-color: hsla(0,0%,12%,0.25);
+    background-color: hsla(0,0%,12%,0.25);/*Louis..etc*/
     width: 1px;
   }
   #main-window[sizemode=normal] #browser-bottombox {
@@ -4652,7 +5251,7 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
     padding-right: 1px;
   }
 
-  
+  /* Make the window draggable by glassed toolbars (bug 555081) */
   #toolbar-menubar:not([autohide="true"]),
   #TabsToolbar,
   #navigator-toolbox > toolbar:not(#toolbar-menubar):not(#addon-bar):-moz-lwtheme {
@@ -4671,7 +5270,7 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
   @media (-moz-os-version: windows-vista),
          (-moz-os-version: windows-win7) {
     #main-menubar:not(:-moz-lwtheme):not(:-moz-window-inactive) {
-      border-radius: 2px; 
+      border-radius: 2px; /*Louis*/
     }
   }
 
@@ -4703,19 +5302,24 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
     background-color: #F6F6F6;
   }
 
-  
+  /* Glass Fog */
 
   #TabsToolbar:not(:-moz-lwtheme) {
     position: relative;
   }
 
   #TabsToolbar:not(:-moz-lwtheme)::after {
+    /* Because we use placeholders for window controls etc. in the tabstrip,
+     * and position those with ordinal attributes, and because our layout code
+     * expects :before/:after nodes to come first/last in the frame list,
+     * we have to reorder this element to come last, hence the
+     * ordinal group value (see bug 853415). */
     -moz-box-ordinal-group: 1001;
-    
+    /*box-shadow: 0 0 30px 30px rgba(174,189,204,0.85); EVIL!! Louis*/
     content: "";
     display: -moz-box;
     height: 0;
-    margin: 0 60px; 
+    margin: 0 60px; /* (30px + 30px) from box-shadow */
     position: absolute;
     pointer-events: none;
     top: 50%;
@@ -4723,7 +5327,7 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
     z-index: -1;
   }
 
-  
+  /* Need to constrain the glass fog to avoid overlapping layers, see bug 886281. */
   #navigator-toolbox:not(:-moz-lwtheme) {
     overflow: -moz-hidden-unscrollable;
   }
@@ -4732,18 +5336,36 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
     position: relative;
   }
 
-  
+  /* End Glass Fog */
 }
 
-
+/* Aero Basic */
 @media not all and (-moz-windows-compositor) {
   @media (-moz-windows-default-theme) {
+    /*#main-window {
+      background-color: rgb(185,209,234);
+    }
+    #main-window:-moz-window-inactive {
+      background-color: rgb(215,228,242);
+    }Louis*/
+
     #toolbar-menubar:not([autohide=true]):not(:-moz-lwtheme),
     #TabsToolbar:not(:-moz-lwtheme) {
       -moz-binding: url("chrome://browser/content/customizableui/toolbar.xml#toolbar-drag");
     }
 
-    
+    /* Render a window top border for lwthemes: 
+    #main-window[tabsintitlebar][sizemode="normal"] #titlebar-content:-moz-lwtheme {
+      background-image: linear-gradient(to bottom,
+            rgb(37, 44, 51) 0, rgb(37, 44, 51) 1px,
+            rgba(255,255,255,.6) 1px, rgba(255,255,255,.6) 2px, transparent 2px);
+    }
+
+    #main-window[tabsintitlebar][sizemode="normal"] #titlebar-content:-moz-lwtheme:-moz-window-inactive {
+      background-image: linear-gradient(to bottom,
+            rgb(102, 102, 102) 0, rgb(102, 102, 102) 1px,
+            rgba(255,255,255,.6) 1px, rgba(255,255,255,.6) 2px, transparent 2px);
+    }*/
   }
 
   #print-preview-toolbar:not(:-moz-lwtheme) {
@@ -4751,8 +5373,16 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
   }
 }
 
-
-
+/* Win8 and beyond. */
+/*@media not all and (-moz-os-version: windows-vista) {
+  @media not all and (-moz-os-version: windows-win7) {
+    /* Introducing an additional hover state for the Bookmark button 
+    #nav-bar .toolbarbutton-1[buttonover] > .toolbarbutton-menubutton-button:hover > .toolbarbutton-icon {
+      background-color: hsla(210,4%,10%,.08);
+      border-color: hsla(210,4%,10%,.1);
+    }
+  }
+}*/
 
 /* ::::: fullscreen window controls ::::: */
 
@@ -4791,7 +5421,9 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
     background-image: url("chrome://browser/skin/privatebrowsing-mask-tabstrip-XPVista7.png");
   }
 
-  
+  /* We're intentionally using the titlebar asset here for fullscreen mode.
+   * See bug 1008183.
+   */
   #private-browsing-indicator-titlebar > .private-browsing-indicator,
   #main-window[inFullscreen] #TabsToolbar > .private-browsing-indicator {
     background-image: url("chrome://browser/skin/privatebrowsing-mask-titlebar-XPVista7.png");
@@ -4807,20 +5439,23 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
   }
 }
 
-
+/**
+ * This next block targets Aero Basic, which has different positioning for the
+ * window caption buttons, and therefore needs to be special-cased.
+ */
 @media (-moz-windows-default-theme) {
   @media not all and (-moz-windows-compositor) {
     #main-window[sizemode="normal"] > #titlebar > #titlebar-content > #titlebar-buttonbox-container > #private-browsing-indicator-titlebar > .private-browsing-indicator {
       background-image: url("chrome://browser/skin/privatebrowsing-mask-titlebar-XPVista7-tall.png");
       height: 28px;
     }
-	#navigator-toolbox > toolbar:not(:-moz-lwtheme) {
+	#navigator-toolbox > toolbar:not(:-moz-lwtheme) {/*Louis*/
       background-color: transparent;
     }
   }
 }
 
-
+/* Added by Louis */
 @media (-moz-windows-classic) {
   #navigator-toolbox > toolbar {
     background-color: rgba(246,246,246,1);
