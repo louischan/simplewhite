@@ -1,3 +1,5 @@
+This is a fork version for https://github.com/louischan/simplewhite, just for those who are facing search logo problems on newtab page. I deleted all codes about searchbox on newtab page.
+
 # Simple White
 
 ![Screenshot](https://cloud.githubusercontent.com/assets/7802430/3677744/71d32946-1294-11e4-83d7-1f1a0785c6c7.png)
