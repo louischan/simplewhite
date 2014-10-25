@@ -269,6 +269,9 @@
 #category-plugin > .category-icon {
   list-style-image: url("chrome://mozapps/skin/extensions/category-plugins.png");
 }
+#category-userscript > .category-icon {
+  list-style-image: url("chrome://mozapps/skin/extensions/category-userscripts.png") !important;
+}
 #category-dictionary > .category-icon {
   list-style-image: url("chrome://mozapps/skin/extensions/category-dictionaries.png");
 }
