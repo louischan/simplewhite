@@ -15,4 +15,4 @@ Then, you can open `simplewhite.xpi` in Firefox and follow the installation proc
 
 ## Releases
 
-Pre-packaged releases can be downloaded from [here](https://addons.mozilla.org/addon/simplewhite/versions/).
+Pre-packaged releases by me can be downloaded from [here](https://github.com/lychichem/simplewhite/releases).
