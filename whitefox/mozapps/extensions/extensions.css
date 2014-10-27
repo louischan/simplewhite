@@ -287,6 +287,9 @@
 #category-userstyle > .category-icon {
   list-style-image: url("chrome://mozapps/skin/extensions/category-userstyle.png") !important;
 }
+#category-userchromejs> .category-icon {
+  list-style-image: url("chrome://mozapps/skin/extensions/category-uc.png") !important;
+}
 
 /*** header ***/
 
