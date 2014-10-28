@@ -1,4 +1,4 @@
-This is a fork version for https://github.com/louischan/simplewhite, just for those who are facing search logo problems on newtab page. I deleted all codes about searchbox on newtab page.
+This is a fork version for https://github.com/louischan/simplewhite, just for those who are facing search logo problems on newtab page. I deleted all codes about searchbox on newtab page. Now it still have some problem with nightly(forget and apps have no icon).
 
 # Simple White
 
