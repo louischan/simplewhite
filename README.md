@@ -1,3 +1,5 @@
+This is a fork version for https://github.com/louischan/simplewhite, just for those who are facing search logo problems on newtab page. I deleted all codes about searchbox on newtab page. Now it still have some problem with nightly(forget and apps have no icon).
+
 # Simple White
 
 ![Screenshot](https://cloud.githubusercontent.com/assets/7802430/3677744/71d32946-1294-11e4-83d7-1f1a0785c6c7.png)
@@ -13,4 +15,4 @@ Then, you can open `simplewhite.xpi` in Firefox and follow the installation proc
 
 ## Releases
 
-Pre-packaged releases can be downloaded from [here](https://addons.mozilla.org/addon/simplewhite/versions/).
+Pre-packaged releases by me can be downloaded from [here](https://github.com/lychichem/simplewhite/releases).
