@@ -1,7 +1,8 @@
 @import url("chrome://browser/skin/browser-common.css");
 
-#main-window > #titlebar {
+#titlebar {
   -moz-appearance: none !important;
+  -moz-window-dragging: drag;
 }
 
 /** Begin titlebar **/

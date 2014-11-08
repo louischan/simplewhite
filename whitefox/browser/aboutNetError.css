@@ -1,1 +1,10 @@
 /* This deliberately left empty for themes to use/override. */
+#errorTitleText {
+  background-image: url("chrome://browser/skin/probleminfo.png");
+}
+
+@media (min-resolution: 2dppx) {
+  #errorTitleText {
+    background-image: url("chrome://browser/skin/probleminfo@2x.png");
+  }
+}

@@ -243,9 +243,9 @@
   top: 32px;
   background-image: url("chrome://browser/skin/newtab/newtab-search.png") !important;
   background-position: 0 bottom;
-  background-size: 58px 96px;
+  background-size: 58px 96px !important;
   height: 32px;
-  width: 25px;
+  width: 25px !important;
   border: none;
   -moz-margin-start: 46px;
 }
