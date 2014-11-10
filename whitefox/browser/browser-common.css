@@ -771,7 +771,7 @@ toolbarpaletteitem[place="palette"] > :-moz-any(#back-button, #forward-button, #
 
 #home-button[cui-areatype="menu-panel"],
 toolbarpaletteitem[place="palette"] > #home-button {
-  -moz-image-region: rect(0fpx, 128px, 32px, 96px);
+  -moz-image-region: rect(0px, 128px, 32px, 96px);
 }
 
 #bookmarks-menu-button[cui-areatype="menu-panel"],
