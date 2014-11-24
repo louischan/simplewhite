@@ -238,7 +238,8 @@
   margin-bottom: 40px;
 }
 
-#newtab-search-logo {
+#newtab-search-logo,
+#newtab-search-icon {
   position: absolute;
   top: 32px;
   background-image: url("chrome://browser/skin/newtab/newtab-search.png") !important;
@@ -250,7 +251,9 @@
   -moz-margin-start: 46px;
 }
 #newtab-search-logo[active],
-#newtab-search-logo:hover {
+#newtab-search-logo:hover,
+#newtab-search-icon[active],
+#newtab-search-icon:hover {
   background-position: -29px bottom;
   background-color: transparent;
   border: none;
@@ -297,6 +300,7 @@
 }
 @media (min-resolution: 2dppx) {
   #newtab-search-logo,
+  #newtab-search-icon,
   #newtab-search-submit {
     background-image: url("chrome://browser/skin/newtab/newtab-search@2x.png") !important;
     background-size: 58px 96px;
