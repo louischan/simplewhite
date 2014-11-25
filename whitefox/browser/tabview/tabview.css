@@ -5,6 +5,7 @@ body {
 }
 
 #bg:not(:-moz-system-metric(windows-compositor)) {
+  -moz-appearance: -moz-mac-vibrancy-light;
   background: #F7F7F7;
 }
 
