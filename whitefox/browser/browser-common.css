@@ -549,12 +549,12 @@ menuitem.bookmark-item {
 
 /* Note that this file isn't used for HiDPI on OS X. */
 
-:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button),
+:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button),
 #bookmarks-menu-button > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon {
   list-style-image: url("chrome://browser/skin/Toolbar.png");
 }
 
-toolbar[brighttext] :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button),
+toolbar[brighttext] :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button),
 toolbar[brighttext] #bookmarks-menu-button > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon {
   list-style-image: url(chrome://browser/skin/Toolbar-inverted.png);
 }
@@ -726,6 +726,10 @@ toolbar[brighttext] #sync-button[status="active"]:hover:active:not([disabled="tr
   transform: scaleX(-1);
 }
 
+#web-apps-button[cui-areatype="toolbar"] {
+  -moz-image-region: rect(0, 720px, 18px, 702px);
+}
+
 
 #loop-button-throttled > .toolbarbutton-badge-container {
   list-style-image: url(chrome://browser/skin/loop/toolbar.png);
@@ -760,12 +764,16 @@ toolbar[brighttext] #loop-button-throttled > .toolbarbutton-badge-container {
 #loop-button-throttled:not([disabled="true"])[state="active"]:-moz-any(:hover,:hover:active,[open]) > .toolbarbutton-badge-container {
   -moz-image-region: rect(0, 126px, 18px, 108px);
 }
+
+#webide-button[cui-areatype="toolbar"] {
+  -moz-image-region: rect(0, 738px, 18px, 720px);
+}
 /* Menu panel and palette styles */
 /* Note that this file isn't used for HiDPI on OS X. */
 
 toolbaritem[sdkstylewidget="true"] > toolbarbutton,
-:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button)[cui-areatype="menu-panel"],
-toolbarpaletteitem[place="palette"] > :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button) {
+:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button)[cui-areatype="menu-panel"],
+toolbarpaletteitem[place="palette"] > :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button) {
   list-style-image: url(chrome://browser/skin/menuPanel.png);
 }
 
@@ -916,6 +924,16 @@ toolbarpaletteitem[place="palette"] > #panic-button {
 
 #panic-button[cui-areatype="menu-panel"][panel-multiview-anchor=true] {
   -moz-image-region: rect(32px, 896px, 64px, 864px);
+}
+
+#web-apps-button[cui-areatype="menu-panel"],
+toolbarpaletteitem[place="palette"] > #web-apps-button {
+  -moz-image-region: rect(0, 928px, 32px, 896px);
+}
+
+#webide-button[cui-areatype="menu-panel"],
+toolbarpaletteitem[place="palette"] > #webide-button {
+  -moz-image-region: rect(0px, 960px, 32px, 928px);
 }
 
 toolbaritem[sdkstylewidget="true"] > toolbarbutton {
@@ -1076,9 +1094,9 @@ window:not([chromehidden~="toolbar"]) #urlbar-wrapper > .toolbarbutton-1:-moz-an
   transition-duration: 150ms;
 }
 
-#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button)) > .toolbarbutton-icon,
-#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button)) > .toolbarbutton-badge-container,
-#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button)) > .toolbarbutton-menubutton-button > .toolbarbutton-icon {
+#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button)) > .toolbarbutton-icon,
+#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button)) > .toolbarbutton-badge-container,
+#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button)) > .toolbarbutton-menubutton-button > .toolbarbutton-icon {
   padding: 3px 7px;
 }
 
@@ -5259,6 +5277,54 @@ toolbarpaletteitem[place="toolbar"] {
 
 #UITourTooltipButtons > button.button-primary:not(:active):hover {
   background-color: rgb(105,173,61);
+}
+
+.SearchHighlight {
+  -moz-margin-end: 6px;
+  font-size: 110%;
+  width: 225px;
+}
+
+.SearchHighlight label,
+.SearchHighlight description {
+  color: #535353;
+  margin: 0 0 8px 0;
+  padding: 0;
+}
+
+.SearchHighlightTitle {
+  font-weight: bold;
+}
+
+.SearchHighlight .dot {
+  width: 7px;
+  height: 7px;
+  background-image: -moz-image-rect(url("chrome://browser/skin/dots.png"), 0, 100%, 100%, 9);
+  background-size: 7px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -moz-margin-end: 2px;
+}
+
+.SearchHighlight .dot.filled {
+  background-image: -moz-image-rect(url("chrome://browser/skin/dots.png"), 0, 7, 100%, 0);
+}
+
+.SearchHighlight button {
+  margin: 0;
+  /* On some platforms clicking the button will steal focus from the search box
+     causing the popup to close. */
+  -moz-user-focus: ignore;
+}
+
+@media not all and (max-resolution: 1dppx) {
+  .SearchHighlight .dot {
+    background-image: -moz-image-rect(url("chrome://browser/skin/dots@2x.png"), 0, 100%, 100%, 18);
+  }
+
+  .SearchHighlight .dot.filled {
+    background-image: -moz-image-rect(url("chrome://browser/skin/dots@2x.png"), 0, 14, 100%, 0);
+  }
 }
 
 #UITourTooltipButtons {
