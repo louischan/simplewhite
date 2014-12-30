@@ -3,6 +3,7 @@ body {
   margin-top: 2em;
   font: message-box;
   font-size: 100%;
+  min-height: 200px;
 }
 
 p {
@@ -23,16 +24,6 @@ p {
   font-weight: bold;
 }
 
-#report-box {
-  text-align: center;
-  width: 75%;
-  margin: 0 auto;
-  display: none;
-}
-
-.crashDumpAvailable #report-box {
-  display: block
-}
 
 #button-box {
   text-align: center;
@@ -105,4 +96,33 @@ button:hover:active {
   transition-property: background-color, border-color, box-shadow;
   transition-duration: 10ms;
   transition-timing-function: linear;
+}
+
+body {
+  width: 310px;
+  margin: 1em auto;
+}
+
+#message-box {
+  margin-top: 2em;
+  background: url('chrome://global/skin/icons/information-24.png') no-repeat left 4px;
+  -moz-padding-start: 30px;
+}
+
+#activation-frame {
+  border: none;
+  margin: 0;
+  width: 310px;
+  height: 200px;
+}
+#activation > p {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  line-height: 2em;
+}
+.link {
+  text-decoration: none;
+  color: -moz-nativehyperlinktext;
+  cursor: pointer;
 }
