@@ -3,6 +3,11 @@
 #titlebar {
   -moz-appearance: none !important;
   -moz-window-dragging: drag;
+  background-color: rgba(237,237,237,1);
+}
+
+#titlebar:-moz-window-inactive {
+  background-color: rgba(246,246,246,1);
 }
 
 /** Begin titlebar **/
