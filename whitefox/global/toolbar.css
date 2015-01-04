@@ -49,11 +49,13 @@ toolbar:-moz-lwtheme {
 /* ::::: toolbar decorations ::::: */
 
 toolbarseparator {
-  -moz-appearance: none;
-  margin: 3px 4px;
-  background: url("chrome://global/skin/toolbar/toolbar-separator.png") transparent repeat-y;
-  padding: 0;
-  width: 1px !important;
+  -moz-appearance: separator;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  -moz-border-left-colors  : transparent transparent ThreeDShadow;
+  -moz-border-right-colors : transparent transparent ThreeDHighlight;
 }
 
 toolbarspacer {
@@ -63,7 +65,7 @@ toolbarspacer {
 /* ::::: toolbarpaletteitem ::::: */
 
 toolbarpaletteitem {
-  cursor: -moz-grab;
+  cursor: grab;
 }
 
 .toolbarpaletteitem-box[type="spacer"],

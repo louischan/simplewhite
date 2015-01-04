@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     x="0"
+     y="0"
+     width="16"
+     height="16"
+     viewBox="0 0 16 16">
+<style type="text/css">
+
+use:not(:target) {
+  display: none;
+}
+
+use {
+  fill: graytext;
+}
+
+use[id$="-active"] {
+  fill: HighlightText;
+}
+
+</style>
+<defs style="display:none">
+  <path id="search-history-glyph" d="M8,1C4.1,1,1,4.1,1,8s3.1,7,7,7s7-3.1,7-7S11.9,1,8,1z M8,14.3
+  c-3.4,0-6.3-2.9-6.3-6.3S4.6,1.7,8,1.7s6.3,2.9,6.3,6.3S11.4,14.3,8,14.3z M11.3,9.5c-0.1,0.2-0.3,0.2-0.5,0.2l-3-1.4c0,0,0,0,0,0
+  c0,0,0,0,0,0c0,0,0,0,0,0c0,0-0.1-0.1-0.1-0.2L6.8,3.5c0-0.2,0.1-0.4,0.3-0.4l0,0c0.2,0,0.4,0.1,0.4,0.3l0.8,4.3L11.1,9
+  C11.3,9.1,11.4,9.3,11.3,9.5z"/>
+</defs>
+<use id="search-history-icon" xlink:href="#search-history-glyph"/>
+<use id="search-history-icon-active" xlink:href="#search-history-glyph"/>
+</svg>

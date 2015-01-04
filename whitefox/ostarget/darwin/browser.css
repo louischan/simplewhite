@@ -3,6 +3,20 @@
 #titlebar {
   -moz-appearance: none !important;
   -moz-window-dragging: drag;
+  background-color: rgba(237,237,237,1);
+}
+
+#titlebar:-moz-window-inactive {
+  background-color: rgba(246,246,246,1);
+}
+
+.toolbarbutton-1:-moz-window-inactive > .toolbarbutton-icon,
+.toolbarbutton-1:-moz-window-inactive > .toolbarbutton-text,
+.toolbarbutton-1:-moz-window-inactive > .toolbarbutton-badge-container > .toolbarbutton-icon,
+.toolbarbutton-1:-moz-window-inactive > .toolbarbutton-menu-dropmarker,
+.toolbarbutton-1:-moz-window-inactive > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon,
+.toolbarbutton-1:-moz-window-inactive > .toolbarbutton-menubutton-button > .toolbarbutton-icon {
+  opacity: .5;
 }
 
 /** Begin titlebar **/

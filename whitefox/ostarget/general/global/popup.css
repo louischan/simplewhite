@@ -2,8 +2,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-@import url("chrome://apptarget/skin/popup.css");
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/* ::::: Variables ::::: */
+.panel-arrowcontent {
+  --panel-arrowcontent-background: #ffffff;
+  --panel-arrowcontent-color: -moz-FieldText;
+  --panel-arrowcontent-border: 1px solid rgba(0,0,0,.3);
+}
 
 /* ::::: menupopup ::::: */
 
@@ -47,10 +53,10 @@ panel[type="arrow"][side="right"] {
 .panel-arrowcontent {
   border-radius: 4px;
   padding: 10px;
-  color: -moz-DialogText;
-  background: #ffffff;
+  color: var(--panel-arrowcontent-color);
+  background: var(--panel-arrowcontent-background);
   background-clip: padding-box;
-  border: 1px solid rgba(0,0,0,.3);
+  border: var(--panel-arrowcontent-border);
   margin: 4px;
 }
 
