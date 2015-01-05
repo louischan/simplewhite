@@ -30,42 +30,13 @@
   list-style-image: url("chrome://global/skin/arrow/panelarrow-vertical.svg");
 }
 
-/*global/menu.css*/
-menu[_moz-menuactive="true"],
-menuitem[_moz-menuactive="true"],
-.splitmenu-menuitem[_moz-menuactive="true"] {
-  color: -moz-menuhovertext;
-  background-color: -moz-menuhover;
-}
-menu[disabled="true"],
-menuitem[disabled="true"],
-.splitmenu-menuitem[disabled="true"] {
-  color: GrayText;
-}
-menubar > menu {
-  color: -moz-menubartext;
-}
-menubar > menu[_moz-menuactive="true"]:not([open]):not([disabled="true"]):not(:-moz-lwtheme) {
-  color: -moz-menubartext;
-}
-menubar > menu[open] {
-  color: -moz-menubarhovertext;
-  background-color: -moz-menuhover;
-}
-
 #context-navigation {
   margin: 1px;
   padding-top: 2px;
 }
-
 #context-navigation > .menuitem-iconic > .menu-iconic-left {
   visibility: visible;
   /* override toolkit/themes/linux/global/menu.css */
   -moz-padding-end: 0 !important;
   -moz-margin-end: 0 !important;
-}
-
-/*global/menulist.css*/
-.menulist-dropmarker {
-  display: none;
 }

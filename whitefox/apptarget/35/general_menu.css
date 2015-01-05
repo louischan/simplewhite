@@ -290,3 +290,33 @@ menulist > menupopup > menuseparator {
     text-shadow: inherit;
   }
 }
+
+@media not all and (-moz-windows-theme) { /* for Linux */
+  menulist > menupopup > menuitem,
+  menulist > menupopup > menu {
+    -moz-appearance: menuitem !important;
+  }
+
+  menu[_moz-menuactive="true"],
+  menuitem[_moz-menuactive="true"],
+  .splitmenu-menuitem[_moz-menuactive="true"] {
+    color: -moz-menuhovertext;
+    background-color: -moz-menuhover;
+  }
+
+  menu[disabled="true"],
+  menuitem[disabled="true"],
+  .splitmenu-menuitem[disabled="true"] {
+    color: GrayText;
+  }
+
+  menubar > menu,
+  menubar > menu[_moz-menuactive="true"]:not([open]):not([disabled="true"]):not(:-moz-lwtheme) {
+    color: -moz-menubartext;
+  }
+
+  menubar > menu[open] {
+    color: -moz-menubarhovertext;
+    background-color: -moz-menuhover;
+  }
+}
