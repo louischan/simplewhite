@@ -187,6 +187,7 @@ searchbar[oneoffui] .search-go-button:-moz-locale-dir(rtl) > .toolbarbutton-icon
 }
 
 .searchbar-engine-one-off-item > .button-box > .button-icon {
+  display: -moz-box; /* For Linux - Louis */
   width: 16px;
   height: 16px;
 }
