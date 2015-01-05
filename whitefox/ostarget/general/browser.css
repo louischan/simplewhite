@@ -64,3 +64,8 @@ menubar > menu[open] {
   -moz-padding-end: 0 !important;
   -moz-margin-end: 0 !important;
 }
+
+/*global/menulist.css*/
+.menulist-dropmarker {
+  display: none;
+}
