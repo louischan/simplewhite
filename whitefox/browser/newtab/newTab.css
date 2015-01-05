@@ -78,6 +78,7 @@
 
 /* GRID 3D */
 #newtab-grid {
+  backface-visibility: hidden;
   perspective: 1000px;
   padding-bottom: 12px;
 }
