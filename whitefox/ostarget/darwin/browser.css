@@ -177,6 +177,10 @@ toolbarbutton.bookmark-item > menupopup {
   background: rgba(237,237,237,1);
 }
 
+.tab-drop-indicator {
+  margin-bottom: -24px;
+}
+
 #context-navigation > .menuitem-iconic {
   padding-left: 0;
   padding-right: 0;
