@@ -2225,7 +2225,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 
 .tabbrowser-tab:not([pinned]) {
   max-width: 190px;
-  min-width: 46px;
+  min-width: 88px;
 }
 
 .tabbrowser-tab:not([pinned]):not([fadein]) {
