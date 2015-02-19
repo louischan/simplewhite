@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(241, 244, 248);
+  background-color: rgb(255, 255, 255);
   margin-top: 2em;
   font: message-box;
   font-size: 100%;
@@ -61,15 +61,10 @@ button {
   margin: 2px 0;
   padding: 2px 6px;
   line-height: 1.2;
-  background-color: hsla(210,30%,95%,.1);
-  background-image: linear-gradient(hsla(0,0%,100%,.6), hsla(0,0%,100%,.1));
+  background-image: linear-gradient(rgba(255,255,255,.8), rgba(240,240,240,.8));
   background-clip: padding-box;
-  border: 1px solid hsla(210,15%,25%,.4);
-  border-color: hsla(210,15%,25%,.3) hsla(210,15%,25%,.35) hsla(210,15%,25%,.4);
+  border: 1px solid rgba(0,0,0,.2);
   border-radius: 3px;
-  box-shadow: 0 1px 0 hsla(0,0%,100%,.3) inset,
-              0 0 0 1px hsla(0,0%,100%,.3) inset,
-              0 1px 0 hsla(0,0%,100%,.1);
 
   transition-property: background-color, border-color, box-shadow;
   transition-duration: 150ms;
@@ -78,21 +73,14 @@ button {
 }
 
 button:hover {
-  background-color: hsla(210,30%,95%,.8);
-  border-color: hsla(210,15%,25%,.45) hsla(210,15%,25%,.5) hsla(210,15%,25%,.55);
-  box-shadow: 0 1px 0 hsla(0,0%,100%,.3) inset,
-              0 0 0 1px hsla(0,0%,100%,.3) inset,
-              0 1px 0 hsla(0,0%,100%,.1),
-              0 0 3px hsla(210,15%,25%,.1);
+  background-image: linear-gradient(rgba(246,246,246,.8), rgba(231,231,231,.8));
   transition-property: background-color, border-color, box-shadow;
   transition-duration: 150ms;
   transition-timing-function: ease;
 }
 
 button:hover:active {
-  background-color: hsla(210,15%,25%,.2);
-  box-shadow: 0 1px 1px hsla(210,15%,25%,.2) inset,
-              0 0 2px hsla(210,15%,25%,.4) inset;
+  background-image: linear-gradient(rgba(218,218,218,.8), rgba(225,225,225,.8));
   transition-property: background-color, border-color, box-shadow;
   transition-duration: 10ms;
   transition-timing-function: linear;

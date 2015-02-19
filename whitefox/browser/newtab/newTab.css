@@ -78,6 +78,7 @@
 
 /* GRID 3D */
 #newtab-grid {
+  backface-visibility: hidden;
   perspective: 1000px;
   padding-bottom: 12px;
 }
@@ -89,11 +90,11 @@
 .newtab-cell {
   transform: rotateX(-8deg);
   transform-origin: 0 0;
-  transition: .3s;
+  transition: 250ms;
 }
 .newtab-cell:hover:not(:empty) {
   transform: rotateX(-8deg) translateY(-9px);
-  transition: .3s;
+  transition: 250ms;
 }
 
 #newtab-grid[locked] > .newtab-cell {
@@ -279,7 +280,7 @@
 
 .searchSuggestionTable {
   -moz-margin-start: 23px;
-  background-color: rgba(255, 255, 255, .88);
+  background-color: rgba(255, 255, 255, .97);
   border: none;
   box-shadow: 0 5px 5px rgba(0, 0, 0, .2);
 }

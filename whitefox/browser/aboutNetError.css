@@ -45,7 +45,7 @@ ul {
   }
 }
 
-#errorTitleText[sslv3] {
+#errorTitleText[sslv3=true] {
   background-image: url("aboutNetError_alert.svg");
 }
 

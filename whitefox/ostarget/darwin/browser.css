@@ -63,6 +63,46 @@
   margin-top: 0;
 }
 
+/* Private browsing indicators */
+.private-browsing-indicator,
+#main-window[inFullscreen] #TabsToolbar > .private-browsing-indicator {
+  background: url("chrome://browser/skin/privatebrowsing-mask-titlebar-XPVista7.png") no-repeat center 0px;
+  width: 40px;
+  height: 20px;
+  margin: 0 4px;
+  display: block;
+}
+
+#titlebar-secondary-buttonbox > .private-browsing-indicator {
+  position: relative;
+}
+
+#main-window:not([privatebrowsingmode=temporary]) .private-browsing-indicator,
+#main-window[privatebrowsingmode=temporary][inFullscreen] > #titlebar > #titlebar-content > #titlebar-secondary-buttonbox > .private-browsing-indicator,
+#main-window[privatebrowsingmode=temporary]:not([inFullscreen]) > #tab-view-deck > #browser-panel > #navigator-toolbox > #TabsToolbar > .private-browsing-indicator {
+  display: none;
+}
+
+@media (-moz-mac-lion-theme) {
+  #TabsToolbar > .private-browsing-indicator {
+    margin-right: -46px !important;
+  }
+
+  #main-window[privatebrowsingmode=temporary] .titlebar-placeholder[type="fullscreen-button"],
+  #main-window[privatebrowsingmode=temporary] > #titlebar > #titlebar-content > #titlebar-secondary-buttonbox > #titlebar-fullscreen-button {
+    margin-left: 0px;
+  }
+
+  #main-window[privatebrowsingmode=temporary][inFullscreen] .titlebar-placeholder[type="fullscreen-button"] {
+    display: -moz-box;
+  }
+}
+
+#TabsToolbar > .private-browsing-indicator:-moz-locale-dir(rtl) {
+  -moz-box-ordinal-group: 0;
+}
+/* End private browsing indicators */
+
 /* ::::: bookmark buttons ::::: */
 
 toolbarbutton.bookmark-item {
@@ -123,6 +163,22 @@ toolbarbutton.bookmark-item > menupopup {
 #BMB_bookmarksPopup[side="bottom"] {
   margin-left: -16px;
   margin-right: -24px;
+}
+
+/* History Swipe Animation */
+
+#historySwipeAnimationCurrentPage,
+#historySwipeAnimationNextPage {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+}
+
+#historySwipeAnimationContainer {
+  -moz-appearance: -moz-mac-vibrancy-light;
+  background: rgba(237,237,237,1);
+}
+
+.tab-drop-indicator {
+  margin-bottom: -24px;
 }
 
 #context-navigation > .menuitem-iconic {

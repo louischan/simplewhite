@@ -141,3 +141,9 @@ menulist:-moz-focusring:not([open="true"]) > .menulist-label-box {
     margin-bottom: -1px;
   }
 }
+
+@media not all and (-moz-windows-theme) { /* for Linux */
+  .menulist-dropmarker {
+    display: none;
+  }
+}

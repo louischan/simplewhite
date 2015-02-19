@@ -146,6 +146,14 @@ findbar[hidden] {
   display: none;
 }
 
+.findbar-highlight:not([disabled]):hover:active,
+.findbar-case-sensitive:not([disabled]):hover:active,
+.findbar-highlight:not([disabled])[checked="true"],
+.findbar-case-sensitive:not([disabled])[checked="true"] { /* for OS X */
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.2);
+  background-color: rgba(0,0,0,.15);
+}
+
 .findbar-find-status,
 .found-matches {
   color: GrayText;
