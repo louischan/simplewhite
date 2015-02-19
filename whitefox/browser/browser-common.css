@@ -1983,14 +1983,14 @@ richlistitem[type~="action"][actiontype="switchtab"] > .ac-url-box > .ac-action-
 /* social share panel */
 
 #social-share-panel > iframe {
-  background: linear-gradient(to bottom, #f0f4f7, #fafbfc);
+  background: #fff;
   width: 300px;
   height: 150px;
 }
 
 .social-share-toolbar {
-  border-right: 1px solid #e2e5e8;
-  background: linear-gradient(to bottom, #ffffff, #f5f7fa);
+  border-right: 1px solid #d1d1d1;
+  background: #efefef;
 }
 
 #social-share-provider-buttons {
@@ -2006,16 +2006,16 @@ richlistitem[type~="action"][actiontype="switchtab"] > .ac-url-box > .ac-action-
   border-radius: 2px;
 }
 
-#social-share-provider-buttons > .share-provider-button[checked="true"]:not([disabled="true"]),
+#social-share-provider-buttons > .share-provider-button[checked="true"]:not([disabled="true"])/*,
 #social-share-provider-buttons > .share-provider-button:hover,
-#social-share-provider-buttons > .share-provider-button:active {
-  padding: 4px;
-  border: 1px solid #aeb8c1;
-  box-shadow: inset 1px 1px 1px rgba(10, 31, 51, 0.1);
+#social-share-provider-buttons > .share-provider-button:active*/ {
+  /*padding: 4px;
+  border: 1px solid #aeb8c1;*/
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 #social-share-provider-buttons > .share-provider-button[checked="true"]:not([disabled="true"]) {
-  background: linear-gradient(to bottom, rgba(230,232,234,.65), #d2d5d9);
+  background: #fff;
 }
 
 #social-share-provider-buttons > .share-provider-button > .toolbarbutton-text {
