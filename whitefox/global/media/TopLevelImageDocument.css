@@ -10,7 +10,7 @@
     background: #333/* url("chrome://global/skin/media/imagedoc-darknoise.png")*/;
   }
 
-  img.decoded {
+  img.transparent {
     background: none/* url("chrome://global/skin/media/imagedoc-lightnoise.png")*/;
     color: #222;
   }
