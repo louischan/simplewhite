@@ -212,4 +212,12 @@ toolbarbutton.bookmark-item > menupopup {
   .messageCloseButton > .toolbarbutton-icon {
     width: 16px !important;
   }
+
+  #PanelUI-update-status > .toolbarbutton-icon,
+  #PanelUI-fxa-status > .toolbarbutton-icon,
+  #PanelUI-quit > .toolbarbutton-icon,
+  #PanelUI-customize > .toolbarbutton-icon,
+  #PanelUI-help > .toolbarbutton-icon {
+    width: 16px;
+  }
 }
