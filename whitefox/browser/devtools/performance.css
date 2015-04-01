@@ -10,68 +10,26 @@
 /* CSS Variables specific to this panel that aren't defined by the themes */
 .theme-dark {
   --cell-border-color: rgba(255,255,255,0.15);
-  --focus-cell-border-color: rgba(0,0,0,0.3);
+  --focus-cell-border-color: rgba(255,255,255,0.5);
   --row-alt-background-color: rgba(29,79,115,0.15);
   --row-hover-background-color: rgba(29,79,115,0.25);
-  --tab-hover-background-color: rgba(0,0,0,0.3);
 }
 
 .theme-light {
   --cell-border-color: rgba(0,0,0,0.15);
-  --focus-cell-border-color: rgba(255,255,255,0.5);
+  --focus-cell-border-color: rgba(0,0,0,0.3);
   --row-alt-background-color: rgba(76,158,217,0.1);
   --row-hover-background-color: rgba(76,158,217,0.2);
-  --tab-hover-background-color: rgba(255,255,255,0.8);
 }
 
-/* Reload and waiting notices */
+/* Toolbar */
 
-.notice-container {
-  margin-top: -50vh;
-  font-size: 120%;
-  background-color: var(--theme-toolbar-background);
-  color: var(--theme-body-color-alt);
-}
-
-#empty-notice button,
-#recording-notice button {
-  min-width: 30px;
-  min-height: 28px;
-  margin: 0;
-  list-style-image: url(profiler-stopwatch.svg);
-}
-
-#empty-notice button[checked],
-#recording-notice button[checked] {
-  list-style-image: url(profiler-stopwatch-checked.svg);
-}
-
-#empty-notice button .button-text,
-#recording-notice button .button-text {
-  display: none;
-}
-
-.theme-dark #loading-notice {
-  font-size: 250%;
-  color: rgba(255,255,255,0.2);
-}
-
-.theme-light #loading-notice {
-  font-size: 250%;
-  color: rgba(0,0,0,0.2);
-}
-
-/* Recordings pane */
-
-#recordings-pane > tabs,
-#recordings-pane .devtools-toolbar {
-  -moz-border-end-width: 1px;
-}
-
-#recordings-pane > tabs,
-#recordings-pane .devtools-toolbar {
+#performance-toolbar > tabs,
+#performance-toolbar {
   -moz-border-end-color: var(--theme-splitter-color);
 }
+
+/* Overview Panel */
 
 #record-button {
   list-style-image: url(profiler-stopwatch.svg);
@@ -85,138 +43,21 @@
   pointer-events: none;
 }
 
-/* Recording items */
+/* Details Panel */
 
-.recording-item {
-  padding: 4px;
+#select-waterfall-view {
+  list-style-image: url(performance-icons.svg#details-waterfall);
 }
 
-.recording-item-title {
-  font-size: 110%;
+#select-calltree-view {
+  list-style-image: url(performance-icons.svg#details-call-tree);
 }
 
-.recording-item-footer {
-  padding-top: 4px;
-  font-size: 90%;
-}
-
-.recording-item-save {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.recording-item-duration,
-.recording-item-save {
-  color: var(--theme-body-color-alt);
-}
-
-#recordings-list .selected label {
-  /* Text inside a selected item should not be custom colored. */
-  color: inherit !important;
-}
-
-/* Profile pane */
-
-#profile-content tabs {
-  -moz-box-align: stretch;
-  height: 24px;
-  font: inherit;
-}
-
-#profile-content tab {
-  -moz-box-flex: 0;
-  background-color: transparent;
-  border: none;
-  border-radius: 0;
-  padding: 0;
-  text-shadow: none;
-  transition-duration: 0.25s;
-  transition-timing-function: ease-in-out;
-  transition-property: opacity, transform;
-}
-
-#profile-content tab {
-  color: var(--theme-body-color);
-}
-
-#profile-content tab:not([selected]) {
-  cursor: pointer;
-}
-
-#profile-content tab[covered] {
-  opacity: 0;
-  transform: translateY(100%);
-}
-
-#profile-content tab {
-  -moz-appearance: none;
-  -moz-border-end: 1px solid var(--theme-splitter-color);
-}
-
-#profile-content tab:hover {
-  background-color: var(--tab-hover-background-color);
-}
-
-#profile-content tab[selected] {
-  background-color: var(--theme-selection-background);
-  color: var(--theme-selection-color);
-}
-
-#profile-content tabpanel {
-  -moz-box-orient: vertical;
-  transform: translateZ(1px); /* Make sure the tabpanel appears above the tab */
-}
-
-#profile-newtab-button {
-  -moz-appearance: none;
-  background-color: transparent;
-  background-position: 4px 2px;
-  background-size: 54px 20px;
-  min-width: 26px;
-  margin: 0;
-  border: none;
-  cursor: pointer;
-}
-
-.theme-dark #profile-newtab-button {
-  background-color: rgba(112,191,83,0.2);
-}
-
-.theme-light #profile-newtab-button {
-  background-color: rgba(44,187,15,0.2);
-}
-
-.theme-dark #profile-newtab-button {
-  background-image: url(newtab-inverted.png);
-}
-
-.theme-light #profile-newtab-button {
-  background-image: url(newtab.png);
-}
-
-@media (min-resolution: 2dppx) {
-  .theme-dark #profile-newtab-button {
-    background-image: url(newtab-inverted@2x.png);
-  }
-
-  .theme-light #profile-newtab-button {
-    background-image: url(newtab@2x.png);
-  }
-}
-
-#profile-newtab-button:hover {
-  background-position: 40px 2px;
-}
-
-#profile-newtab-button:hover:active {
-  background-position: 22px 2px;
+#select-flamegraph-view {
+  list-style-image: url(performance-icons.svg#details-flamegraph);
 }
 
 /* Profile call tree */
-
-.call-tree-headers-container {
-  border-top: 1px solid var(--theme-splitter-color);
-}
 
 .call-tree-cells-container {
   /* Hack: force hardware acceleration */
@@ -258,17 +99,13 @@
   overflow: hidden;
   padding: 1px 4px;
   color: var(--theme-body-color);
+  -moz-border-end-color: var(--cell-border-color);
 }
 
 .call-tree-header:not(:last-child),
 .call-tree-cell:not(:last-child) {
   -moz-border-end-width: 1px;
   -moz-border-end-style: solid;
-}
-
-.call-tree-header,
-.call-tree-cell {
-  -moz-border-end-color: var(--cell-border-color);
 }
 
 .call-tree-header:not(:last-child) {
@@ -326,7 +163,6 @@
 .call-tree-url {
   color: var(--theme-highlight-blue);
 }
-
 
 .call-tree-line {
   color: var(--theme-highlight-orange);
@@ -386,4 +222,146 @@
 .call-tree-category {
   transform: scale(0.75);
   transform-origin: center right;
+}
+
+/**
+ * Details Waterfall Styles
+ */
+
+.waterfall-list-contents {
+  /* Hack: force hardware acceleration */
+  transform: translateZ(1px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.waterfall-header-contents {
+  overflow-x: hidden;
+}
+
+.waterfall-background-ticks {
+  /* Background created on a <canvas> in js. */
+  /* @see browser/devtools/timeline/widgets/waterfall.js */
+  background-image: -moz-element(#waterfall-background);
+  background-repeat: repeat-y;
+  background-position: -1px center;
+}
+
+.waterfall-marker-container[is-spacer] {
+  pointer-events: none;
+}
+
+.theme-dark .waterfall-marker-container:not([is-spacer]):nth-child(2n) {
+  background-color: rgba(255,255,255,0.03);
+}
+
+.theme-light .waterfall-marker-container:not([is-spacer]):nth-child(2n) {
+  background-color: rgba(128,128,128,0.03);
+}
+
+.theme-dark .waterfall-marker-container:hover {
+  background-color: rgba(255,255,255,0.1) !important;
+}
+
+.theme-light .waterfall-marker-container:hover {
+  background-color: rgba(128,128,128,0.1) !important;
+}
+
+.waterfall-marker-item {
+  overflow: hidden;
+}
+
+.waterfall-sidebar {
+  -moz-border-end: 1px solid var(--theme-splitter-color);
+}
+
+.waterfall-marker-container:hover > .waterfall-sidebar {
+  background-color: transparent;
+}
+
+.waterfall-header-name {
+  padding: 4px;
+}
+
+.waterfall-header-tick {
+  width: 100px;
+  font-size: 9px;
+  transform-origin: left center;
+  color: var(--theme-body-color);
+}
+
+.waterfall-header-tick:not(:first-child) {
+  -moz-margin-start: -100px !important; /* Don't affect layout. */
+}
+
+.waterfall-marker-bullet {
+  width: 8px;
+  height: 8px;
+  -moz-margin-start: 8px;
+  -moz-margin-end: 6px;
+  border: 1px solid;
+  border-radius: 1px;
+}
+
+.waterfall-marker-name {
+  font-size: 95%;
+  padding-bottom: 1px !important;
+}
+
+.waterfall-marker-bar {
+  height: 9px;
+  border: 1px solid;
+  border-radius: 1px;
+  transform-origin: left center;
+}
+
+.waterfall-marker-container.selected > .waterfall-sidebar,
+.waterfall-marker-container.selected > .waterfall-marker-item {
+  background-color: var(--theme-selection-background);
+  color: var(--theme-selection-color);
+}
+
+.waterfall-marker-container.selected .waterfall-marker-bullet,
+.waterfall-marker-container.selected .waterfall-marker-bar {
+  border-color: initial !important;
+}
+
+.waterfall-marker-location {
+   color: -moz-nativehyperlinktext;
+}
+
+.waterfall-marker-location:hover,
+.waterfall-marker-location:focus {
+   text-decoration: underline;
+}
+
+#waterfall-details {
+  -moz-padding-start: 8px;
+  -moz-padding-end: 8px;
+  padding-top: 2vh;
+  overflow: auto;
+}
+
+.marker-details-bullet {
+  width: 8px;
+  height: 8px;
+  border: 1px solid;
+  border-radius: 1px;
+}
+
+#waterfall-details > * {
+  padding-top: 3px;
+}
+
+.marker-details-labelname {
+  -moz-padding-end: 4px;
+}
+
+.marker-details-type {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.marker-details-duration {
+  font-weight: bold;
 }

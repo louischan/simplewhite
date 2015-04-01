@@ -5,8 +5,8 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
 notification {
-  background-color: InfoBackground;
   color: InfoText;
+  background-color: InfoBackground;
   text-shadow: none;
 }
 
@@ -16,8 +16,13 @@ notification[type="info"] {
 }
 
 notification[type="critical"] {
-  background-image: linear-gradient(rgb(212,0,0), rgb(152,0,0));
   color: white;
+  background-image: linear-gradient(rgb(212,0,0), rgb(152,0,0));
+}
+
+.messageText > .text-link {
+  color: inherit !important;
+  text-decoration: underline;
 }
 
 .messageImage {

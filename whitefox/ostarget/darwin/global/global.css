@@ -37,18 +37,6 @@ splitter {
   -moz-window-dragging: no-drag;
 }
 
-toolbar:not([nowindowdrag="true"]) { /* For FFX 34- */
-  -moz-binding: url("chrome://global/content/bindings/toolbar.xml#toolbar-drag");
-}
-
-statusbar:not([nowindowdrag="true"]) { /* For FFX 34- */
-  -moz-binding: url("chrome://global/content/bindings/general.xml#statusbar-drag");
-}
-
-windowdragbox { /* For FFX 34- */
-  -moz-binding: url("chrome://global/content/bindings/general.xml#windowdragbox");
-}
-
 /* ::::: root elements ::::: */
 
 window,
