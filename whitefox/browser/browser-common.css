@@ -1154,7 +1154,7 @@ toolbarbutton[sdk-button="true"][cui-areatype="toolbar"] > .toolbarbutton-icon {
 }
 
 /*#nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-button > .toolbarbutton-icon {
-  -moz-border-end: none;
+  -moz-border-end: none transparent;
 }*/
 
 #nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon {
@@ -1984,6 +1984,54 @@ richlistitem[type~="action"][actiontype="switchtab"] > .ac-url-box > .ac-action-
   -moz-image-region: rect(0, 48px, 16px, 32px);
 }
 
+/* Reading List button */
+
+#urlbar:not([focused]):not(:hover) #readinglist-addremove-button {
+  display: none;
+}
+
+#readinglist-addremove-button {
+  list-style-image: url("chrome://browser/skin/readinglist/icons.svg#addpage");
+  -moz-image-region: rect(0, 14px, 14px, 0);
+}
+
+#readinglist-addremove-button:hover {
+  list-style-image: url("chrome://browser/skin/readinglist/icons.svg#addpage-hover");
+}
+
+#readinglist-addremove-button:active {
+  list-style-image: url("chrome://browser/skin/readinglist/icons.svg#addpage-active");
+}
+
+#readinglist-addremove-button[already-added="true"] {
+  list-style-image: url("chrome://browser/skin/readinglist/icons.svg#alreadyadded");
+}
+
+#readinglist-addremove-button[already-added="true"]:hover {
+  list-style-image: url("chrome://browser/skin/readinglist/icons.svg#alreadyadded-hover");
+}
+
+#readinglist-addremove-button[already-added="true"]:active {
+  list-style-image: url("chrome://browser/skin/readinglist/icons.svg#alreadyadded-active");
+}
+
+/* Reader mode button */
+
+#reader-mode-button {
+  list-style-image: url("chrome://browser/skin/readerMode.svg");
+  -moz-image-region: rect(0, 16px, 16px, 0);
+}
+
+#reader-mode-button:hover,
+#reader-mode-button[readeractive]:hover {
+  -moz-image-region: rect(0, 32px, 16px, 16px);
+}
+
+#reader-mode-button:hover:active,
+#reader-mode-button[readeractive] {
+  -moz-image-region: rect(0, 48px, 16px, 32px);
+}
+
 /* social share panel */
 
 .social-share-frame {
@@ -2200,7 +2248,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 #TabsToolbar {
   min-height: 0;
   padding: 0;
-  /*margin-bottom: -1px;  overlap the nav-bar's top border *//*Louis*/
+  /*margin-bottom: calc(-1 * var(--tab-toolbar-navbar-overlap));  overlap the nav-bar's top border *//*Louis*/
 }
 
 #tabbrowser-tabs {
@@ -2666,7 +2714,6 @@ toolbarbutton.bookmark-item[dragover="true"][open="true"] {
 }
 
 .popup-notification-icon[popupid="indexedDB-permissions-prompt"],
-.popup-notification-icon[popupid="indexedDB-quota-prompt"],
 .popup-notification-icon[popupid*="offline-app-requested"],
 .popup-notification-icon[popupid="offline-app-usage"] {
   list-style-image: url(chrome://global/skin/icons/question-64.png);
@@ -3050,6 +3097,19 @@ notification[value="translation"] {
   -moz-appearance: none;
 }
 
+/* Loop/ Hello browser styles */
+
+notification[value="loop-sharing-notification"] .button-menubutton-button {
+  -moz-appearance: none;
+  min-width: 0;
+  border: 0;
+  margin: 0;
+}
+
+notification[value="loop-sharing-notification"] .messageImage {
+  list-style-image: url(chrome://browser/skin/webRTC-shareScreen-16.png);
+}
+
 /* Bookmarks roots menu-items */
 #subscribeToPageMenuitem:not([disabled]),
 #subscribeToPageMenupopup,
@@ -3068,6 +3128,12 @@ notification[value="translation"] {
 #BMB_unsortedBookmarks,
 #panelMenu_unsortedBookmarks {
   list-style-image: url("chrome://browser/skin/places/unsortedBookmarks.png");
+  -moz-image-region: auto;
+}
+
+#menu_readingList,
+#BMB_readingList {
+  list-style-image: url("chrome://browser/skin/readinglist/readinglist-icon.svg");
   -moz-image-region: auto;
 }
 
@@ -4522,6 +4588,17 @@ chatbox {
   list-style-image: url("chrome://browser/skin/drm-icon.svg#chains-pressed");
 }
 
+#eme-notification-icon[firstplay=true] {
+  animation: emeTeachingMoment 0.2s linear 0s 5 normal;
+}
+
+@keyframes emeTeachingMoment {
+  0% {transform: translateX(0); }
+  25% {transform: translateX(3px) }
+  75% {transform: translateX(-3px) }
+  100% { transform: translateX(0); }
+}
+
 /* Customization mode */
 
 /* This Source Code Form is subject to the terms of the Mozilla Public
@@ -5246,54 +5323,6 @@ toolbarpaletteitem[place="toolbar"] {
 
 #UITourTooltipButtons > button.button-primary:not(:active):hover {
   background-color: rgb(105,173,61);
-}
-
-.SearchHighlight {
-  -moz-margin-end: 6px;
-  font-size: 110%;
-  width: 225px;
-}
-
-.SearchHighlight label,
-.SearchHighlight description {
-  color: #535353;
-  margin: 0 0 8px 0;
-  padding: 0;
-}
-
-.SearchHighlightTitle {
-  font-weight: bold;
-}
-
-.SearchHighlight .dot {
-  width: 7px;
-  height: 7px;
-  background-image: -moz-image-rect(url("chrome://browser/skin/dots.png"), 0, 100%, 100%, 9);
-  background-size: 7px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  -moz-margin-end: 2px;
-}
-
-.SearchHighlight .dot.filled {
-  background-image: -moz-image-rect(url("chrome://browser/skin/dots.png"), 0, 7, 100%, 0);
-}
-
-.SearchHighlight button {
-  margin: 0;
-  /* On some platforms clicking the button will steal focus from the search box
-     causing the popup to close. */
-  -moz-user-focus: ignore;
-}
-
-@media not all and (max-resolution: 1dppx) {
-  .SearchHighlight .dot {
-    background-image: -moz-image-rect(url("chrome://browser/skin/dots@2x.png"), 0, 100%, 100%, 18);
-  }
-
-  .SearchHighlight .dot.filled {
-    background-image: -moz-image-rect(url("chrome://browser/skin/dots@2x.png"), 0, 14, 100%, 0);
-  }
 }
 
 /* Notification overrides for Heartbeat UI */
