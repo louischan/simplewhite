@@ -2253,6 +2253,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 
 #tabbrowser-tabs {
   margin: 0 3px;
+  height: 28px; /*Enforcing tab height so addons that add icons on tabs don't break them (see https://github.com/louischan/simplewhite/issues/34) *//*SW1FT*/
 }
 
 .tabbrowser-tab:not([pinned]) {
