@@ -418,7 +418,7 @@
 
 /*** view-port ***/
 
-#view-port {
+#view-port { /*Added by SW1FT*/
   background-color: rgba(255, 255, 255, 0.35);
   background-image: -moz-linear-gradient(center top , rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75));
   border: 1px solid #CCC;
