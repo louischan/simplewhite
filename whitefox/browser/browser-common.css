@@ -5999,3 +5999,11 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
   -moz-margin-start: 0;
   -moz-margin-end: -3px;
 }
+
+#theFoxOnlyBetter-slimChrome-slimmer,
+#theFoxOnlyBetter-slimChrome-toolbars,
+#theFoxOnlyBetter-slimChrome-toolbars-before,
+#theFoxOnlyBetter-slimChrome-toolbars-after,
+#theFoxOnlyBetter-slimChrome-container #nav-bar > * {
+  background: rgba(250,250,250,1) !important;
+}
