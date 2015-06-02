@@ -144,7 +144,8 @@
   opacity: 1;
 }
 
-.newtab-site:hover .newtab-thumbnail.enhanced-content {
+.newtab-site:hover .newtab-thumbnail.enhanced-content,
+.newtab-cell:not([ignorehover]) .newtab-site:hover .newtab-thumbnail.enhanced-content {
   opacity: 0;
 }
 
@@ -168,6 +169,21 @@
 .newtab-site:not([dragged]):hover .newtab-title {
   opacity: 1;
   transition: opacity 100ms ease-in;
+}
+
+.newtab-suggested:hover {
+  color: #588FE4;
+  border: 1px solid #588FE4;
+}
+
+.newtab-suggested[active] {
+  background-color: rgba(51, 51, 51, 0.95);
+  border: 0;
+  color: white;
+}
+
+.newtab-suggested {
+  background-color: white;
 }
 
 /*.newtab-site[pinned] .newtab-title {

@@ -309,6 +309,10 @@ notification > button > .button-box > .button-text {
   margin: 0 !important;
 }
 
+popupnotificationcontent {
+  margin-top: .5em;
+}
+
 /* :::::: autoscroll popup ::::: */
 
 .autoscroller {
