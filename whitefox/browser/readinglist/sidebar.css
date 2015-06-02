@@ -4,7 +4,6 @@
 
 
 :root, body {
-  height: 100%;
   overflow-x: hidden;
 }
 
@@ -22,16 +21,14 @@ body {
   text-align: center;
 }
 
-#list {
-  height: 100%;
-  overflow-x: auto;
-}
-
 .item {
   display: flex;
   flex-flow: row;
   cursor: pointer;
   padding: 6px;
+  opacity: 0;
+  max-height: 0;
+  transition: opacity 150ms ease-in-out, max-height 150ms ease-in-out 150ms;
 }
 
 .item.active {
@@ -101,13 +98,21 @@ body {
   padding: 0;
   width: 16px;
   height: 16px;
+  min-width: 16px;
+  min-height: 16px;
   background-size: contain;
   background-color: transparent;
   border-width: 0;
 }
 
+.item.visible {
+  opacity: 1;
+  max-height: 80px;
+  transition: max-height 250ms ease-in-out, opacity 250ms ease-in-out 250ms;
+}
 
 html {
+  background-color: #EEF3FA;
 }
 
 .item {
