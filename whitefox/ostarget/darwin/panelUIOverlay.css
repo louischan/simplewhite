@@ -92,11 +92,17 @@
   background-size: var(--panel-ui-button-background-size);
   background-position: var(--panel-ui-button-background-position);
   background-repeat: var(--panel-ui-button-background-repeat);
-}
+}*/
 
 #PanelUI-button:-moz-locale-dir(rtl) {
   background-position: 100% 0, calc(100% - 1px) 0, calc(100% - 2px) 0;
-}*/
+}
+
+#PanelUI-menu-button[update-status="succeeded"] .toolbarbutton-badge::after {
+  content: url(chrome://browser/skin/update-badge.svg);
+  background-color: #74BF43;
+  height: 10px;
+}
 
 .panel-subviews {
   padding: 4px;
@@ -231,6 +237,11 @@ panelmultiview[nosubviews=true] > .panel-viewcontainer > .panel-viewstack > .pan
   max-width: 30em;
 }
 
+/* Bug 1164419 - increase Pocket panel size to accomidate wider Russian text. */
+panelmultiview[mainViewId=PanelUI-pocketView] > .panel-viewcontainer > .panel-viewstack > .panel-mainview:not([panelid="PanelUI-popup"]) {
+  max-width: 33em; /* standaloneSubviewWidth + 3 */
+}
+
 panelview:not([mainview]) .toolbarbutton-text,
 .cui-widget-panel toolbarbutton > .toolbarbutton-text {
   text-align: start;
@@ -239,6 +250,11 @@ panelview:not([mainview]) .toolbarbutton-text,
 
 .cui-widget-panel > .panel-arrowcontainer > .panel-arrowcontent {
   padding: 4px 0;
+}
+
+.cui-widget-panel[viewId="PanelUI-pocketView"] > .panel-arrowcontainer > .panel-arrowcontent {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .cui-widget-panel.cui-widget-panelWithFooter > .panel-arrowcontainer > .panel-arrowcontent {
@@ -497,7 +513,7 @@ toolbarpaletteitem[place="palette"] > toolbaritem > toolbarbutton {
   min-height: 40px;
   -moz-appearance: none;
   box-shadow: none;
-  border: none;  
+  border: none;
   border-radius: 0;
   transition: background-color;
   -moz-box-orient: horizontal;
@@ -788,7 +804,7 @@ panelview .toolbarbutton-1:not(:-moz-any([disabled],[open],:active)):hover,
 toolbarbutton.subviewbutton:not(:-moz-any([disabled],[open],:active)):hover,
 menu.subviewbutton:not(:-moz-any([disabled],:active))[_moz-menuactive],
 menuitem.subviewbutton:not(:-moz-any([disabled],:active))[_moz-menuactive],
-.share-provider-button:not(:-moz-any([disabled],[open],:active)):hover,
+.share-provider-button:not(:-moz-any([disabled],[open],:active)):hover:not([checked="true"]),
 .widget-overflow-list .toolbarbutton-1:not(:-moz-any([disabled],[open],:active)):hover,
 .toolbaritem-combined-buttons:-moz-any(:not([cui-areatype="toolbar"]), [overflowedItem=true]) > toolbarbutton:not(:-moz-any([disabled],[open],:active)):hover {
   background-color: hsla(210,4%,10%,.08);
@@ -1158,7 +1174,9 @@ menuitem[checked="true"].subviewbutton > .menu-iconic-left {
 #customizationui-widget-multiview > .panel-viewcontainer,
 #customizationui-widget-multiview > .panel-viewcontainer > .panel-viewstack,
 #PanelUI-panicView > .panel-subview-body,
-#PanelUI-panicView {
+#PanelUI-panicView,
+#PanelUI-pocketView > .panel-subview-body,
+#PanelUI-pocketView {
   overflow: visible;
 }
 

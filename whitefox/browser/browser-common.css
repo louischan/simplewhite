@@ -575,12 +575,12 @@ menuitem.bookmark-item {
 
 /* Note that this file isn't used for HiDPI on OS X. */
 
-:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button),
+:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button, #pocket-button),
 #bookmarks-menu-button > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon {
   list-style-image: url("chrome://browser/skin/Toolbar.png");
 }
 
-toolbar[brighttext] :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button),
+toolbar[brighttext] :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button, #pocket-button),
 toolbar[brighttext] #bookmarks-menu-button > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon {
   list-style-image: url(chrome://browser/skin/Toolbar-inverted.png);
 }
@@ -794,6 +794,14 @@ toolbar[brighttext] #loop-button > .toolbarbutton-badge-container {
 #webide-button[cui-areatype="toolbar"] {
   -moz-image-region: rect(0, 738px, 18px, 720px);
 }
+
+#pocket-button[cui-areatype="toolbar"] {
+  -moz-image-region: rect(0, 774px, 18px, 756px);
+}
+
+#pocket-button[cui-areatype="toolbar"][open] {
+  -moz-image-region: rect(18px, 774px, 36px, 756px);
+}
 /* Menu panel and palette styles */
 /* Note that this file isn't used for HiDPI on OS X. */
 
@@ -803,8 +811,8 @@ toolbar[brighttext] #loop-button > .toolbarbutton-badge-container {
 }
 
 toolbaritem[sdkstylewidget="true"] > toolbarbutton,
-:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button)[cui-areatype="menu-panel"],
-toolbarpaletteitem[place="palette"] > :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button) {
+:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button, #pocket-button)[cui-areatype="menu-panel"],
+toolbarpaletteitem[place="palette"] > :-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button, #pocket-button) {
   list-style-image: var(--menupanel-list-style-image);
 }
 
@@ -864,6 +872,10 @@ toolbarpaletteitem[place="palette"] > #sync-button {
 #feed-button[cui-areatype="menu-panel"],
 toolbarpaletteitem[place="palette"] > #feed-button {
   -moz-image-region: rect(0px, 416px, 32px, 384px);
+}
+
+#feed-button[cui-areatype="menu-panel"][panel-multiview-anchor=true] {
+  -moz-image-region: rect(32px, 416px, 64px, 384px);
 }
 
 #social-share-button[cui-areatype="menu-panel"],
@@ -965,6 +977,15 @@ toolbarpaletteitem[place="palette"] > #web-apps-button {
 #webide-button[cui-areatype="menu-panel"],
 toolbarpaletteitem[place="palette"] > #webide-button {
   -moz-image-region: rect(0px, 960px, 32px, 928px);
+}
+
+#pocket-button[cui-areatype="menu-panel"],
+toolbarpaletteitem[place="palette"] > #pocket-button {
+  -moz-image-region: rect(0px, 992px, 32px, 960px);
+}
+
+#pocket-button[cui-areatype="menu-panel"][panel-multiview-anchor=true] {
+  -moz-image-region: rect(32px, 992px, 64px, 960px);
 }
 
 toolbaritem[sdkstylewidget="true"] > toolbarbutton {
@@ -1128,9 +1149,9 @@ window:not([chromehidden~="toolbar"]) #urlbar-wrapper > .toolbarbutton-1:-moz-an
   transition-duration: 150ms;
 }
 
-#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button)) > .toolbarbutton-icon,
-#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button)) > .toolbarbutton-badge-container,
-#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button)) > .toolbarbutton-menubutton-button > .toolbarbutton-icon {
+#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button, #pocket-button)) > .toolbarbutton-icon,
+#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button, #pocket-button)) > .toolbarbutton-badge-container,
+#nav-bar .toolbarbutton-1:not(:-moz-any(#back-button, #forward-button, #home-button, #print-button, #downloads-button, #bookmarks-menu-button, #new-tab-button, #new-window-button, #fullscreen-button, #sync-button, #feed-button, #tabview-button, #social-share-button, #open-file-button, #find-button, #developer-button, #preferences-button, #privatebrowsing-button, #save-page-button, #switch-to-metro-button, #add-ons-button, #history-panelmenu, #nav-bar-overflow-button, #PanelUI-menu-button, #characterencoding-button, #email-link-button, #sidebar-button, #zoom-out-button, #zoom-reset-button, #zoom-in-button, #cut-button, #copy-button, #paste-button, #e10s-button, #panic-button, #web-apps-button, #webide-button, #loop-button, #pocket-button)) > .toolbarbutton-menubutton-button > .toolbarbutton-icon {
   padding: 3px 7px;
 }
 
@@ -1154,7 +1175,7 @@ toolbarbutton[sdk-button="true"][cui-areatype="toolbar"] > .toolbarbutton-icon {
 }
 
 /*#nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-button > .toolbarbutton-icon {
-  -moz-border-end: none;
+  -moz-border-end: none transparent;
 }*/
 
 #nav-bar .toolbarbutton-1 > .toolbarbutton-menubutton-dropmarker > .dropmarker-icon {
@@ -1984,6 +2005,58 @@ richlistitem[type~="action"][actiontype="switchtab"] > .ac-url-box > .ac-action-
   -moz-image-region: rect(0, 48px, 16px, 32px);
 }
 
+/* Reading List button */
+
+#urlbar:not([focused]):not(:hover) #readinglist-addremove-button {
+  opacity: 0;
+  width: 0px;
+}
+
+#readinglist-addremove-button {
+  list-style-image: url("chrome://browser/skin/readinglist/icons.svg#addpage");
+  -moz-image-region: rect(0, 14px, 14px, 0);
+  transition: width 150ms ease-in-out, opacity 150ms ease-in-out 150ms;
+  opacity: 1;
+  width: 20px;
+}
+
+#readinglist-addremove-button:hover {
+  list-style-image: url("chrome://browser/skin/readinglist/icons.svg#addpage-hover");
+}
+
+#readinglist-addremove-button:active {
+  list-style-image: url("chrome://browser/skin/readinglist/icons.svg#addpage-active");
+}
+
+#readinglist-addremove-button[already-added="true"] {
+  list-style-image: url("chrome://browser/skin/readinglist/icons.svg#alreadyadded");
+}
+
+#readinglist-addremove-button[already-added="true"]:hover {
+  list-style-image: url("chrome://browser/skin/readinglist/icons.svg#alreadyadded-hover");
+}
+
+#readinglist-addremove-button[already-added="true"]:active {
+  list-style-image: url("chrome://browser/skin/readinglist/icons.svg#alreadyadded-active");
+}
+
+/* Reader mode button */
+
+#reader-mode-button {
+  list-style-image: url("chrome://browser/skin/readerMode.svg");
+  -moz-image-region: rect(0, 16px, 16px, 0);
+}
+
+#reader-mode-button:hover,
+#reader-mode-button[readeractive]:hover {
+  -moz-image-region: rect(0, 32px, 16px, 16px);
+}
+
+#reader-mode-button:hover:active,
+#reader-mode-button[readeractive] {
+  -moz-image-region: rect(0, 48px, 16px, 32px);
+}
+
 /* social share panel */
 
 .social-share-frame {
@@ -2200,7 +2273,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 #TabsToolbar {
   min-height: 0;
   padding: 0;
-  /*margin-bottom: -1px;  overlap the nav-bar's top border *//*Louis*/
+  /*margin-bottom: calc(-1 * var(--tab-toolbar-navbar-overlap));  overlap the nav-bar's top border *//*Louis*/
 }
 
 #tabbrowser-tabs {
@@ -2617,13 +2690,23 @@ toolbarbutton.bookmark-item[dragover="true"][open="true"] {
 
 .popup-notification-icon[popupid="xpinstall-disabled"],
 .popup-notification-icon[popupid="addon-progress"],
-.popup-notification-icon[popupid="addon-install-cancelled"],
 .popup-notification-icon[popupid="addon-install-blocked"],
 .popup-notification-icon[popupid="addon-install-failed"],
+.popup-notification-icon[popupid="addon-install-confirmation"],
 .popup-notification-icon[popupid="addon-install-complete"] {
   list-style-image: url(chrome://mozapps/skin/extensions/extensionGeneric.png);
   width: 32px;
   height: 32px;
+}
+
+.popup-notification-description[popupid="addon-progress"],
+.popup-notification-description[popupid="addon-install-confirmation"] {
+  width: 27em;
+  max-width: 27em;
+}
+
+.addon-install-confirmation-name {
+  font-weight: bold;
 }
 
 .popup-notification-icon[popupid="click-to-play-plugins"] {
@@ -2634,46 +2717,13 @@ toolbarbutton.bookmark-item[dragover="true"][open="true"] {
   list-style-image: url(chrome://browser/skin/notification-64.png);
 }
 
-.addon-progress-description {
-  width: 350px;
-  max-width: 350px;
-}
-
-.popup-progress-label,
-.popup-progress-meter {
-  -moz-margin-start: 0;
-  -moz-margin-end: 0;
-}
-
-.popup-progress-cancel {
-  -moz-appearance: none;
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
-  min-height: 0;
-  min-width: 0;
-  list-style-image: url(chrome://mozapps/skin/downloads/downloadButtons.png);
-  -moz-image-region: rect(0px, 32px, 16px, 16px);
-}
-
-.popup-progress-cancel:hover {
-  -moz-image-region: rect(16px, 32px, 32px, 16px);
-}
-
-.popup-progress-cancel:active {
-  -moz-image-region: rect(32px, 32px, 48px, 16px);
-}
-
 .popup-notification-icon[popupid="indexedDB-permissions-prompt"],
-.popup-notification-icon[popupid="indexedDB-quota-prompt"],
 .popup-notification-icon[popupid*="offline-app-requested"],
 .popup-notification-icon[popupid="offline-app-usage"] {
   list-style-image: url(chrome://global/skin/icons/question-64.png);
 }
 
-.popup-notification-icon[popupid="password-save"],
-.popup-notification-icon[popupid="password-change"] {
+.popup-notification-icon[popupid="password"] {
   list-style-image: url(chrome://mozapps/skin/passwordmgr/key-64.png);
 }
 
@@ -3050,6 +3100,19 @@ notification[value="translation"] {
   -moz-appearance: none;
 }
 
+/* Loop/ Hello browser styles */
+
+notification[value="loop-sharing-notification"] .button-menubutton-button {
+  -moz-appearance: none;
+  min-width: 0;
+  border: 0;
+  margin: 0;
+}
+
+notification[value="loop-sharing-notification"] .messageImage {
+  list-style-image: url(chrome://browser/skin/webRTC-shareScreen-16.png);
+}
+
 /* Bookmarks roots menu-items */
 #subscribeToPageMenuitem:not([disabled]),
 #subscribeToPageMenupopup,
@@ -3069,6 +3132,18 @@ notification[value="translation"] {
 #panelMenu_unsortedBookmarks {
   list-style-image: url("chrome://browser/skin/places/unsortedBookmarks.png");
   -moz-image-region: auto;
+}
+
+#menu_readingList,
+#BMB_readingList {
+  list-style-image: url("chrome://browser/skin/readinglist/readinglist-icon.svg");
+  -moz-image-region: auto;
+}
+
+#panelMenu_pocket,
+#menu_pocket,
+#BMB_pocket {
+  list-style-image: url("chrome://browser/content/pocket/panels/img/pocketmenuitem16.png");
 }
 
 /* ::::: Keyboard UI Panel ::::: */
@@ -4522,6 +4597,17 @@ chatbox {
   list-style-image: url("chrome://browser/skin/drm-icon.svg#chains-pressed");
 }
 
+#eme-notification-icon[firstplay=true] {
+  animation: emeTeachingMoment 0.2s linear 0s 5 normal;
+}
+
+@keyframes emeTeachingMoment {
+  0% {transform: translateX(0); }
+  25% {transform: translateX(3px) }
+  75% {transform: translateX(-3px) }
+  100% { transform: translateX(0); }
+}
+
 /* Customization mode */
 
 /* This Source Code Form is subject to the terms of the Mozilla Public
@@ -4677,12 +4763,24 @@ chatbox {
 #customization-titlebar-visibility-button {
   list-style-image: url("chrome://browser/skin/customizableui/customize-titleBar-toggle.png");
   -moz-image-region: rect(0, 24px, 24px, 0);
+}
+
+#customization-lwtheme-button,
+#customization-titlebar-visibility-button  {
   padding: 2px 7px;
 }
 
+#customization-lwtheme-button > .box-inherit > .box-inherit > .button-text,
 #customization-titlebar-visibility-button > .button-box > .button-text {
   /* Sadly, button.css thinks its margins are perfect for everyone. */
   -moz-margin-start: 6px !important;
+}
+
+#customization-lwtheme-button > .box-inherit > .box-inherit > .button-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  background-size: contain;
 }
 
 #customization-titlebar-visibility-button > .button-box > .button-icon {
@@ -5248,60 +5346,17 @@ toolbarpaletteitem[place="toolbar"] {
   background-color: rgb(105,173,61);
 }
 
-.SearchHighlight {
-  -moz-margin-end: 6px;
-  font-size: 110%;
-  width: 225px;
-}
-
-.SearchHighlight label,
-.SearchHighlight description {
-  color: #535353;
-  margin: 0 0 8px 0;
-  padding: 0;
-}
-
-.SearchHighlightTitle {
-  font-weight: bold;
-}
-
-.SearchHighlight .dot {
-  width: 7px;
-  height: 7px;
-  background-image: -moz-image-rect(url("chrome://browser/skin/dots.png"), 0, 100%, 100%, 9);
-  background-size: 7px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  -moz-margin-end: 2px;
-}
-
-.SearchHighlight .dot.filled {
-  background-image: -moz-image-rect(url("chrome://browser/skin/dots.png"), 0, 7, 100%, 0);
-}
-
-.SearchHighlight button {
-  margin: 0;
-  /* On some platforms clicking the button will steal focus from the search box
-     causing the popup to close. */
-  -moz-user-focus: ignore;
-}
-
-@media not all and (max-resolution: 1dppx) {
-  .SearchHighlight .dot {
-    background-image: -moz-image-rect(url("chrome://browser/skin/dots@2x.png"), 0, 100%, 100%, 18);
-  }
-
-  .SearchHighlight .dot.filled {
-    background-image: -moz-image-rect(url("chrome://browser/skin/dots@2x.png"), 0, 14, 100%, 0);
-  }
-}
-
 /* Notification overrides for Heartbeat UI */
 
 notification.heartbeat {
   background-color: #F1F1F1;
-  box-shadow: 0px 1px 0px 0px rgba(0,0,0,0.35);
+  border-bottom: 1px solid #C1C1C1;
+  height: 40px;
 }
+
+/* In themes/osx/global/notification.css the close icon is inverted because notifications
+   on OSX are usually dark. Heartbeat is light, so override that behaviour. */
+
 
 @keyframes pulse-onshow {
  0% {
@@ -5337,17 +5392,17 @@ notification.heartbeat {
 
 .messageText.heartbeat {
   color: #333333;
-  font-weight: normal;
-  font-family: "Lucida Grande", Segoe, Ubuntu;
-  font-size: 14px;
-  line-height: 16px;
   text-shadow: none;
+  -moz-margin-start: 0px;
+  /* The !important is required to override OSX default style. */
+  -moz-margin-end: 12px !important;
 }
 
 .messageImage.heartbeat {
-  width: 36px;
-  height: 36px;
-  -moz-margin-end: 10px;
+  width: 24px;
+  height: 24px;
+  -moz-margin-start: 8px;
+  -moz-margin-end: 8px;
 }
 
 .messageImage.heartbeat.pulse-onshow {
@@ -5364,9 +5419,25 @@ notification.heartbeat {
   animation-timing-function: linear;
 }
 
+/* Learn More link styles */
+.heartbeat > .text-link {
+  color: #0095DD;
+  -moz-margin-start: 0px;
+}
+
+.heartbeat > .text-link:hover {
+  color: #008ACB;
+  text-decoration: none;
+}
+
+.heartbeat > .text-link:hover:active {
+  color: #006B9D;
+}
+
 /* Heartbeat UI Rating Star Classes */
 .heartbeat > #star-rating-container {
   display: -moz-box;
+  margin-bottom: 4px;
 }
 
 .heartbeat > #star-rating-container > #star5 {
@@ -5388,8 +5459,10 @@ notification.heartbeat {
 .heartbeat > #star-rating-container > .star-x  {
   background: url("chrome://browser/skin/heartbeat-star-off.svg");
   cursor: pointer;
-  width: 24px;
-  height: 24px;
+  /* Overrides the -moz-margin-end for all platforms defined in the .plain class */
+  -moz-margin-end: 4px !important;
+  width: 16px;
+  height: 16px;
 }
 
 .heartbeat > #star-rating-container > .star-x:hover,
@@ -5561,7 +5634,7 @@ menugroup > .menuitem-iconic[disabled="true"] > .menu-iconic-left {
       background-color: hsl(210,75%,92%);
     }
 
-    .tab-background-middle[selected=true]:not(:-moz-lwtheme) {
+    .tab-background-middle[visuallyselected=true]:not(:-moz-lwtheme) {
       background-color: hsl(210,75%,92%);
     }
 
