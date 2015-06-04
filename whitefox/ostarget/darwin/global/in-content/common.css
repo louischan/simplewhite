@@ -662,6 +662,7 @@ xul|tree {
   -moz-appearance: none;
   font-size: 1em;
   border: 1px solid #c1c1c1;
+  margin: 0;
 }
 
 xul|tree:-moz-focusring,
@@ -728,7 +729,7 @@ xul|tabs {
   padding-left: 0;
 }
 
-xul|tab[selected] {
+xul|tab[visuallyselected] {
   text-shadow: none;
 }
 
@@ -799,6 +800,7 @@ xul|*.text-link:-moz-focusring,
 xul|*.inline-link:-moz-focusring {
   color: #ff9500;
   text-decoration: underline;
+  box-shadow: none;
 }
 
 xul|button:-moz-focusring,
