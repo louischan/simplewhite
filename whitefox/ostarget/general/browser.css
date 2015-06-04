@@ -40,3 +40,13 @@
   -moz-padding-end: 0 !important;
   -moz-margin-end: 0 !important;
 }
+
+/* Fix #33 */
+.tab-background-start[selected=true]::after,
+.tab-background-start[selected=true]::before,
+.tab-background-start,
+.tab-background-end,
+.tab-background-end[selected=true]::after,
+.tab-background-end[selected=true]::before {
+  min-height: 20px;
+}

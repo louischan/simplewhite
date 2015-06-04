@@ -2278,11 +2278,12 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 
 #tabbrowser-tabs {
   margin: 0 3px;
+  min-height: 26px;
 }
 
 .tabbrowser-tab:not([pinned]) {
   max-width: 190px;
-  min-width: 88px;
+  min-width: 68px;
 }
 
 .tabbrowser-tab:not([pinned]):not([fadein]) {
@@ -2308,8 +2309,8 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   min-height: 26px;
 }
 
-.tabbrowser-tab:first-child {
-  -moz-margin-start: 0;
+.tabbrowser-arrowscrollbox > .arrowscrollbox-scrollbox {
+  -moz-padding-start: 1px; 
 }
 
 .tabbrowser-tab:hover,
@@ -2340,6 +2341,10 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 
 .tab-content {
   -moz-padding-start: 8px;
+  -moz-padding-end: 3px;
+}
+
+.tab-content[pinned] {
   -moz-padding-end: 0;
 }
 
@@ -2382,6 +2387,11 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   margin-bottom: -11px;
 }
 
+.tab-label {
+  -moz-margin-start: 0;
+  -moz-margin-end: 0;
+}
+
 /* Tab close button */
 .tab-close-button {
   -moz-appearance: none;
@@ -2389,6 +2399,7 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
   border: none;
   padding: 0px;
   list-style-image: url("chrome://global/skin/icons/close.png");
+  -moz-margin-end: -3px;
 }
 
 .tab-close-button:-moz-system-metric(touch-enabled) {
@@ -2411,6 +2422,43 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 
 .tab-close-button:focus {
   outline: none !important;
+}
+
+/* Tab Overflow */
+.tabbrowser-arrowscrollbox > .arrowscrollbox-overflow-start-indicator:not([collapsed]),
+.tabbrowser-arrowscrollbox > .arrowscrollbox-overflow-end-indicator:not([collapsed]) {
+  background-image: url(chrome://browser/skin/tabbrowser/tab-overflow-indicator.png);
+  background-size: 100% 100%;
+  width: 14px;
+  margin-bottom: 0;
+  pointer-events: none;
+  position: relative;
+  z-index: 3; /* the selected tab's z-index + 1 */
+}
+
+.tabbrowser-arrowscrollbox > .arrowscrollbox-overflow-start-indicator:-moz-locale-dir(rtl),
+.tabbrowser-arrowscrollbox > .arrowscrollbox-overflow-end-indicator:-moz-locale-dir(ltr) {
+  transform: scaleX(-1);
+}
+
+.tabbrowser-arrowscrollbox > .arrowscrollbox-overflow-start-indicator:not([collapsed]) {
+  -moz-margin-start: -2px;
+  -moz-margin-end: -12px;
+}
+
+.tabbrowser-arrowscrollbox > .arrowscrollbox-overflow-end-indicator:not([collapsed]) {
+  -moz-margin-start: -12px;
+  -moz-margin-end: -2px;
+}
+
+.tabbrowser-arrowscrollbox > .arrowscrollbox-overflow-start-indicator[collapsed],
+.tabbrowser-arrowscrollbox > .arrowscrollbox-overflow-end-indicator[collapsed] {
+  opacity: 0;
+}
+
+.tabbrowser-arrowscrollbox > .arrowscrollbox-overflow-start-indicator,
+.tabbrowser-arrowscrollbox > .arrowscrollbox-overflow-end-indicator {
+  transition: opacity 150ms ease;
 }
 
 /* Tab scrollbox arrow, tabstrip new tab and all-tabs buttons */
@@ -2446,13 +2494,6 @@ toolbarbutton[type="socialmark"] > .toolbarbutton-icon {
 .tabbrowser-arrowscrollbox > .scrollbutton-down[notifybgtab] {
   background-color: Highlight;
   transition: none;
-}
-
-.tabbrowser-arrowscrollbox > .scrollbutton-up:not([disabled]),
-.tabbrowser-arrowscrollbox > .scrollbutton-down:not([disabled]) {
-  border-width: 0 2px 0 0;
-  border-style: solid;
-  border-image: url("chrome://browser/skin/tabbrowser/tab-overflow-border.png") 0 2 0 2 fill;
 }
 
 .tabs-newtab-button > .toolbarbutton-icon {
