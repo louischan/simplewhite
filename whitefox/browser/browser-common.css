@@ -593,6 +593,24 @@ toolbar[brighttext] #bookmarks-menu-button > .toolbarbutton-menubutton-dropmarke
   -moz-image-region: rect(0, 72px, 18px, 54px);
 }
 
+#ctraddon_reload-button {
+  list-style-image: url("chrome://browser/skin/Toolbar.png") !important;
+  -moz-image-region: rect(0, 90px, 18px, 72px);
+}
+
+toolbar[brighttext] #ctraddon_reload-button {
+  list-style-image: url("chrome://browser/skin/Toolbar-inverted.png") !important;
+}
+
+#ctraddon_stop-button {
+  list-style-image: url("chrome://browser/skin/Toolbar.png") !important;
+  -moz-image-region: rect(0, 108px, 18px, 90px);
+}
+
+toolbar[brighttext] #ctraddon_stop-button {
+  list-style-image: url("chrome://browser/skin/Toolbar-inverted.png") !important;
+}
+
 #home-button[cui-areatype="toolbar"] {
   -moz-image-region: rect(0, 126px, 18px, 108px);
 }
