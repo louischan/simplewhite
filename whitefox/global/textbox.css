@@ -2,10 +2,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
 /* ===== textbox.css ==================================================
   == Styles used by the XUL textbox element.
   ======================================================================= */
@@ -25,7 +21,7 @@ textbox {
   -moz-border-bottom-colors: ThreeDHighlight ThreeDLightShadow;
   -moz-border-left-colors: ThreeDShadow ThreeDDarkShadow;
   padding: 2px 2px 3px;
-  -moz-padding-start: 4px;
+  padding-inline-start: 4px;
   background-color: -moz-Field;
   color: -moz-FieldText;
 }
@@ -38,6 +34,14 @@ html|*.textbox-textarea {
   background-color: inherit;
   color: inherit;
   font: inherit;
+}
+
+@media (-moz-windows-default-theme) {
+  @media not all and (-moz-os-version: windows-xp) {
+    textbox html|*.textbox-input::-moz-placeholder {
+      font-style: italic;
+    }
+  }
 }
 
 .textbox-contextmenu {
@@ -112,12 +116,5 @@ textbox.plain html|*.textbox-textarea {
 
 toolbarpaletteitem > toolbaritem > textbox > .textbox-input-box > html|*.textbox-input {
   visibility: hidden;
-}
-
-
-@media (-moz-windows-default-theme) {
-  textbox html|*.textbox-input::-moz-placeholder {
-    font-style: italic;
-  }
 }
 

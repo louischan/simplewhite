@@ -2,10 +2,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
 #downloadManager {
   background-color: ThreeDFace;
 }
@@ -132,12 +128,12 @@ richlistitem[type="download"] .dateTime {
   }
 
   #clearListButton {
-    -moz-margin-start: 0;
+    margin-inline-start: 0;
     margin-bottom: 0;
   }
 
   #searchbox {
-    -moz-margin-end: 0;
+    margin-inline-end: 0;
     margin-bottom: 0;
   }
 }
