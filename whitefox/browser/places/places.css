@@ -1,3 +1,7 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 /* Sidebars */
 .sidebar-placesTree {
   -moz-appearance: none;
@@ -20,8 +24,31 @@
   cursor: default;
 }
 
+/* Style Places sidebars as Vista media collection */
+@media (-moz-windows-default-theme) {
+  @media not all and (-moz-os-version: windows-xp) {
+    .sidebar-placesTree {
+      background-color: transparent;
+      border-top: none;
+    }
+
+    .sidebar-placesTreechildren::-moz-tree-cell-text(leaf, hover) {
+      text-decoration: none;
+    }
+  }
+
+  @media (-moz-os-version: windows-vista),
+         (-moz-os-version: windows-win7) {
+    #bookmarksPanel,
+    #history-panel,
+    #tabs-panel {
+      background-color: transparent;
+    }
+  }
+}
+
 /* Trees */
-treechildren::-moz-tree-image(title) {
+treechildren::-moz-tree-image(title) 
   list-style-image: url("chrome://mozapps/skin/places/defaultFavicon.png");
   padding-right: 2px;
   margin: 0px 2px;
@@ -154,18 +181,5 @@ treechildren::-moz-tree-cell-text(selected, focus) {
 #viewButton > .button-box > .button-menu-dropmarker {
   height: auto;
   width: auto;
-  -moz-margin-end: -3px;
-}
-
-/* Style Places sidebars as Vista media collection */
-@media (-moz-windows-default-theme) {
-  #bookmarksPanel,
-  #history-panel {
-    background-color: #F8F8F8;
-  }
-
-  .sidebar-placesTree {
-    background-color: transparent;
-    border-top: none;
-  }
+  margin-inline-end: -3px;
 }

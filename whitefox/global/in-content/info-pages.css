@@ -1,14 +1,15 @@
+
 @import url("chrome://global/skin/in-content/common.css");
 /* Body and container */
 body {
   display: flex;
   flex-direction: column;
-  box-sizing: padding-box;
+  box-sizing: border-box;
   min-height: 100vh;
   padding-top: 0;
   padding-bottom: 0;
-  -moz-padding-start: calc(48px + 4.6em);
-  -moz-padding-end: 48px;
+  padding-inline-start: calc(48px + 4.6em);
+  padding-inline-end: 48px;
   align-items: center;
   justify-content: center;
 }
@@ -18,7 +19,7 @@ body {
   max-width: 52em;
 }
 
-.container.flex {
+.container.restore-chosen {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -31,8 +32,8 @@ body {
   background-position: left 0;
   background-repeat: no-repeat;
   background-size: 1.6em;
-  -moz-margin-start: -2.3em;
-  -moz-padding-start: 2.3em;
+  margin-inline-start: -2.3em;
+  padding-inline-start: 2.3em;
   font-size: 2.5em;
 }
 
@@ -42,7 +43,7 @@ body {
   }
 }
 
-.title:-moz-dir(rtl) {
+.title:dir(rtl) {
   background-position: right 0;
 }
 
@@ -59,8 +60,8 @@ body {
 
   .title {
     background-image: none !important;
-    -moz-padding-start: 0;
-    -moz-margin-start: 0;
+    padding-inline-start: 0;
+    margin-inline-start: 0;
   }
 
   .title-text {
@@ -71,7 +72,7 @@ body {
 ul, ol {
   margin: 0;
   padding: 0;
-  -moz-margin-start: 1em;
+  margin-inline-start: 1em;
 }
 
 ul > li, ol > li {
@@ -92,7 +93,7 @@ ul {
 }
 
 .button-container > button:first-child {
-  -moz-margin-start: 0;
+  margin-inline-start: 0;
 }
 
 /* Trees */

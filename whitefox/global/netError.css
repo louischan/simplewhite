@@ -1,3 +1,7 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 /*
  *  This defines the look-and-feel styling of the error pages.
  *  (see: netError.xhtml)
@@ -26,7 +30,7 @@ h1 {
 
 ul, ol {
   margin: 0;
-  -moz-margin-start: 1.5em;
+  margin-inline-start: 1.5em;
   padding: 0;
 }
 
@@ -46,7 +50,7 @@ ul {
   border: 1px solid #e1e1e1;
   border-radius: 10px;
   padding: 3em;
-  -moz-padding-start: 30px;
+  padding-inline-start: 30px;
   background: url("chrome://global/skin/icons/warning-large.png") left 0 no-repeat -moz-Field;
   background-origin: content-box;
 }
@@ -55,16 +59,16 @@ ul {
   background-image: url("chrome://global/skin/icons/sslWarning.png");
 }
 
-body[dir="rtl"] #errorPageContainer {
+#errorPageContainer:dir(rtl) {
   background-position: right 0;
 }
 
 #errorTitle {
-  -moz-margin-start: 80px;
+  margin-inline-start: 80px;
 }
 
 #errorLongContent {
-  -moz-margin-start: 80px;
+  margin-inline-start: 80px;
 }
 
 #errorShortDesc > p {
@@ -76,7 +80,7 @@ body[dir="rtl"] #errorPageContainer {
 }
 
 #errorLongDesc {
-  -moz-padding-end: 3em;
+  padding-inline-end: 3em;
   font-size: 110%;
 }
 
@@ -85,18 +89,18 @@ body[dir="rtl"] #errorPageContainer {
 
 #errorTryAgain {
   margin-top: 2em;
-  -moz-margin-start: 80px;
+  margin-inline-start: 80px;
 }
 
 #brand {
   position: absolute;
   right: 0;
   bottom: -1.5em;
-  -moz-margin-end: 10px;
+  margin-inline-end: 10px;
   opacity: .4;
 }
 
-#brand:-moz-dir(rtl) {
+#brand:dir(rtl) {
   right: auto;
   left: 0;
 }
