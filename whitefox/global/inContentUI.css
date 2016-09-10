@@ -45,12 +45,15 @@ html|html {
   /* Disabled because of bug 623615
   overflow: hidden;
   */
+  /* Disabled because the borders go around the whole content instead of just the view-port 
+     which is not intended for about:Addons (extensions.css)
   background-color: rgba(255, 255, 255, 0.35);
   background-image: -moz-linear-gradient(top,
                                          rgba(255, 255, 255, 0),
                                          rgba(255, 255, 255, 0.75));
   border: 1px solid #CCCCCC;
   border-radius: 5px;
+  */
 }
 
 @media (-moz-windows-compositor) {
